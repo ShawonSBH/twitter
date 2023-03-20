@@ -1,0 +1,12 @@
+.sidebar {
+    margin: 20px 0px;
+}
+
+.tweetButton {
+    background-color: #1DA1F2;
+    color: white;
+    border-radius: 25px;
+    height: 40px;
+    width: 100px;
+    margin-left: 10px;
+}

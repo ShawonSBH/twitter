@@ -1,0 +1,15 @@
+.menuitem:hover {
+    background-color: rgb(230, 230, 230);
+    cursor: pointer;
+    border-radius: 10px;
+    transform: scale(1.1);
+}
+
+.menuitem {
+    margin: 5px 0px 5px 10px;
+    width: fit-content;
+}
+
+.icon {
+    height: 1rem;
+}
