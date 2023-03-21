@@ -1,0 +1,11 @@
+.feed {
+    flex-grow: 1; 
+    max-width: 36rem; 
+    border-right-width: 1px; 
+    border-left-width: 1px; 
+    border-color: #E5E7EB;
+    border: 2px dotted crimson;
+    border-top-style: none;
+    border-bottom-style: none;
+    border-left-style: none; 
+}
