@@ -1,12 +1,53 @@
 .sidebar {
-    margin: 20px 0px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100vh;
+    width: fit-content;
+    padding-left: 35px;
+    border: 2px dotted crimson;
+    border-top-style: none;
+    border-bottom-style: none;
+    border-left-style: none;
+}
+
+
+.logoImage {
+    height: 40px;
+    width: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+    border-radius: 50%;
+}
+
+.logoImage:hover {
+    background-color: lightblue;
+    cursor: pointer;
+}
+
+.sidebarmenu {
+
+  margin-top: 20px;
+
 }
 
 .tweetButton {
     background-color: #1DA1F2;
     color: white;
     border-radius: 25px;
-    height: 40px;
-    width: 100px;
-    margin-left: 10px;
+    height: 50px;
+    width: 220px;
+    margin-bottom: 40px;
+}
+
+.tweetButton:hover {
+    /* transform: scale(1.1); */
+    box-shadow: 0 0 11px rgba(33,33,33,.2);
+    cursor: pointer;
+}
+
+.profileLink {
+    margin-bottom: 30px;
 }

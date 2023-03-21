@@ -1,15 +1,21 @@
 .menuitem:hover {
     background-color: rgb(230, 230, 230);
     cursor: pointer;
-    border-radius: 10px;
+    border-radius: 15px;
     transform: scale(1.1);
 }
 
 .menuitem {
-    margin: 5px 0px 5px 10px;
+    display: flex;
+    align-items: center;
+    margin: 10px 0px 20px 0px;
+    padding: 5px;
     width: fit-content;
 }
 
 .icon {
-    height: 1rem;
+    height: 24px;
+    margin-right: 5px;
+    /* width: 48px;
+    border-radius: 50%; */
 }
