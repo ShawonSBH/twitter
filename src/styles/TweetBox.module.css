@@ -1,0 +1,61 @@
+.container {
+  display: flex;
+  height: fit-content;
+  padding: 0.75rem;
+  border: 1px solid #eff3f4;
+  border-top-style: none;
+  border-right-style: none;
+  border-left-style: none;
+}
+
+.profilePic {
+  margin-right: 1rem;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 50%;
+}
+
+.postBox {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.viewers {
+  display: flex;
+  align-items: center;
+  width: fit-content;
+  gap: 0.2rem;
+  border: 1px solid #eff3f4;
+  color: #1d9bf0;
+  font-size: 0.85rem;
+  padding: 0.2rem 0.5rem;
+  border-radius: 20px;
+}
+
+.viewers:hover {
+  cursor: pointer;
+  background-color: lightblue;
+}
+
+.downIcon {
+  height: 0.8rem;
+}
+
+.postBox textarea {
+  width: 600px;
+  padding: 5px;
+  outline: none;
+  border: none;
+  scrollbar-width: none;
+}
+
+.example::-webkit-scrollbar {
+    display: none;
+  }
+  
+  /* Hide scrollbar for IE, Edge and Firefox */
+  .example {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+  }

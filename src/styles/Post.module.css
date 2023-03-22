@@ -95,17 +95,20 @@
 }
 
 .reactions:hover {
-  color: rgb(255,105,180);
+  /* color: rgb(255,105,180); */
+  color: rgb(255,20,147);
 }
 
 .reactions:hover .icon {
-  color: rgb(255,105,180);
+  /* color: rgb(255,105,180); */
+  color: rgb(255,20,147);
   border-radius: 50%;
-  background-color: rgba(255,105,180,0.2);
+  /* background-color: rgba(255,105,180,0.2); */
+  background-color: rgba(255,20,147,0.1);
 }
 
 .icon {
-  height: 1.4rem;
-  padding: 2px;
+  height: 1.8rem;
+  padding: 6px;
   margin-right: 0.4rem;
 }
