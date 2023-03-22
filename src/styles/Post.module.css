@@ -2,13 +2,14 @@
   display: flex;
   height: fit-content;
   padding: 0.75rem;
-  border-bottom-width: 1px;
-  border-color: #e5e7eb;
+  border: 1px solid #eff3f4;
+  border-top-style: none;
+  border-right-style: none;
+  border-left-style: none;
 }
 
 .post:hover {
   background-color: rgba(33, 33, 33, 0.2);
-  box-shadow: 0 0 11px rgba(0, 0, 0, 0.2);
   cursor: pointer;
 }
 
@@ -17,4 +18,94 @@
   width: 2.75rem;
   height: 2.75rem;
   border-radius: 50%;
+}
+
+.postContents {
+  display: flex;
+  flex-direction: column;
+}
+
+.headerContents {
+  display: flex;
+  align-items: center;
+}
+
+.headerContents h4 {
+  font-size: 1rem;
+  margin-right: 0.25rem;
+}
+
+.headerContents p {
+  color: gray;
+  font-size: 0.96rem;
+}
+
+.dot {
+  margin: 0 0.25rem;
+  width: 0.175rem;
+  height: 0.2rem;
+  background-color: gray;
+  border-radius: 50%;
+}
+
+.postText {
+  font-size: 1rem;
+  margin-top: 0.5rem;
+}
+
+.postPic {
+  margin-top: 1rem;
+  border-radius: 1rem;
+}
+
+.infos {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.comments {
+  display: flex;
+  align-items: center;
+  margin-right: 1rem;
+}
+
+.comments p {
+  font-size: 0.85rem;
+}
+
+.comments:hover {
+  color: #1d9bf0;
+}
+
+.comments:hover .icon {
+  color: #1d9bf0;
+  border-radius: 50%;
+  background-color: rgba(29, 155, 240, 0.2);
+}
+
+.reactions {
+  display: flex;
+  align-items: center;
+  margin-right: 1rem;
+}
+
+.reactions p {
+  font-size: 0.85rem;
+}
+
+.reactions:hover {
+  color: rgb(255,105,180);
+}
+
+.reactions:hover .icon {
+  color: rgb(255,105,180);
+  border-radius: 50%;
+  background-color: rgba(255,105,180,0.2);
+}
+
+.icon {
+  height: 1.4rem;
+  padding: 2px;
+  margin-right: 0.4rem;
 }

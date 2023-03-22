@@ -7,6 +7,7 @@ import styles from "../src/styles/Sidebar.module.css"
 
 export default function Sidebar() {
     return (
+      // <div className={styles.stickyMenu}>
         <div className={styles.sidebar}>
           <div className={styles.logoImage}>
             <Image width = "30" height = "25" src = "/Twitter-logo.png"></Image>
@@ -26,5 +27,6 @@ export default function Sidebar() {
             <MiniProfile />
           </div> 
         </div>
+        // </div>
     )
 }

@@ -1,11 +1,13 @@
 .feed {
     flex-grow: 1; 
-    max-width: 36rem; 
+    max-width: 36rem;
+    margin-left: 360px;
+    /* margin-left: 1462px;   */
     border-right-width: 1px; 
     border-left-width: 1px; 
     border-color: #E5E7EB;
-    border: 2px dotted crimson;
+    border: 1px solid #eff3f4;
     border-top-style: none;
     border-bottom-style: none;
-    border-left-style: none; 
+    border-left-style: none;
 }

@@ -1,4 +1,6 @@
-.widgets { 
+.widgets {
+    /* position: fixed;
+    margin-left: 1102px;  */
     display: flex;
     flex-direction: column;
     padding-left: 10px;

@@ -1,53 +1,51 @@
 .sidebar {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    height: 100vh;
-    width: fit-content;
-    padding-left: 100px;
-    border: 2px dotted crimson;
-    border-top-style: none;
-    border-bottom-style: none;
-    border-left-style: none;
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100vh;
+  width: fit-content;
+  padding-left: 100px;
+  border: 1px solid #eff3f4;
+  border-top-style: none;
+  border-bottom-style: none;
+  border-left-style: none;
 }
 
-
 .logoImage {
-    height: 40px;
-    width: 40px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 10px;
-    border-radius: 50%;
+  height: 40px;
+  width: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+  border-radius: 50%;
 }
 
 .logoImage:hover {
-    background-color: lightblue;
-    cursor: pointer;
+  background-color: lightblue;
+  cursor: pointer;
 }
 
 .sidebarmenu {
-
   margin-top: 20px;
-
 }
 
 .tweetButton {
-    background-color: #1DA1F2;
-    color: white;
-    border-radius: 25px;
-    height: 50px;
-    width: 220px;
-    margin-bottom: 40px;
+  background-color: #1d9bf0;
+  color: white;
+  border-radius: 25px;
+  height: 50px;
+  width: 220px;
+  margin-bottom: 40px;
 }
 
 .tweetButton:hover {
-    /* transform: scale(1.1); */
-    box-shadow: 0 0 11px rgba(33,33,33,.2);
-    cursor: pointer;
+  /* transform: scale(1.1); */
+  box-shadow: 0 0 11px rgba(33, 33, 33, 0.2);
+  cursor: pointer;
 }
 
 .profileLink {
-    margin-bottom: 30px;
+  margin-bottom: 30px;
 }
