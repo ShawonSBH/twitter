@@ -4,7 +4,7 @@ import Sidebar from '../../components/Sidebar'
 import Widgets from '../../components/Widgets'
 import styles from '../styles/Home.module.css'
 
-export default function Home() {
+export default function Home({newsResults}) {
   return (
     <>
       <Head>
@@ -16,8 +16,21 @@ export default function Home() {
       <main className={styles.main}>
         <Sidebar/>
         <Feed />
-        <Widgets />
+        <Widgets newsResults={newsResults}/>
       </main>
     </>
   )
+}
+
+
+export async function getServerSideProps() {
+  const res = await fetch(
+    `https://saurav.tech/NewsAPI/top-headlines/category/technology/in.json`
+  );
+  const newsResults = await res.json();
+  return {
+    props: {
+      newsResults: newsResults.articles,
+    },
+  };
 }

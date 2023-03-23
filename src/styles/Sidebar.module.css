@@ -38,6 +38,7 @@
   height: 50px;
   width: 220px;
   margin-bottom: 40px;
+  border: none;
 }
 
 .tweetButton:hover {

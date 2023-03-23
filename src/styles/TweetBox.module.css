@@ -31,6 +31,7 @@
   font-size: 0.85rem;
   padding: 0.2rem 0.5rem;
   border-radius: 20px;
+  /* #eff3f4 */
 }
 
 .viewers:hover {
@@ -43,19 +44,68 @@
 }
 
 .postBox textarea {
-  width: 600px;
+  width: 30rem;
   padding: 5px;
   outline: none;
   border: none;
-  scrollbar-width: none;
+  resize: none;
 }
 
-.example::-webkit-scrollbar {
-    display: none;
-  }
-  
-  /* Hide scrollbar for IE, Edge and Firefox */
-  .example {
-    -ms-overflow-style: none;  /* IE and Edge */
-    scrollbar-width: none;  /* Firefox */
-  }
+.postBox textarea::-webkit-scrollbar {
+  display: none;
+}
+
+.repliers {
+  display: flex;
+  align-items: center;
+  color: #1d9bf0;
+  gap: 0.2rem;
+  padding: 0.25rem;
+  width: fit-content;
+}
+
+.repliers:hover {
+  cursor: pointer;
+  border-radius: 1.25rem;
+  background-color: rgba(29, 155, 240, 0.2);
+}
+
+.repliers p {
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.globeIcon {
+  height: 0.8rem;
+}
+
+.buttonContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: #1d9bf0;
+}
+
+.photoIcon {
+  height: 1.75rem;
+  padding: 0.25rem;
+}
+
+.photoIcon:hover {
+  cursor: pointer;
+  border-radius: 50%;
+  background-color: rgba(29, 155, 240, 0.2);
+}
+
+.tweetButton {
+  color: white;
+  background-color: #1d9bf0;
+  padding: 0.35rem 1.75rem;
+  border-radius: 1.25rem;
+  border: none;
+}
+
+.tweetButton:hover {
+  cursor: pointer;
+  box-shadow: 0 0 11px rgba(33, 33, 33, 0.2);
+}

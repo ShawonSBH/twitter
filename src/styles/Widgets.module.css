@@ -1,7 +1,50 @@
 .widgets {
-    /* position: fixed;
+  /* position: fixed;
     margin-left: 1102px;  */
-    display: flex;
-    flex-direction: column;
-    padding-left: 10px;
+  display: flex;
+  flex-direction: column;
+  padding-left: 10px;
+}
+
+.searchbox {
+  width: 21rem;
+  margin-top: 0.25rem;
+  background-color: #eff3f4;
+  display: flex;
+  /* border: 1px solid gray; */
+  padding: 0.5rem;
+  border-radius: 1.25rem;
+}
+
+.searchbox:hover {
+  background-color: rgb(231, 235, 232);
+}
+
+.searchbox:hover .inputarea {
+  background-color: rgb(231, 235, 232);
+}
+
+.inputarea {
+  margin-left: 0.5rem;
+  width: 19rem;
+  border: none;
+  outline: none;
+  background-color: #eff3f4;
+}
+
+.searchIcon {
+  height: 1.2rem;
+  align-items: center;
+}
+
+.header {
+  margin-top: 0.75rem;
+}
+
+.newsArticles {
+  margin-top: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  align-items: center;
 }
