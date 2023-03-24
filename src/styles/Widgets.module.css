@@ -4,10 +4,14 @@
   display: flex;
   flex-direction: column;
   padding-left: 10px;
+  top: 1;
+  position: sticky;
 }
 
 .searchbox {
-  width: 21rem;
+  top: 0;
+  position: sticky;
+  width: 100%;
   margin-top: 0.25rem;
   background-color: #eff3f4;
   display: flex;
@@ -26,11 +30,24 @@
 
 .inputarea {
   margin-left: 0.5rem;
-  width: 19rem;
+  width: 90%;
   border: none;
   outline: none;
   background-color: #eff3f4;
 }
+
+.inputarea:focus-visible {
+  background-color: white;
+  color: black;
+}
+
+.searchbox:focus-within {
+  background-color: white;
+  color: #1d9bf0;
+  border: 1px solid#1d9bf0;
+  pointer-events: none;
+}
+
 
 .searchIcon {
   height: 1.2rem;
@@ -39,11 +56,11 @@
 
 .header {
   align-self: flex-start;
-  margin-left: 0.5rem;
+  margin-left: 0.75rem;
   margin-top: 0.75rem;
 }
 
-.newsArticles {
+.container {
   margin-top: 0.75rem;
   display: flex;
   flex-direction: column;
@@ -52,4 +69,69 @@
   background-color: #eff3f4;
   padding: 0.5rem;
   border-radius: 1.5rem;
+}
+
+.userContainer {
+  width: 100%;
+  gap: 0.5rem;
+  align-self: flex-start;
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+  border-radius: 1.5rem;
+}
+
+.userContainer:hover {
+  cursor: pointer;
+  background-color: rgb(231, 235, 232);
+}
+
+.userContainer .textPart h5:hover {
+  text-decoration: underline;
+}
+
+.textPart {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.textPart p {
+  font-size: 0.8rem;
+  color: gray;
+}
+
+.userProfilePic {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  border: 1px solid black;
+}
+
+.followButton {
+  background-color: black;
+  color: white;
+  border: none;
+  padding: 0.25rem 1rem;
+  border-radius: 0.75rem;
+  margin-left: auto;
+}
+
+.followButton:hover {
+  cursor: pointer;
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+.more {
+  align-self: flex-start;
+  padding: 0.75rem;
+  margin-right: 0rem;
+  color: #1d9bf0;
+}
+
+.more:hover {
+  cursor: pointer;
+  width: 100%;
+  border-radius: 2rem;
+  background-color: rgb(231, 235, 232);
 }

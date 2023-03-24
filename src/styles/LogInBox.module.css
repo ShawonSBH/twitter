@@ -1,0 +1,45 @@
+.container {
+  top: 0;
+  position: sticky;
+  width: 19rem;
+  display: flex;
+  flex-direction: column;
+  padding: 0.75rem;
+  margin-top: 0.5rem;
+  border: 1px solid #eff3f4;
+  border-radius: 1rem;
+  gap: 1rem;
+}
+
+.container p {
+  font-size: 0.8rem;
+  color: gray;
+}
+
+.logInButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: 1.5rem;
+  border: 1px solid #eff3f4;
+  padding: 0.5rem;
+}
+
+.logInButton:hover {
+  cursor: pointer;
+  background-color: rgb(231, 235, 232);
+}
+
+.btnImage {
+  height: 1rem;
+}
+
+.container p a {
+  text-decoration: none;
+  color: #1d9bf0;
+}
+
+.container p a:hover {
+  text-decoration: underline
+}

@@ -46,6 +46,15 @@ export default function Feed() {
       likes: 40,
       comments: 10
     },
+    {
+      id: 4,
+      text: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate",
+      image: "",
+      time: "2h",
+      user: users[1],
+      likes: 30,
+      comments: 20
+    },
   ];
 
   return (

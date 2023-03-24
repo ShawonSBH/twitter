@@ -43,7 +43,7 @@
 
 .tweetButton:hover {
   /* transform: scale(1.1); */
-  box-shadow: 0 0 11px rgba(33, 33, 33, 0.2);
+  background-color: #1d9bcf;
   cursor: pointer;
 }
 
