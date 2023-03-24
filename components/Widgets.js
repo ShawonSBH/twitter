@@ -1,4 +1,5 @@
 import { MagnifyingGlassIcon } from "@heroicons/react/24/solid";
+import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import styles from "../src/styles/Widgets.module.css";
 import LogInBox from "./LogInBox";
@@ -6,10 +7,11 @@ import News from "./News";
 
 export default function Widgets({ newsResults, userResults }) {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-
+  const { data: session } = useSession();
+  console.log(session);
   return (
     <div className={styles.widgets}>
-      {isLoggedIn ? (
+      {session ? (
         <>
           <div className={styles.searchbox}>
             <MagnifyingGlassIcon className={styles.searchIcon} />
