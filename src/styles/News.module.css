@@ -1,12 +1,12 @@
 .newsContainer {
   display: flex;
-  background-color: #eff3f4;
   padding: 1rem;
   border-radius: 1.5rem;
 }
 
 .newsContainer:hover {
   cursor: pointer;
+  background-color: rgb(231, 235, 232);
 }
 
 .textPart {

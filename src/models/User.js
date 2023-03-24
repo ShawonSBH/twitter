@@ -6,6 +6,10 @@ const userSchema = new Schema({
     type: String,
     required: true
   },
+  username: {
+    type: String,
+    required: true
+  },
   email: {
     type: String,
     unique: true
@@ -13,6 +17,18 @@ const userSchema = new Schema({
   password: {
     type: String,
     required: true
+  },
+  dob: {
+    type: Date,
+    required: true
+  },
+  followers: {
+    type: Number,
+    default: 0
+  },
+  profilePicture: {
+    type: String,
+    default: ""
   }
 });
 

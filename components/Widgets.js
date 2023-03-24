@@ -13,8 +13,8 @@ export default function Widgets({ newsResults }) {
           placeholder="Search Twitter"
         />
       </div>
-      <h2 className={styles.header}>What's Happening?</h2>
       <div className={styles.newsArticles}>
+      <h2 className={styles.header}>What's Happening?</h2>
         {newsResults?.slice(0, 4).map((article) => (
           <News article={article} key={article.url}/>
         ))}

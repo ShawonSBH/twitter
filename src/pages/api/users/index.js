@@ -1,16 +1,16 @@
 import connectMongo from "@/utils/db";
 import User from "../../../models/User";
 
-export default async function handler(req, res) {
-  const {name, email, password} = req.body;
-  await connectMongo();
-  if (req.method === "POST") {
+const signUp = async(req, res) => {
+    const {name, username, email, password, dob} = req.body;
     try {
       // Create a new User document
       const user = new User({
         name,
+        username,
         email,
         password,
+        dob
       });
 
       // Save the User document to the database
@@ -19,6 +19,12 @@ export default async function handler(req, res) {
     } catch (error) {
       res.status(400).json({ success: false, error: error.message });
     }
+}
+
+export default async function handler(req, res) {
+  await connectMongo();
+  if (req.method === "POST") {
+    await signUp(req, res);
   } else {
     res.status(404).json({ success: false, message: "API endpoint not found" });
   }

@@ -38,6 +38,8 @@
 }
 
 .header {
+  align-self: flex-start;
+  margin-left: 0.5rem;
   margin-top: 0.75rem;
 }
 
@@ -47,4 +49,7 @@
   flex-direction: column;
   gap: 0.5rem;
   align-items: center;
+  background-color: #eff3f4;
+  padding: 0.5rem;
+  border-radius: 1.5rem;
 }
