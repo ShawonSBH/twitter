@@ -1,7 +1,7 @@
-import {Schema, model, models} from 'mongoose';
+import mongoose from 'mongoose';
 
 // Define the User schema
-const userSchema = new Schema({
+const userSchema = new mongoose.Schema({
   name: {
     type: String,
     required: true
@@ -12,6 +12,7 @@ const userSchema = new Schema({
   },
   email: {
     type: String,
+    required: true,
     unique: true
   },
   password: {
@@ -29,10 +30,10 @@ const userSchema = new Schema({
   profilePicture: {
     type: String,
     default: ""
-  }
+  },
 });
 
 // Define the User model if it doesn't exist
-const User = models.User || model('users', userSchema);
+const User = mongoose.models.User || mongoose.model('users', userSchema);
 
 export default User;

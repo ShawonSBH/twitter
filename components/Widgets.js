@@ -5,12 +5,12 @@ import LogInBox from "./LogInBox";
 import News from "./News";
 
 export default function Widgets({ newsResults, userResults }) {
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   return (
     <div className={styles.widgets}>
       {isLoggedIn ? (
-        <div>
+        <>
           <div className={styles.searchbox}>
             <MagnifyingGlassIcon className={styles.searchIcon} />
             <input
@@ -41,7 +41,7 @@ export default function Widgets({ newsResults, userResults }) {
             })}
             <h4 className={styles.more}>Show more</h4>
           </div>
-        </div>
+        </>
       ) : (
         <LogInBox />
       )}

@@ -8,7 +8,7 @@ export default function LogInBox() {
       <p>Sign up now to get your own personalized timeline!</p>
       <div className={styles.logInButton}>
         <img className={styles.btnImage} src="/social.png" />
-        Sign Up With Github!
+        Sign In With Github!
       </div>
       <div className={styles.logInButton}>Create Account</div>
       <p>
