@@ -1,0 +1,128 @@
+.modalPage {
+  display: flex;
+  position: fixed;
+  z-index: 50;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(230, 230, 230, 0.7);
+  justify-content: center;
+  align-items: center;
+}
+
+.modalContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: rgba(255, 255, 255, 1);
+  border: 1px solid black;
+  padding: 0.5rem;
+  border-radius: 2rem;
+  gap: 0.25rem;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: center;
+  padding: 0.5rem 2rem;
+}
+
+.modalContainer h2 {
+  align-self: flex-start;
+}
+
+.close {
+  align-self: flex-start;
+  padding: 0.1rem 0.4rem;
+  border-radius: 50%;
+}
+
+.close:hover {
+  background-color: rgba(230, 230, 230, 0.7);
+  cursor: pointer;
+}
+
+.inputs {
+  width: 25rem;
+  padding: 0.5rem;
+  border: 1px solid rgb(72, 71, 71);
+  border-radius: 0.2rem;
+}
+
+.inputs:focus-within {
+  outline-color: #1d9bf0;
+}
+
+.datePickerContainer {
+  display: flex;
+  gap: 0.8rem;
+}
+
+.datePickerContainer .inputs {
+  width: 5rem;
+  padding: 0.2rem;
+  border: none;
+  outline: none;
+}
+
+.datePickerContainer .inputs:focus {
+  color: #1d9bf0;
+}
+
+.datePickerContainer .inputs:focus option {
+  color: black;
+}
+
+.monthPicker {
+  width: 11rem;
+  padding: 0.2rem;
+  border: none;
+  outline: none;
+}
+
+.monthPicker:focus {
+  color: #1d9bf0;
+}
+
+.monthPicker:focus option {
+  color: black;
+}
+
+.datePickerBox {
+  display: flex;
+  flex-direction: column;
+  padding: 0.2rem 0.4rem;
+  border: 1px solid rgb(72, 71, 71);
+  border-radius: 0.2rem;
+}
+
+.datePickerBox select:hover {
+  cursor: pointer;
+}
+
+.datePickerBox:focus-within {
+  color: #1d9bf0;
+  border-color: #1d9bf0;
+}
+
+.dateLabel {
+  margin-left: 0.4rem;
+}
+
+.submitButton {
+  color: white;
+  background-color: #1d9bf0;
+  width: 100%;
+  margin-top: 2rem;
+  padding: 0.5rem;
+  border-radius: 2rem;
+}
+
+.submitButton:hover {
+  cursor: pointer;
+  background-color: #0a73b9;
+}

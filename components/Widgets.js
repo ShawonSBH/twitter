@@ -1,6 +1,6 @@
 import { MagnifyingGlassIcon } from "@heroicons/react/24/solid";
 import { useSession } from "next-auth/react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import styles from "../src/styles/Widgets.module.css";
 import LogInBox from "./LogInBox";
 import News from "./News";
