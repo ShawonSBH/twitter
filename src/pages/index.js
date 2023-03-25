@@ -8,7 +8,7 @@ import styles from "../styles/Home.module.css";
 import { ModalContext } from "./_app";
 
 export default function Home({ newsResults, userResults }) {
-  const { modalsShown } = useContext(ModalContext);
+  const { modalState } = useContext(ModalContext);
   return (
     <>
       <Head>
@@ -21,7 +21,7 @@ export default function Home({ newsResults, userResults }) {
         <Sidebar />
         <Feed />
         <Widgets newsResults={newsResults} userResults={userResults} />
-        {modalsShown && <Modal />}
+        {modalState && <Modal />}
       </main>
     </>
   );

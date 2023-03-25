@@ -9,11 +9,11 @@ export default function App({
   Component,
   pageProps: { session, ...pageProps },
 }) {
-  const [modalsShown, setModalsShown] = useState(false);
+  const [modalState, setModalState] = useState("");
 
   return (
     <SessionProvider session={session}>
-      <ModalContext.Provider value={{ modalsShown, setModalsShown }}>
+      <ModalContext.Provider value={{ modalState, setModalState }}>
         <Component {...pageProps} />
       </ModalContext.Provider>
     </SessionProvider>

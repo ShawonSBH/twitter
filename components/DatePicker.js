@@ -1,10 +1,12 @@
 import React, { useContext, useState } from "react";
 import styles from "../src/styles/Modal.module.css";
-import { DateContext } from "./Modal";
+import { DateContext } from "./SignUp";
 
 export default function DatePicker() {
   const { day, month, year, setDay, setMonth, setYear } =
     useContext(DateContext);
+
+  //   const [daysInMonth, setDaysInMonth] = useState(31);
 
   const handleDayChange = (event) => {
     setDay(event.target.value);
@@ -12,6 +14,22 @@ export default function DatePicker() {
 
   const handleMonthChange = (event) => {
     setMonth(event.target.value);
+    // console.log(month);
+    // if (month === 2) {
+    //   if (year % 4 === 0 && (year % 100 !== 0 || year % 400 === 0)) {
+    //     // Leap year, February has 29 days
+    //     setDaysInMonth(29);
+    //     console.log(daysInMonth);
+    //   } else {
+    //     // Not a leap year, February has 28 days
+    //     setDaysInMonth(28);
+    //     console.log(daysInMonth);
+    //   }
+    // } else if ([4, 6, 9, 11].includes(month)) {
+    //   // April, June, September, November have 30 days
+    //   setDaysInMonth(30);
+    // }
+    // console.log(daysInMonth);
   };
 
   const handleYearChange = (event) => {
@@ -43,9 +61,9 @@ export default function DatePicker() {
             "October",
             "November",
             "December",
-          ].map((month, index) => (
+          ].map((nameOfMonth, index) => (
             <option key={index + 1} value={index + 1}>
-              {month}
+              {nameOfMonth}
             </option>
           ))}
         </select>

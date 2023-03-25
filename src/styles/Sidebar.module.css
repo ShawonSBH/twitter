@@ -2,14 +2,13 @@
   position: fixed;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   height: 100vh;
   width: fit-content;
-  padding-left: 100px;
-  border: 1px solid #eff3f4;
-  border-top-style: none;
+  padding-left: 200px;
+  border-right: 1px solid #eff3f4;
+  /* border-top-style: none;
   border-bottom-style: none;
-  border-left-style: none;
+  border-left-style: none; */
 }
 
 .logoImage {
@@ -18,7 +17,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 10px;
+  margin-top: 0.5rem;
   border-radius: 50%;
 }
 
@@ -28,7 +27,7 @@
 }
 
 .sidebarmenu {
-  margin-top: 20px;
+  margin-top: 10px;
 }
 
 .tweetButton {

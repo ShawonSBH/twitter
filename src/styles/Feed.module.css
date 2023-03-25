@@ -1,7 +1,7 @@
 .feed {
   flex-grow: 1;
   max-width: 40rem;
-  margin-left: 360px;
+  margin-left: 460px;
   /* margin-left: 1462px;   */
   border-right-width: 1px;
   border-left-width: 1px;
@@ -18,7 +18,7 @@
   padding: 10px;
   padding-left: 0.9375rem;
   /* backdrop-filter: blur(10px); */
-  background-color: rgba(255, 255, 255, .9);
+  background-color: rgba(255, 255, 255, 0.9);
   border: 1px solid #eff3f4;
   border-top-style: none;
   border-right-style: none;

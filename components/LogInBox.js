@@ -5,7 +5,7 @@ import { ModalContext } from "@/pages/_app";
 
 export default function LogInBox() {
   const { data: session } = useSession();
-  const { setModalsShown } = useContext(ModalContext);
+  const { setModalState } = useContext(ModalContext);
   return (
     <div className={styles.container}>
       <h3>New to Twitter?</h3>
@@ -14,7 +14,10 @@ export default function LogInBox() {
         <img className={styles.btnImage} src="/social.png" />
         Sign In With Github!
       </div>
-      <div className={styles.logInButton} onClick={() => setModalsShown(true)}>
+      <div
+        className={styles.logInButton}
+        onClick={() => setModalState("SignUp")}
+      >
         Create Account
       </div>
       <p>

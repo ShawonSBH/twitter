@@ -126,3 +126,14 @@
   cursor: pointer;
   background-color: #0a73b9;
 }
+
+.link {
+  display: inline;
+  color: #1d9bf0;
+}
+
+.link:hover {
+  cursor: pointer;
+  color: #0a73b9;
+  text-decoration: underline;
+}
