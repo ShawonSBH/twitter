@@ -1,10 +1,13 @@
 import NextAuth from "next-auth/next";
 import GithubProvider from "next-auth/providers/github";
+import connectMongo from "@/utils/db";
+import Users from "@/models/Users";
+import CredentialsProvider from "next-auth/providers/credentials";
 
 export const authOptions = {
-  session: {
-    strategy: "jwt",
-  },
+  // session: {
+  //   strategy: "jwt",
+  // },
   // Configure one or more authentication providers
   providers: [
     GithubProvider({
@@ -16,21 +19,11 @@ export const authOptions = {
       id: "credentials",
       name: "Credentials",
       credentials: {},
-      authorize(credentials, req) {
+      async authorize(credentials, req) {
         const { email, password } = credentials;
 
-        if (email !== "next-auth@gmail.com" || password !== "123459876") {
-          throw new Error("invalid credentials");
-        }
-
-        return {
-          id: "1234",
-          name: "John Doe",
-          email: "john@gmail.com",
-          role: "admin",
-          isComplete: "false",
-          accessToken: "kffsgsgs.jgsjgbsjg.jksgkjg",
-        };
+        await connectMongo();
+        const user = await Users.find({ email, password });
       },
     }),
   ],
@@ -40,17 +33,23 @@ export const authOptions = {
   callbacks: {
     async session({ session, token, params }) {
       session.user.id = token.id;
-      session.user.role = token.role;
-      session.user.isComplete = token.isComplete;
-      session.user.accessToken = token.accessToken;
+      session.user.name = token.name;
+      session.user.username = token.username;
+      session.user.email = token.email;
+      session.user.profilePicture = token.profilePicture;
+      // session.user.isComplete = token.isComplete;
+      // session.user.accessToken = token.accessToken;
       return session;
     },
     async jwt({ token, user, account, profile, isNewUser }) {
       if (user) {
-        token.id = user.id;
-        token.role = user?.role || "user";
-        token.isComplete = user?.isComplete || false;
-        token.accessToken = user?.accessToken || "";
+        token.id = user._id;
+        token.name = user.name;
+        token.username = user.username;
+        token.email = user.email;
+        token.profilePicture = user.profilePicture;
+        // token.isComplete = user?.isComplete || false;
+        // token.accessToken = user?.accessToken || "";
       }
       if (account) {
         // token.accessToken = account.access_token;

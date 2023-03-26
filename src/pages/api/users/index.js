@@ -1,13 +1,13 @@
 import connectMongo from "@/utils/db";
 import { GET, POST } from "@/utils/reqMethods";
-import User from "../../../models/User";
+import Users from "../../../models/Users";
 
 const signUp = async (req, res) => {
   const { name, username, email, password, dob, profilePicture } = req.body;
   console.log(req.body);
   try {
-    // Create a new User document
-    const user = new User({
+    // Create a new Users document
+    const user = new Users({
       name,
       username,
       email,
@@ -16,7 +16,7 @@ const signUp = async (req, res) => {
       profilePicture,
     });
 
-    // Save the User document to the database
+    // Save the Users document to the database
     await user.save();
 
     res.status(201).json({ success: true, data: user });
@@ -27,7 +27,7 @@ const signUp = async (req, res) => {
 
 const getAllUsers = async (req, res) => {
   try {
-    const user = await User.find({});
+    const user = await Users.find({});
     res.status(200).json({ success: true, users: user });
   } catch (error) {
     res.status(400).json({ success: false, error: error.message });
