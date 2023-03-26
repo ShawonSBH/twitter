@@ -1,34 +1,35 @@
 import connectMongo from "@/utils/db";
 import { GET, POST } from "@/utils/reqMethods";
 import Users from "../../../models/Users";
+import bcrypt from "bcrypt";
 
-const signUp = async (req, res) => {
-  const { name, username, email, password, dob, profilePicture } = req.body;
-  console.log(req.body);
+const logIn = async (req, res) => {
+  const { email, password } = req.body;
   try {
     // Create a new Users document
-    const user = new Users({
-      name,
-      username,
-      email,
-      password,
-      dob,
-      profilePicture,
-    });
-
-    // Save the Users document to the database
-    await user.save();
-
-    res.status(201).json({ success: true, data: user });
-  } catch (error) {
-    res.status(400).json({ success: false, error: error.message });
-  }
-};
-
-const getAllUsers = async (req, res) => {
-  try {
-    const user = await Users.find({});
-    res.status(200).json({ success: true, users: user });
+    const user = await Users.findOne({ email });
+    // console.log(user);
+    if (user) {
+      console.log(password, user.password);
+      const passwordMatching = await bcrypt.compare(password, user.password);
+      if (passwordMatching) {
+        res.status(200).json({
+          success: true,
+          message: "Logged In",
+          user,
+        });
+      } else {
+        res.status(400).json({
+          success: false,
+          message: "Wrong Password",
+        });
+      }
+    } else {
+      res.status(400).json({
+        success: false,
+        message: "No such user",
+      });
+    }
   } catch (error) {
     res.status(400).json({ success: false, error: error.message });
   }
@@ -39,10 +40,7 @@ export default async function handler(req, res) {
 
   switch (req.method) {
     case POST:
-      await signUp(req, res);
-      break;
-    case GET:
-      await getAllUsers(req, res);
+      await logIn(req, res);
       break;
     default:
       res

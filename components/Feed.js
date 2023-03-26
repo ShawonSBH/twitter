@@ -1,8 +1,10 @@
 import Post from "./Post";
 import styles from "../src/styles/Feed.module.css";
 import TweetBox from "./TweetBox";
+import { useSession } from "next-auth/react";
 
 export default function Feed() {
+  const { data: session } = useSession();
   const users = [
     {
       id: 1,
@@ -26,7 +28,7 @@ export default function Feed() {
       time: "8h",
       user: users[0],
       likes: 30,
-      comments: 20
+      comments: 20,
     },
     {
       id: 2,
@@ -35,7 +37,7 @@ export default function Feed() {
       time: "7h",
       user: users[0],
       likes: 120,
-      comments: 50
+      comments: 50,
     },
     {
       id: 3,
@@ -44,7 +46,7 @@ export default function Feed() {
       time: "7h",
       user: users[1],
       likes: 40,
-      comments: 10
+      comments: 10,
     },
     {
       id: 4,
@@ -53,7 +55,7 @@ export default function Feed() {
       time: "2h",
       user: users[1],
       likes: 30,
-      comments: 20
+      comments: 20,
     },
   ];
 
@@ -62,9 +64,9 @@ export default function Feed() {
       <div className={styles.homeBar}>
         <h2>Home</h2>
       </div>
-      <TweetBox />
+      {session && <TweetBox />}
       {posts.map((post) => (
-        <Post key ={post.id} post={post}/>
+        <Post key={post.id} post={post} />
       ))}
     </div>
   );

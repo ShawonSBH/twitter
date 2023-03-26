@@ -1,17 +1,23 @@
 import connectMongo from "@/utils/db";
 import { GET, POST } from "@/utils/reqMethods";
 import Users from "../../../models/Users";
+import bcrypt from "bcrypt";
 
 const signUp = async (req, res) => {
   const { name, username, email, password, dob, profilePicture } = req.body;
   console.log(req.body);
   try {
     // Create a new Users document
+
+    const hashedPassword = await bcrypt.hash(password, 12);
+
+    console.log(hashedPassword);
+
     const user = new Users({
       name,
       username,
       email,
-      password,
+      password: hashedPassword,
       dob,
       profilePicture,
     });

@@ -1,13 +1,11 @@
 import NextAuth from "next-auth/next";
 import GithubProvider from "next-auth/providers/github";
-import connectMongo from "@/utils/db";
-import Users from "@/models/Users";
 import CredentialsProvider from "next-auth/providers/credentials";
 
 export const authOptions = {
-  // session: {
-  //   strategy: "jwt",
-  // },
+  session: {
+    strategy: "jwt",
+  },
   // Configure one or more authentication providers
   providers: [
     GithubProvider({
@@ -20,10 +18,17 @@ export const authOptions = {
       name: "Credentials",
       credentials: {},
       async authorize(credentials, req) {
-        const { email, password } = credentials;
-
-        await connectMongo();
-        const user = await Users.find({ email, password });
+        const res = await fetch("http://localhost:3000/api/users/login", {
+          method: "POST",
+          body: JSON.stringify(credentials),
+          headers: { "Content-Type": "application/json" },
+        });
+        const response = await res.json();
+        if (response.success) {
+          return response.user;
+        } else {
+          return null;
+        }
       },
     }),
   ],
