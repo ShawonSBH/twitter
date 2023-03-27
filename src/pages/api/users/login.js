@@ -1,16 +1,19 @@
 import connectMongo from "@/utils/db";
-import { GET, POST } from "@/utils/reqMethods";
+import { POST } from "@/utils/reqMethods";
 import Users from "../../../models/Users";
 import bcrypt from "bcrypt";
+import mongoose from "mongoose";
 
 const logIn = async (req, res) => {
   const { email, password } = req.body;
   try {
     // Create a new Users document
     const user = await Users.findOne({ email });
+
+    console.log(mongoose.connection.models)
     // console.log(user);
     if (user) {
-      console.log(password, user.password);
+      //console.log(password, user.password);
       const passwordMatching = await bcrypt.compare(password, user.password);
       if (passwordMatching) {
         res.status(200).json({

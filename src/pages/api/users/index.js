@@ -5,15 +5,15 @@ import bcrypt from "bcrypt";
 
 const signUp = async (req, res) => {
   const { name, username, email, password, dob, profilePicture } = req.body;
-  console.log(req.body);
+  //console.log(req.body);
   try {
     // Create a new Users document
 
     const hashedPassword = await bcrypt.hash(password, 12);
 
-    console.log(hashedPassword);
+    //console.log(hashedPassword);
 
-    const user = new Users({
+    const user = await Users.create({
       name,
       username,
       email,
@@ -21,9 +21,6 @@ const signUp = async (req, res) => {
       dob,
       profilePicture,
     });
-
-    // Save the Users document to the database
-    await user.save();
 
     res.status(201).json({ success: true, data: user });
   } catch (error) {

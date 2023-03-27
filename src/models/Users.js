@@ -31,9 +31,13 @@ const userSchema = new mongoose.Schema({
     type: String,
     default: "",
   },
+  createdAt: {
+    type: Date,
+    default: Date.now,
+  },
 });
 
 // Define the Users model if it doesn't exist
-const Users = mongoose.models.Users || mongoose.model("users", userSchema);
+const Users = mongoose.models.Users || mongoose.model("Users", userSchema);
 
 export default Users;

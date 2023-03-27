@@ -10,6 +10,7 @@ import {
   InboxIcon,
   EllipsisHorizontalCircleIcon,
   Cog6ToothIcon,
+  HomeModernIcon,
 } from "@heroicons/react/24/outline";
 import MiniProfile from "./MiniProfile";
 import styles from "../src/styles/Sidebar.module.css";

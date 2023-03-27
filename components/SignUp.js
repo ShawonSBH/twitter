@@ -1,4 +1,5 @@
 import { ModalContext } from "@/pages/_app";
+import axios from "axios";
 import { createContext, useContext, useState } from "react";
 import styles from "../src/styles/Modal.module.css";
 import DatePicker from "./DatePicker";
@@ -9,9 +10,30 @@ export default function SignUp() {
   const [day, setDay] = useState();
   const [month, setMonth] = useState();
   const [year, setYear] = useState();
+  const [userData, setUserData] = useState({
+    name: "",
+    username: "",
+    email: "",
+    password: "",
+    profilePicture: ""
+  });
   const { setModalState } = useContext(ModalContext);
 
-  const handleSignUp = (event) => {
+  const sendSignUpRequest = async(date) => {
+    const res = await axios.post("http://localhost:3000/api/users", {
+      name: userData.name,
+      username: userData.username,
+      email: userData.email,
+      password: userData.password,
+      dob: date,
+      profilePicture: userData.profilePicture
+    }).catch((err) => console.log(err));
+
+    const data = await res.data.data;
+    return data;
+  }
+
+  const handleSignUp = async(event) => {
     event.preventDefault();
     const date = new Date(year, month - 1, day);
     const now = new Date();
@@ -23,9 +45,19 @@ export default function SignUp() {
     if (age < 13) {
       alert("You must be at least 13 years old to sign up.");
     } else {
-      alert("Sign up successful!");
+      const data = await sendSignUpRequest(date);
+      setModalState("LogIn");
+      alert(`Welcome to Twitter ${data.name}.`)
     }
   };
+
+  const handleChange = (event) => {
+    setUserData((previousState) => ({
+      ...previousState,
+      [event.target.name]: event.target.value
+    }))
+  }
+
   return (
     <div className={styles.form}>
       <h2>Create An Account</h2>
@@ -34,6 +66,8 @@ export default function SignUp() {
         id="name"
         name="name"
         placeholder="Name"
+        value={userData.name}
+        onChange={handleChange}
         className={styles.inputs}
       />
       <input
@@ -41,6 +75,8 @@ export default function SignUp() {
         id="username"
         name="username"
         placeholder="Username"
+        value={userData.username}
+        onChange={handleChange}
         className={styles.inputs}
       />
       <input
@@ -48,6 +84,8 @@ export default function SignUp() {
         id="email"
         name="email"
         placeholder="Email"
+        value={userData.email}
+        onChange={handleChange}
         className={styles.inputs}
       />
       <input
@@ -55,6 +93,8 @@ export default function SignUp() {
         id="password"
         name="password"
         placeholder="Password"
+        value={userData.password}
+        onChange={handleChange}
         className={styles.inputs}
       />
       <DateContext.Provider
