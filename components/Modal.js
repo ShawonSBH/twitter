@@ -3,6 +3,7 @@ import { useContext, useState } from "react";
 import styles from "../src/styles/Modal.module.css";
 import LogIn from "./LogIn";
 import SignUp from "./SignUp";
+import TweetBox from "./TweetBox";
 
 export default function Modal() {
   const { modalState, setModalState } = useContext(ModalContext);
@@ -15,6 +16,7 @@ export default function Modal() {
         </span>
         {modalState === "SignUp" && <SignUp />}
         {modalState === "LogIn" && <LogIn />}
+        {modalState === "Tweet" && <TweetBox />}
       </div>
     </div>
   );

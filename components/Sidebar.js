@@ -15,9 +15,12 @@ import {
 import MiniProfile from "./MiniProfile";
 import styles from "../src/styles/Sidebar.module.css";
 import { useSession } from "next-auth/react";
+import { useContext } from "react";
+import { ModalContext } from "@/pages/_app";
 
 export default function Sidebar() {
   const { data: session } = useSession();
+  const { setModalState } = useContext(ModalContext);
   return (
     // <div className={styles.stickyMenu}>
     <div className={styles.sidebar}>
@@ -48,7 +51,12 @@ export default function Sidebar() {
       </div>
       {session && (
         <>
-          <button className={styles.tweetButton}>Tweet</button>
+          <button
+            className={styles.tweetButton}
+            onClick={() => setModalState("Tweet")}
+          >
+            Tweet
+          </button>
 
           <div className={styles.profileLink}>
             <MiniProfile />

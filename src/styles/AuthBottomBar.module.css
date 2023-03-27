@@ -1,0 +1,54 @@
+.authBottomBar {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1.4fr 1.4fr;
+  background-color: #1d9bf0;
+  color: white;
+  padding: 0.8rem 0;
+}
+
+.title {
+  font-size: 1.7rem;
+  font-weight: 500;
+  padding-left: 4rem;
+}
+
+.subtitle {
+  font-size: 1rem;
+  padding-left: 4rem;
+}
+
+.right {
+  justify-self: center;
+  align-self: center;
+}
+
+.login {
+  padding: 0.5rem 1rem;
+  font-size: 1.1rem;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  color: white;
+  background-color: rgba(29, 155, 240, 0.9);
+  border-radius: 2rem;
+}
+
+.login:hover {
+  cursor: pointer;
+  background-color: rgba(11, 157, 255, 1);
+}
+.signup {
+  padding: 0.5rem 1rem;
+  font-size: 1.1rem;
+  color: rgb(15, 20, 25);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  margin-left: 1rem;
+  border-radius: 2rem;
+}
+
+.signup:hover {
+  cursor: pointer;
+  background-color: rgba(230, 230, 230, 1);
+}

@@ -1,6 +1,7 @@
 import NextAuth from "next-auth/next";
 import GithubProvider from "next-auth/providers/github";
 import CredentialsProvider from "next-auth/providers/credentials";
+import { POST } from "@/utils/reqMethods";
 
 export const authOptions = {
   session: {
@@ -19,7 +20,7 @@ export const authOptions = {
       credentials: {},
       async authorize(credentials, req) {
         const res = await fetch("http://localhost:3000/api/users/login", {
-          method: "POST",
+          method: POST,
           body: JSON.stringify(credentials),
           headers: { "Content-Type": "application/json" },
         });

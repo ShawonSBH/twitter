@@ -1,5 +1,7 @@
+import { useSession } from "next-auth/react";
 import Head from "next/head";
 import { useContext } from "react";
+import { AuthBottomBar } from "../../components/AuthBottomBar";
 import Feed from "../../components/Feed";
 import Modal from "../../components/Modal";
 import Sidebar from "../../components/Sidebar";
@@ -9,6 +11,7 @@ import { ModalContext } from "./_app";
 
 export default function Home({ newsResults, userResults }) {
   const { modalState } = useContext(ModalContext);
+  const { data: session } = useSession();
   return (
     <>
       <Head>
@@ -22,6 +25,7 @@ export default function Home({ newsResults, userResults }) {
         <Feed />
         <Widgets newsResults={newsResults} userResults={userResults} />
         {modalState && <Modal />}
+        {!session && <AuthBottomBar />}
       </main>
     </>
   );
