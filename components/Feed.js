@@ -2,12 +2,13 @@ import Post from "./Post";
 import styles from "../src/styles/Feed.module.css";
 import TweetBox from "./TweetBox";
 import { useSession } from "next-auth/react";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { PostContext } from "@/pages/_app";
 
 export default function Feed() {
   const { data: session } = useSession();
-
   const [posts, setPosts] = useState([]);
+  // const { posts, setPosts } = useContext(PostContext);
 
   useEffect(() => {
     const fetchPosts = async () => {

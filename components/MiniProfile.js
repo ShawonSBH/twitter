@@ -17,7 +17,10 @@ export default function MiniProfile() {
       </div>
       <EllipsisVerticalIcon
         style={{ width: 24, marginLeft: 15 }}
-        onClick={() => signOut()}
+        onClick={async () => {
+          console.log("SIGNING OUT...");
+          await signOut();
+        }}
       />
     </div>
   );

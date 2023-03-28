@@ -1,4 +1,4 @@
-import { ModalContext } from "@/pages/_app";
+import { ModalContext, PostContext } from "@/pages/_app";
 import { PhotoIcon } from "@heroicons/react/24/outline";
 import { GlobeAmericasIcon, ChevronDownIcon } from "@heroicons/react/24/solid";
 import axios from "axios";
@@ -10,6 +10,7 @@ export default function TweetBox() {
   const { data: session } = useSession();
   const [content, setContent] = useState("");
   const { setModalState } = useContext(ModalContext);
+  // const { posts, setPosts } = useContext(PostContext);
 
   const tweetPost = async () => {
     const res = await axios
@@ -21,9 +22,11 @@ export default function TweetBox() {
 
     const post = await res.data;
     setContent("");
+    // setPosts([...posts, post]);
     if (!post.success) {
       alert("Something went wrong");
     }
+    //window.location.reload();
   };
   return (
     <div className={styles.container}>
@@ -44,7 +47,9 @@ export default function TweetBox() {
         </div>
         <hr color="gainsboro" />
         <div className={styles.buttonContainer}>
-          <PhotoIcon className={styles.photoIcon} />
+          <PhotoIcon className={styles.photoIcon}>
+            <input type="file" onChange={() => console.log("")} />
+          </PhotoIcon>
           <button className={styles.tweetButton} onClick={tweetPost}>
             Tweet
           </button>

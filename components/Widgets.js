@@ -8,7 +8,7 @@ import News from "./News";
 export default function Widgets({ newsResults, userResults }) {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const { data: session } = useSession();
-  console.log(session);
+  //console.log(session);
   return (
     <div className={styles.widgets}>
       {session ? (

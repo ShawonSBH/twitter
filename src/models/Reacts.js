@@ -4,7 +4,6 @@ import Posts from "@/models/Posts";
 
 const reactSchema = new Schema(
   {
-    content: String,
     reactor: {
       type: mongoose.SchemaTypes.ObjectId,
       ref: "Users",
