@@ -1,11 +1,11 @@
 import mongoose, { model, models, Schema } from "mongoose";
 import Users from "@/models/Users";
+import Posts from "./Posts";
 
-const postSchema = new Schema(
+const commentSchema = new Schema(
   {
     content: String,
-    image: String,
-    comments: [
+    replies: [
       {
         type: mongoose.SchemaType.ObjectId,
         ref: "Comments",
@@ -15,14 +15,18 @@ const postSchema = new Schema(
       type: Number,
       default: 0,
     },
-    createdBy: {
+    commentor: {
       type: mongoose.SchemaTypes.ObjectId,
       ref: "Users",
+    },
+    postLink: {
+      type: mongoose.SchemaTypes.ObjectId,
+      ref: "Posts",
     },
   },
   { timestamps: true }
 );
 
-const Posts = models.Posts || model("Posts", postSchema);
+const Comments = models.Comments || model("Comments", commentSchema);
 
-export default Posts;
+export default Comments;

@@ -26,7 +26,13 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  font-size: 18px;
+}
+
+.profileInfo h3 {
+  width: 8rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .profileInfo p {

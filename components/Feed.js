@@ -10,13 +10,13 @@ export default function Feed() {
       id: 1,
       name: "Mohammed Mazhar Ali Shawon",
       username: "mazhar_ali_shawon",
-      image: "/user.jpeg",
+      image: "/Shawon.jpeg",
     },
     {
       id: 2,
       name: "Farhan Mahtab Mahi",
       username: "ironblood",
-      image: "/pp.jpeg",
+      image: "/Mahi.jpeg",
     },
   ];
 
@@ -33,7 +33,7 @@ export default function Feed() {
     {
       id: 2,
       text: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis",
-      image: "/user.jpeg",
+      image: "/Shawon.jpeg",
       time: "7h",
       user: users[0],
       likes: 120,

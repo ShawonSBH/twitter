@@ -1,5 +1,6 @@
 import { ModalContext } from "@/pages/_app";
 import axios from "axios";
+import { signIn } from "next-auth/react";
 import { createContext, useContext, useState } from "react";
 import styles from "../src/styles/Modal.module.css";
 import DatePicker from "./DatePicker";
@@ -15,25 +16,27 @@ export default function SignUp() {
     username: "",
     email: "",
     password: "",
-    profilePicture: ""
+    profilePicture: "",
   });
   const { setModalState } = useContext(ModalContext);
 
-  const sendSignUpRequest = async(date) => {
-    const res = await axios.post("http://localhost:3000/api/users", {
-      name: userData.name,
-      username: userData.username,
-      email: userData.email,
-      password: userData.password,
-      dob: date,
-      profilePicture: userData.profilePicture
-    }).catch((err) => console.log(err));
+  const sendSignUpRequest = async (date) => {
+    const res = await axios
+      .post("http://localhost:3000/api/users", {
+        name: userData.name,
+        username: userData.username,
+        email: userData.email,
+        password: userData.password,
+        dob: date,
+        profilePicture: userData.profilePicture,
+      })
+      .catch((err) => console.log(err));
 
-    const data = await res.data.data;
+    const data = await res.data;
     return data;
-  }
+  };
 
-  const handleSignUp = async(event) => {
+  const handleSignUp = async (event) => {
     event.preventDefault();
     const date = new Date(year, month - 1, day);
     const now = new Date();
@@ -46,17 +49,25 @@ export default function SignUp() {
       alert("You must be at least 13 years old to sign up.");
     } else {
       const data = await sendSignUpRequest(date);
-      setModalState("LogIn");
-      alert(`Welcome to Twitter ${data.name}.`)
+      console.log(data);
+      if (data.success) {
+        signIn("credentials", {
+          email: userData.email,
+          password: userData.password,
+        });
+      } else {
+        alert("Something went very wrong!!!");
+      }
+      setModalState("");
     }
   };
 
   const handleChange = (event) => {
     setUserData((previousState) => ({
       ...previousState,
-      [event.target.name]: event.target.value
-    }))
-  }
+      [event.target.name]: event.target.value,
+    }));
+  };
 
   return (
     <div className={styles.form}>

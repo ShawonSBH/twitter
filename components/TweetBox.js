@@ -19,9 +19,13 @@ export default function TweetBox() {
       })
       .catch((err) => console.log(err));
 
-    const post = await res.data.data;
-    console.log(post);
-    setModalState("");
+    const post = await res.data;
+    setContent("");
+    if (post.success) {
+      alert("Posted Successfully");
+    } else {
+      alert("Something went wrong");
+    }
   };
   return (
     <div className={styles.container}>
