@@ -1,6 +1,7 @@
 import mongoose, { model, models, Schema } from "mongoose";
 import Users from "@/models/Users";
 import Comments from "@/models/Comments";
+import Reacts from "./Reacts";
 
 const postSchema = new Schema(
   {
@@ -12,10 +13,12 @@ const postSchema = new Schema(
         ref: "Comments",
       },
     ],
-    numberOfLikes: {
-      type: Number,
-      default: 0,
-    },
+    likes: [
+      {
+        type: mongoose.SchemaTypes.ObjectId,
+        ref: "Reacts",
+      },
+    ],
     createdBy: {
       type: mongoose.SchemaTypes.ObjectId,
       ref: "Users",
