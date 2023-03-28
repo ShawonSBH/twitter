@@ -16,7 +16,7 @@ export default function LogInBox() {
       </div>
       <div
         className={styles.logInButton}
-        onClick={() => setModalState("SignUp")}
+        onClick={() => setModalState({ state: "SignUp" })}
       >
         Create Account
       </div>

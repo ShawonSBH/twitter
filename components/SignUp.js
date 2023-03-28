@@ -58,7 +58,7 @@ export default function SignUp() {
       } else {
         alert("Something went very wrong!!!");
       }
-      setModalState("");
+      setModalState({});
     }
   };
 
@@ -118,7 +118,10 @@ export default function SignUp() {
       </button>
       <p>
         Have an account already?{" "}
-        <div className={styles.link} onClick={() => setModalState("LogIn")}>
+        <div
+          className={styles.link}
+          onClick={() => setModalState({ state: "LogIn" })}
+        >
           Log in
         </div>{" "}
         using your account

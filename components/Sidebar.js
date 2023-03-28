@@ -53,7 +53,7 @@ export default function Sidebar() {
         <>
           <button
             className={styles.tweetButton}
-            onClick={() => setModalState("Tweet")}
+            onClick={() => setModalState({ state: "Tweet" })}
           >
             Tweet
           </button>

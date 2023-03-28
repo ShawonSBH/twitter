@@ -1,0 +1,57 @@
+.container {
+  /* width: 100%; */
+  display: flex;
+  height: fit-content;
+  padding: 0.75rem;
+}
+
+.postBox {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 0.5rem;
+}
+
+.postBox textarea {
+  width: 30rem;
+  padding: 5px;
+  outline: none;
+  border: none;
+  resize: none;
+}
+
+.postBox textarea::-webkit-scrollbar {
+  display: none;
+}
+
+.buttonContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: #1d9bf0;
+}
+
+.photoIcon {
+  height: 1.75rem;
+  padding: 0.25rem;
+}
+
+.photoIcon:hover {
+  cursor: pointer;
+  border-radius: 50%;
+  background-color: rgba(29, 155, 240, 0.2);
+}
+
+.tweetButton {
+  width: 15rem;
+  color: white;
+  background-color: #1d9bf0;
+  padding: 0.35rem 1.75rem;
+  border-radius: 1.25rem;
+  border: none;
+}
+
+.tweetButton:hover {
+  cursor: pointer;
+  background-color: #1d9bcf;
+}

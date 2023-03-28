@@ -21,9 +21,7 @@ export default function TweetBox() {
 
     const post = await res.data;
     setContent("");
-    if (post.success) {
-      alert("Posted Successfully");
-    } else {
+    if (!post.success) {
       alert("Something went wrong");
     }
   };

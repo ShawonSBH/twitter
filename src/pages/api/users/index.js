@@ -4,7 +4,7 @@ import Users from "../../../models/Users";
 import bcrypt from "bcrypt";
 
 const signUp = async (req, res) => {
-  const { name, username, email, password, dob, profilePicture } = req.body;
+  const { name, username, email, password, dob } = req.body;
   //console.log(req.body);
   try {
     // Create a new Users document
@@ -19,7 +19,6 @@ const signUp = async (req, res) => {
       email,
       password: hashedPassword,
       dob,
-      profilePicture,
     });
 
     res.status(201).json({ success: true, data: user });

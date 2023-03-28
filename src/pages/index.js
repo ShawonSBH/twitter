@@ -9,7 +9,7 @@ import Widgets from "../../components/Widgets";
 import styles from "../styles/Home.module.css";
 import { ModalContext } from "./_app";
 
-export default function Home({ newsResults, userResults }) {
+export default function Home({ newsResults, userResults, postResults }) {
   const { modalState } = useContext(ModalContext);
   const { data: session } = useSession();
   return (
@@ -22,9 +22,9 @@ export default function Home({ newsResults, userResults }) {
       </Head>
       <main className={styles.main}>
         <Sidebar />
-        <Feed />
+        <Feed posts={postResults} />
         <Widgets newsResults={newsResults} userResults={userResults} />
-        {modalState && <Modal />}
+        {modalState.state && <Modal />}
         {!session && <AuthBottomBar />}
       </main>
     </>

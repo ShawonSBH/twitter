@@ -1,5 +1,6 @@
 import mongoose, { model, models, Schema } from "mongoose";
 import Users from "@/models/Users";
+import Comments from "@/models/Comments";
 
 const postSchema = new Schema(
   {
@@ -7,7 +8,7 @@ const postSchema = new Schema(
     image: String,
     comments: [
       {
-        type: mongoose.SchemaType.ObjectId,
+        type: mongoose.SchemaTypes.ObjectId,
         ref: "Comments",
       },
     ],

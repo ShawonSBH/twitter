@@ -14,11 +14,14 @@ export function AuthBottomBar() {
         </p>
       </div>
       <div className={styles.right}>
-        <button onClick={() => setModalState("LogIn")} className={styles.login}>
+        <button
+          onClick={() => setModalState({ state: "LogIn" })}
+          className={styles.login}
+        >
           Log in
         </button>
         <button
-          onClick={() => setModalState("SignUp")}
+          onClick={() => setModalState({ state: "SignUp" })}
           className={styles.signup}
         >
           Sign up

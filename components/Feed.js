@@ -2,62 +2,22 @@ import Post from "./Post";
 import styles from "../src/styles/Feed.module.css";
 import TweetBox from "./TweetBox";
 import { useSession } from "next-auth/react";
+import { useEffect, useState } from "react";
 
 export default function Feed() {
   const { data: session } = useSession();
-  const users = [
-    {
-      id: 1,
-      name: "Mohammed Mazhar Ali Shawon",
-      username: "mazhar_ali_shawon",
-      image: "/Shawon.jpeg",
-    },
-    {
-      id: 2,
-      name: "Farhan Mahtab Mahi",
-      username: "ironblood",
-      image: "/Mahi.jpeg",
-    },
-  ];
 
-  const posts = [
-    {
-      id: 1,
-      text: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis",
-      image: "",
-      time: "8h",
-      user: users[0],
-      likes: 30,
-      comments: 20,
-    },
-    {
-      id: 2,
-      text: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis",
-      image: "/Shawon.jpeg",
-      time: "7h",
-      user: users[0],
-      likes: 120,
-      comments: 50,
-    },
-    {
-      id: 3,
-      text: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate",
-      image: "",
-      time: "7h",
-      user: users[1],
-      likes: 40,
-      comments: 10,
-    },
-    {
-      id: 4,
-      text: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate",
-      image: "",
-      time: "2h",
-      user: users[1],
-      likes: 30,
-      comments: 20,
-    },
-  ];
+  const [posts, setPosts] = useState([]);
+
+  useEffect(() => {
+    const fetchPosts = async () => {
+      const res = await fetch("/api/posts/");
+      const data = await res.json();
+      // console.log(data);
+      setPosts(data.posts);
+    };
+    fetchPosts();
+  }, [posts]);
 
   return (
     <div className={styles.feed}>

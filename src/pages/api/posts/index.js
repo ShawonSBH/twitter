@@ -24,10 +24,19 @@ const createPost = async (req, res, session) => {
 
 const getAllPosts = async (req, res) => {
   try {
-    const posts = await Posts.find({}).populate({
-      path: "createdBy",
-      select: { password: 0, dob: 0, followers: 0 },
-    });
+    const posts = await Posts.find({})
+      .sort({ createdAt: -1 })
+      .populate({
+        path: "createdBy",
+        select: {
+          _id: 1,
+          name: 1,
+          username: 1,
+          email: 1,
+          profilePicture: 1,
+        },
+      });
+    // posts.sort(-1);
     res.status(200).json({
       success: true,
       posts,

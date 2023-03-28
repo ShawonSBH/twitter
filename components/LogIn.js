@@ -52,7 +52,10 @@ export default function LogIn() {
       </button>
       <p>
         New to Twitter?{" "}
-        <div className={styles.link} onClick={() => setModalState("SignUp")}>
+        <div
+          className={styles.link}
+          onClick={() => setModalState({ state: "SignUp" })}
+        >
           Sign up
         </div>{" "}
         using your email

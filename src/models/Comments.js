@@ -1,13 +1,13 @@
 import mongoose, { model, models, Schema } from "mongoose";
 import Users from "@/models/Users";
-import Posts from "./Posts";
+import Posts from "@/models/Posts";
 
 const commentSchema = new Schema(
   {
     content: String,
     replies: [
       {
-        type: mongoose.SchemaType.ObjectId,
+        type: mongoose.SchemaTypes.ObjectId,
         ref: "Comments",
       },
     ],
