@@ -35,6 +35,27 @@ const getAllPosts = async (req, res) => {
           email: 1,
           profilePicture: 1,
         },
+      })
+      .populate({
+        path: "likes",
+        select: {
+          _id: 0,
+          reactor: 1,
+        },
+      })
+      .populate({
+        path: "comments",
+        populate: {
+          path: "replies",
+          select: {
+            _id: 0,
+            commentor: 1,
+          },
+        },
+        select: {
+          _id: 0,
+          commentor: 1,
+        },
       });
     // posts.sort(-1);
     res.status(200).json({

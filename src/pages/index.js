@@ -1,3 +1,4 @@
+import { getServerSession } from "next-auth";
 import { useSession } from "next-auth/react";
 import Head from "next/head";
 import { useContext } from "react";
@@ -9,7 +10,7 @@ import Widgets from "../../components/Widgets";
 import styles from "../styles/Home.module.css";
 import { ModalContext } from "./_app";
 
-export default function Home({ newsResults, userResults, postResults }) {
+export default function Home({ newsResults, userResults, postResults, user }) {
   const { modalState } = useContext(ModalContext);
   const { data: session } = useSession();
   return (
@@ -36,12 +37,15 @@ export async function getServerSideProps() {
     `https://saurav.tech/NewsAPI/top-headlines/category/technology/in.json`
   );
   const users = await fetch(`https://dummyjson.com/users`);
+  const posts = await fetch("http://localhost:3000/api/posts/");
+  const data = await posts.json();
   const userResults = await users.json();
   const newsResults = await res.json();
   return {
     props: {
       newsResults: newsResults.articles,
       userResults: userResults.users,
+      postResults: data.posts,
     },
   };
 }

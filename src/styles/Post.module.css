@@ -96,19 +96,44 @@
 
 .reactions:hover {
   /* color: rgb(255,105,180); */
-  color: rgb(255,20,147);
+  color: rgb(255, 20, 147);
 }
 
 .reactions:hover .icon {
   /* color: rgb(255,105,180); */
-  color: rgb(255,20,147);
+  color: rgb(255, 20, 147);
   border-radius: 50%;
   /* background-color: rgba(255,105,180,0.2); */
-  background-color: rgba(255,20,147,0.1);
+  background-color: rgba(255, 20, 147, 0.1);
 }
 
 .icon {
   height: 1.8rem;
   padding: 6px;
   margin-right: 0.4rem;
+}
+
+.liked {
+  display: flex;
+  align-items: center;
+  margin-right: 1rem;
+  background-color: rgb(255, 20, 147);
+  color: rgb(255, 20, 147);
+}
+
+.liked p {
+  font-size: 0.85rem;
+}
+
+.liked:hover {
+  /* color: rgb(255,105,180); */
+  background-color: white;
+}
+
+.liked:hover .icon {
+  /* color: rgb(255,105,180); */
+  color: white;
+  border-radius: 50%;
+  /* background-color: rgba(255,105,180,0.2); */
+  background-color: rgba(255, 20, 147, 0.1);
 }

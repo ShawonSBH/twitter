@@ -1,6 +1,5 @@
 .widgets {
-  /* position: fixed;
-    margin-left: 1102px;  */
+  /* margin-left: 1102px;  */
   display: flex;
   flex-direction: column;
   padding-left: 10px;
@@ -47,7 +46,6 @@
   border: 1px solid#1d9bf0;
   pointer-events: none;
 }
-
 
 .searchIcon {
   height: 1.2rem;
