@@ -10,7 +10,7 @@ import { useRouter } from "next/router";
 import { useContext, useEffect, useState } from "react";
 import styles from "../src/styles/Post.module.css";
 
-export default function Post({ post }) {
+export default function Post({ post, likedPosts }) {
   const router = useRouter();
   const timeago = formatDistanceToNow(new Date(post.createdAt));
 
@@ -18,8 +18,12 @@ export default function Post({ post }) {
 
   const { data: session } = useSession();
   // const [state, setState] = useState(post.likes.length);
-  // const [liked, setLiked] = useState(false);
+  const [liked, setLiked] = useState(false);
 
+  const matchFound = likedPosts.some((likedPost) => {
+    console.log(likedPost._id.toString() === post._id.toString());
+    return likedPost._id === post._id;
+  });
   // useEffect(() => {
   //   console.log(user);
   //   if (post.likes.length) {
@@ -90,21 +94,21 @@ export default function Post({ post }) {
             <ChatBubbleOvalLeftEllipsisIcon className={styles.icon} />
             <p>{post.comments.length}</p>
           </div>
-          <div className={styles.reactions} onClick={handleReact}>
+          {/* <div className={styles.reactions} onClick={handleReact}>
             <HeartIcon className={styles.icon} />
             <p>{post.likes.length}</p>
-          </div>
-          {/* {liked ? (
+          </div> */}
+          {matchFound ? (
             <div className={styles.liked} onClick={handleReact}>
               <HeartIcon className={styles.icon} />
-              <p>{state}</p>
+              <p>{post.likes.length}</p>
             </div>
           ) : (
             <div className={styles.reactions} onClick={handleReact}>
               <HeartIcon className={styles.icon} />
-              <p>{state}</p>
+              <p>{post.likes.length}</p>
             </div>
-          )} */}
+          )}
         </div>
       </div>
     </div>

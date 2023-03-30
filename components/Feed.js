@@ -4,10 +4,11 @@ import TweetBox from "./TweetBox";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 
-export default function Feed({ posts }) {
+export default function Feed({ posts, liked }) {
   const { data: session } = useSession();
+
   useEffect(() => {
-    console.log(posts);
+    console.log(liked);
   }, []);
 
   return (
@@ -17,7 +18,7 @@ export default function Feed({ posts }) {
       </div>
       {session && <TweetBox />}
       {posts.map((post) => (
-        <Post key={post.id} post={post} />
+        <Post key={post.id} post={post} likedPosts={liked} />
       ))}
     </div>
   );

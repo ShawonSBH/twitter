@@ -8,9 +8,10 @@ import Modal from "../../components/Modal";
 import Sidebar from "../../components/Sidebar";
 import Widgets from "../../components/Widgets";
 import styles from "../styles/Home.module.css";
+import { authOptions } from "./api/auth/[...nextauth]";
 import { ModalContext } from "./_app";
 
-export default function Home({ newsResults, userResults, postResults, user }) {
+export default function Home({ postResults, likedResults }) {
   const { modalState } = useContext(ModalContext);
   const { data: session } = useSession();
   return (
@@ -23,8 +24,8 @@ export default function Home({ newsResults, userResults, postResults, user }) {
       </Head>
       <main className={styles.main}>
         <Sidebar />
-        <Feed posts={postResults} />
-        <Widgets newsResults={newsResults} userResults={userResults} />
+        <Feed posts={postResults} liked={likedResults} />
+        <Widgets />
         {modalState.state && <Modal />}
         {!session && <AuthBottomBar />}
       </main>
@@ -32,20 +33,22 @@ export default function Home({ newsResults, userResults, postResults, user }) {
   );
 }
 
-export async function getServerSideProps() {
-  const res = await fetch(
-    `https://saurav.tech/NewsAPI/top-headlines/category/technology/in.json`
-  );
-  const users = await fetch(`https://dummyjson.com/users`);
+export async function getServerSideProps(context) {
+  const session = await getServerSession(context.req, context.res, authOptions);
+  let likedResults;
+  if (session.user) {
+    const userID = session.user.id;
+    const likedPostsResponse = await fetch(
+      `http://localhost:3000/api/users/${userID}/liked`
+    );
+    likedResults = await likedPostsResponse.json();
+  }
   const posts = await fetch("http://localhost:3000/api/posts/");
   const data = await posts.json();
-  const userResults = await users.json();
-  const newsResults = await res.json();
   return {
     props: {
-      newsResults: newsResults.articles,
-      userResults: userResults.users,
       postResults: data.posts,
+      likedResults: likedResults?.data,
     },
   };
 }
