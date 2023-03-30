@@ -6,10 +6,12 @@ import {
 import axios from "axios";
 import { formatDistanceToNow } from "date-fns";
 import { useSession } from "next-auth/react";
+import { useRouter } from "next/router";
 import { useContext, useEffect, useState } from "react";
 import styles from "../src/styles/Post.module.css";
 
 export default function Post({ post }) {
+  const router = useRouter();
   const timeago = formatDistanceToNow(new Date(post.createdAt));
 
   const { setModalState } = useContext(ModalContext);
@@ -62,6 +64,7 @@ export default function Post({ post }) {
       .catch((err) => console.log(err));
 
     console.log(res);
+    router.replace("/");
     //console.log(res);
     // if (!result.success) {
     //   alert("Something went wrong");

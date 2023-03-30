@@ -1,44 +1,51 @@
 import { ModalContext, PostContext } from "@/pages/_app";
+import { POST } from "@/utils/reqMethods";
 import { PhotoIcon } from "@heroicons/react/24/outline";
 import { GlobeAmericasIcon, ChevronDownIcon } from "@heroicons/react/24/solid";
 import axios from "axios";
 import { useSession } from "next-auth/react";
+import { useRouter } from "next/router";
 import { useContext, useEffect, useState } from "react";
 import styles from "../src/styles/TweetBox.module.css";
 
 export default function TweetBox() {
+  const router = useRouter();
   const { data: session } = useSession();
   const [content, setContent] = useState("");
-  const { setModalState } = useContext(ModalContext);
+  const [loadingState, setLoadingState] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
   const [imageUrl, setImageUrl] = useState(null);
-  const { posts, setPosts } = useContext(PostContext);
 
   const tweetPost = async () => {
-    if (content) {
+    if (content || selectedImage) {
+      console.log("Uploading....");
+      console.log(content);
+      console.log(selectedImage);
+      console.log(imageUrl);
+
       const res = await axios
         .post("http://localhost:3000/api/posts", {
-          image: "",
           content,
+          image: imageUrl,
         })
         .catch((err) => console.log(err));
 
-      const post = await res.data;
+      //const post = await res.data;
       setContent("");
-      setPosts([...posts, post.data]);
-      if (!post.success) {
-        alert("Something went wrong");
-      }
+      setImageUrl(null);
+      // setPosts([...posts, post.data]);
+      // if (!post.success) {
+      //   alert("Something went wrong");
+      // }
+    } else {
+      alert("Tweet needs at least an image or some text");
     }
+
+    router.replace("/");
     //window.location.reload();
   };
 
   const uploadImage = async (file) => {
-    console.log("Uploading....");
-
-    const formData = new FormData();
-    formData.append("photo", file);
-
     console.log(formData);
     const res = await fetch("/api/upload", {
       method: "POST",
@@ -85,14 +92,13 @@ export default function TweetBox() {
             onChange={(e) => {
               const file = e.target.files[0];
               setSelectedImage(file);
-              uploadImage(file);
-              // console.log(selectedImage);
-              // const reader = new FileReader();
-              // reader.onload = (e) => {
-              //   setImageUrl(e.target.result);
-              //   console.log(imageUrl);
-              // };
-              // reader.readAsDataURL(selectedImage);
+              console.log(selectedImage);
+              const reader = new FileReader();
+              reader.onload = (e) => {
+                setImageUrl(e.target.result);
+                console.log(imageUrl);
+              };
+              reader.readAsDataURL(file);
             }}
           />
           <button className={styles.tweetButton} onClick={tweetPost}>

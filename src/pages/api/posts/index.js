@@ -3,10 +3,37 @@ import connectMongo from "@/utils/db";
 import { GET, POST } from "@/utils/reqMethods";
 import { getServerSession } from "next-auth";
 import { authOptions } from "../auth/[...nextauth]";
+import path, { join } from "path";
+import formidable from "formidable";
+
+const FormidableError = formidable.errors.FormidableError;
+
+async function parseForm(req) {
+  const form = new formidable.IncomingForm({
+    uploadDir: path.join(process.cwd(), "public", "uploads"),
+    keepExtensions: true,
+  });
+  req.headers["content-type"] =
+    "multipart/form-data; boundary=" + form._boundary;
+  let formfields = await new Promise((resolve, reject) => {
+    // console.log("Parsing in progress....");
+    // console.log(req.headers);
+    form.parse(req, function (err, fields, files) {
+      console.log("IamPArsing");
+      if (err) {
+        console.log(err);
+        return reject(err);
+      }
+      resolve({ fields, files });
+    });
+  });
+  console.log("FINISHED");
+}
 
 const createPost = async (req, res, session) => {
-  const { content, image } = req.body;
+  console.log("Create Posts Hit");
   try {
+    const { content, image } = req.body;
     const post = await Posts.create({
       image,
       content,
@@ -34,27 +61,6 @@ const getAllPosts = async (req, res) => {
           username: 1,
           email: 1,
           profilePicture: 1,
-        },
-      })
-      .populate({
-        path: "likes",
-        select: {
-          _id: 0,
-          reactor: 1,
-        },
-      })
-      .populate({
-        path: "comments",
-        populate: {
-          path: "replies",
-          select: {
-            _id: 0,
-            commentor: 1,
-          },
-        },
-        select: {
-          _id: 0,
-          commentor: 1,
         },
       });
     // posts.sort(-1);
