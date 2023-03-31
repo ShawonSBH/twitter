@@ -25,7 +25,7 @@ export default function Feed({ posts }) {
       <div className={styles.homeBar}>
         <h2>Home</h2>
       </div>
-      {session && <TweetBox setPosts={setFetchedPosts} />}
+      {session && <TweetBox posts={fetchedPosts} setPosts={setFetchedPosts} />}
       {fetchedPosts.map((post) => (
         <Post key={post.id} post={post} setPosts={setFetchedPosts} />
       ))}

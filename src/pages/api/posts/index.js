@@ -34,28 +34,39 @@ const createPost = async (req, res, session) => {
   console.log("Create Posts Hit");
   try {
     const { content, image } = req.body;
-    await Posts.create({
+    const createdPost = await Posts.create({
       image,
       content,
       createdBy: session.user.id,
     });
+
+    const post = await createdPost.populate({
+      path: "createdBy",
+      select: {
+        _id: 1,
+        name: 1,
+        username: 1,
+        email: 1,
+        profilePicture: 1,
+      },
+    });
     // await getAllPosts(req, res);
 
-    const posts = await Posts.find({})
-      .sort({ createdAt: -1 })
-      .populate({
-        path: "createdBy",
-        select: {
-          _id: 1,
-          name: 1,
-          username: 1,
-          email: 1,
-          profilePicture: 1,
-        },
-      });
+    // const posts = await Posts.find({})
+    //   .sort({ createdAt: -1 })
+    //   .populate({
+    //     path: "createdBy",
+    //     select: {
+    //       _id: 1,
+    //       name: 1,
+    //       username: 1,
+    //       email: 1,
+    //       profilePicture: 1,
+    //     },
+    //   });
     res.status(201).json({
       success: true,
-      posts,
+      post,
     });
   } catch (error) {
     res.status(400).json({ success: false, error: error.message });

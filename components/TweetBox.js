@@ -9,7 +9,7 @@ import { useContext, useEffect, useState } from "react";
 import styles from "../src/styles/TweetBox.module.css";
 import loaderStyles from "../src/styles/Modal.module.css";
 
-export default function TweetBox({ setPosts }) {
+export default function TweetBox({ posts, setPosts }) {
   const { data: session } = useSession();
   const [content, setContent] = useState("");
   const [selectedImage, setSelectedImage] = useState(null);
@@ -25,34 +25,31 @@ export default function TweetBox({ setPosts }) {
           image: imageUrl,
         })
         .catch((err) => console.log(err));
-      const data = await res.data;
+      const data = await res?.data;
       setContent("");
       setImageUrl(null);
       setIsLoading(false);
       //console.log(data);
-      setPosts(data.posts);
+      setPosts([...posts, data.post]);
       console.log("Posted");
     } else {
       alert("Tweet needs at least an image or some text");
     }
-
-    // router.replace("/");
-    //window.location.reload();
   };
 
-  const uploadImage = async (file) => {
-    console.log(formData);
-    const res = await fetch("/api/upload", {
-      method: "POST",
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-      body: formData,
-    });
+  // const uploadImage = async (file) => {
+  //   console.log(formData);
+  //   const res = await fetch("/api/upload", {
+  //     method: "POST",
+  //     headers: {
+  //       "Content-Type": "multipart/form-data",
+  //     },
+  //     body: formData,
+  //   });
 
-    const { url } = await res.json();
-    setImageUrl(url);
-  };
+  //   const { url } = await res.json();
+  //   setImageUrl(url);
+  // };
 
   return (
     <div className={styles.container}>

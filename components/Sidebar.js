@@ -17,14 +17,16 @@ import styles from "../src/styles/Sidebar.module.css";
 import { useSession } from "next-auth/react";
 import { useContext } from "react";
 import { ModalContext } from "@/pages/_app";
+import { useRouter } from "next/router";
 
 export default function Sidebar() {
   const { data: session } = useSession();
   const { setModalState } = useContext(ModalContext);
+  const router = useRouter();
   return (
     // <div className={styles.stickyMenu}>
     <div className={styles.sidebar}>
-      <div className={styles.logoImage}>
+      <div className={styles.logoImage} onClick={() => router.push("/")}>
         <Image width="30" height="25" src="/Twitter-logo.png"></Image>
       </div>
       <div className={styles.sidebarmenu}>

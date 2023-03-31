@@ -1,15 +1,21 @@
 import { ModalContext } from "@/pages/_app";
 import axios from "axios";
+import { useRouter } from "next/router";
 import React, { useContext, useState } from "react";
 import styles from "../src/styles/CommentBox.module.css";
+import loaderStyles from "../src/styles/Modal.module.css";
 
 export default function CommentBox() {
   const [content, setContent] = useState("");
   const { modalState, setModalState } = useContext(ModalContext);
+  const [isLoading, setIsLoading] = useState(false);
+  const router = useRouter();
 
   const comment = async () => {
+    const postID = modalState.data._id;
+    setIsLoading(true);
     const res = await axios
-      .post(`http://localhost:3000/api/posts/${modalState.data._id}/comment`, {
+      .post(`http://localhost:3000/api/posts/${postID}/comment`, {
         content,
       })
       .catch((err) => console.log(err));
@@ -21,6 +27,7 @@ export default function CommentBox() {
     } else {
       console.log(result);
     }
+    router.push(`/posts/${postID}`);
     setModalState({});
   };
 
@@ -33,9 +40,13 @@ export default function CommentBox() {
           placeholder="What's happening?"
         />
         <hr color="gainsboro" />
-        <button className={styles.tweetButton} onClick={() => comment()}>
-          Comment
-        </button>
+        {isLoading ? (
+          <div className={loaderStyles.loader}></div>
+        ) : (
+          <button className={styles.tweetButton} onClick={() => comment()}>
+            Comment
+          </button>
+        )}
       </div>
     </div>
   );

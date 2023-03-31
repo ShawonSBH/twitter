@@ -12,3 +12,22 @@
   background-color: rgba(33, 33, 33, 0.2);
   cursor: pointer;
 }
+
+.comments {
+  display: flex;
+  align-items: center;
+}
+
+.comments p {
+  font-size: 0.85rem;
+}
+
+.comments:hover {
+  color: #1d9bf0;
+}
+
+.comments:hover .icon {
+  color: #1d9bf0;
+  border-radius: 50%;
+  background-color: rgba(29, 155, 240, 0.2);
+}

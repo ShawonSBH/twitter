@@ -6,7 +6,7 @@ import LogInBox from "./LogInBox";
 import News from "./News";
 
 export default function Widgets({ userResults, newsResults }) {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [numOfUsers, setNumOfUsers] = useState(3);
   const { data: session } = useSession();
   //console.log(session);
 
@@ -30,19 +30,31 @@ export default function Widgets({ userResults, newsResults }) {
           </div>
           <div className={styles.container}>
             <h4 className={styles.header}>Who to Follow</h4>
-            {[...userResults]?.slice(0, 3).map((user) => {
-              return (
-                <div className={styles.userContainer}>
-                  <img className={styles.userProfilePic} src={user.image} />
-                  <div className={styles.textPart}>
-                    <h5>{user.firstName + " " + user.lastName}</h5>
-                    <p>@{user.username}</p>
+            {[...userResults]?.slice(0, numOfUsers).map((user) => {
+              if (session.user.email !== user.email) {
+                return (
+                  <div className={styles.userContainer} key={user.email}>
+                    <img
+                      className={styles.userProfilePic}
+                      src={user.profilePicture}
+                    />
+                    <div className={styles.textPart}>
+                      <h5>{user.name}</h5>
+                      <p>@{user.username}</p>
+                    </div>
+                    <button className={styles.followButton}>Follow</button>
                   </div>
-                  <button className={styles.followButton}>Follow</button>
-                </div>
-              );
+                );
+              } else {
+                return <></>;
+              }
             })}
-            <h4 className={styles.more}>Show more</h4>
+            <h4
+              className={styles.more}
+              onClick={() => setNumOfUsers(numOfUsers + 2)}
+            >
+              Show more
+            </h4>
           </div>
         </>
       ) : (

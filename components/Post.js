@@ -29,7 +29,8 @@ export default function Post({ post, setPosts }) {
   //   console.log(post);
   // }, []);
 
-  const handleComment = async () => {
+  const handleComment = async (event) => {
+    event.stopPropagation();
     if (session) {
       setModalState({
         state: "Comment",
@@ -43,7 +44,8 @@ export default function Post({ post, setPosts }) {
     }
   };
 
-  const handleReact = async () => {
+  const handleReact = async (event) => {
+    event.stopPropagation();
     if (session) {
       await react();
       await refetchPosts();
@@ -68,7 +70,7 @@ export default function Post({ post, setPosts }) {
   };
 
   return (
-    <div className={styles.post}>
+    <div className={styles.post} onClick={routeToPost}>
       <img className={styles.profilePic} src={post.createdBy.profilePicture} />
       <div className={styles.postContents}>
         <div className={styles.headerContents}>
@@ -77,16 +79,8 @@ export default function Post({ post, setPosts }) {
           <div className={styles.dot}></div>
           <p>{timeago}</p>
         </div>
-        <div className={styles.postText} onClick={routeToPost}>
-          {post.content}
-        </div>
-        {post.image && (
-          <img
-            className={styles.postPic}
-            src={post.image}
-            onClick={routeToPost}
-          />
-        )}
+        <div className={styles.postText}>{post.content}</div>
+        {post.image && <img className={styles.postPic} src={post.image} />}
         <div className={styles.infos}>
           <div className={styles.comments} onClick={handleComment}>
             <ChatBubbleOvalLeftEllipsisIcon className={styles.icon} />
