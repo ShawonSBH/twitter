@@ -11,7 +11,7 @@ import styles from "../styles/Home.module.css";
 import { authOptions } from "./api/auth/[...nextauth]";
 import { ModalContext } from "./_app";
 
-export default function Home({ postResults, likedResults }) {
+export default function Home({ userResults, newsResults, postResults }) {
   const { modalState } = useContext(ModalContext);
   const { data: session } = useSession();
   return (
@@ -24,8 +24,8 @@ export default function Home({ postResults, likedResults }) {
       </Head>
       <main className={styles.main}>
         <Sidebar />
-        <Feed posts={postResults} liked={likedResults} />
-        <Widgets />
+        <Feed posts={postResults} />
+        <Widgets userResults={userResults} newsResults={newsResults} />
         {modalState.state && <Modal />}
         {!session && <AuthBottomBar />}
       </main>
@@ -36,19 +36,35 @@ export default function Home({ postResults, likedResults }) {
 export async function getServerSideProps(context) {
   const session = await getServerSession(context.req, context.res, authOptions);
   let likedResults;
-  if (session.user) {
-    const userID = session.user.id;
-    const likedPostsResponse = await fetch(
-      `http://localhost:3000/api/users/${userID}/liked`
+  const postResponse = await fetch("http://localhost:3000/api/posts");
+
+  // setPosts(data.posts);
+
+  const data = await postResponse.json();
+  if (session?.user) {
+    // const userID = session.user.id;
+    // const likedPostsResponse = await fetch(
+    //   `http://localhost:3000/api/users/${userID}/liked`
+    // );
+    // likedResults = await likedPostsResponse.json();
+    const res = await fetch(
+      `https://saurav.tech/NewsAPI/top-headlines/category/technology/in.json`
     );
-    likedResults = await likedPostsResponse.json();
+    const users = await fetch(`https://dummyjson.com/users`);
+    const userResults = await users.json();
+    const newsResults = await res.json();
+    return {
+      props: {
+        userResults: userResults.users,
+        newsResults: newsResults.articles,
+        postResults: data.posts,
+      },
+    };
+  } else {
+    return {
+      props: {
+        postResults: data.posts,
+      },
+    };
   }
-  const posts = await fetch("http://localhost:3000/api/posts/");
-  const data = await posts.json();
-  return {
-    props: {
-      postResults: data.posts,
-      likedResults: likedResults?.data,
-    },
-  };
 }

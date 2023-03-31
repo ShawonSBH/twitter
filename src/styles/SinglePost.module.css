@@ -1,0 +1,12 @@
+.container {
+  display: flex;
+}
+
+.post {
+  display: flex;
+  height: fit-content;
+  padding: 0.75rem;
+  border: 1px solid #eff3f4;
+  border-top-style: none;
+  border-left-style: none;
+}

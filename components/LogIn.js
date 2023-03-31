@@ -9,14 +9,17 @@ export default function LogIn() {
     email: "",
     password: "",
   });
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleLogIn = (event) => {
     event.preventDefault();
+    setIsLoading(true);
     console.log(userData);
     signIn("credentials", {
       email: userData.email,
       password: userData.password,
     });
+    //setIsLoading(false);
   };
 
   const handleChange = (event) => {
@@ -47,9 +50,13 @@ export default function LogIn() {
         value={userData.password}
         className={styles.inputs}
       />
-      <button onClick={handleLogIn} className={styles.submitButton}>
-        Submit
-      </button>
+      {isLoading ? (
+        <div className={styles.loader}></div>
+      ) : (
+        <button onClick={handleLogIn} className={styles.submitButton}>
+          Submit
+        </button>
+      )}
       <p>
         New to Twitter?{" "}
         <div

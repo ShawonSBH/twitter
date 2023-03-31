@@ -5,26 +5,11 @@ import styles from "../src/styles/Widgets.module.css";
 import LogInBox from "./LogInBox";
 import News from "./News";
 
-export default function Widgets() {
+export default function Widgets({ userResults, newsResults }) {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const { data: session } = useSession();
-  const [userResults, setUerResults] = useState([]);
-  const [newsResults, setNewsResults] = useState([]);
   //console.log(session);
 
-  useEffect(() => {
-    async function fetchData() {
-      const res = await fetch(
-        `https://saurav.tech/NewsAPI/top-headlines/category/technology/in.json`
-      );
-      const users = await fetch(`https://dummyjson.com/users`);
-      const dummyUsers = await users.json();
-      const ads = await res.json();
-      setUerResults(dummyUsers);
-      setNewsResults(ads);
-    }
-    fetchData();
-  }, []);
   return (
     <div className={styles.widgets}>
       {session ? (

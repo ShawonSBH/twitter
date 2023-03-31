@@ -7,41 +7,36 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useContext, useEffect, useState } from "react";
 import styles from "../src/styles/TweetBox.module.css";
+import loaderStyles from "../src/styles/Modal.module.css";
 
-export default function TweetBox() {
-  const router = useRouter();
+export default function TweetBox({ setPosts }) {
   const { data: session } = useSession();
   const [content, setContent] = useState("");
-  const [loadingState, setLoadingState] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
   const [imageUrl, setImageUrl] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   const tweetPost = async () => {
     if (content || selectedImage) {
-      console.log("Uploading....");
-      console.log(content);
-      console.log(selectedImage);
-      console.log(imageUrl);
-
+      setIsLoading(true);
       const res = await axios
         .post("http://localhost:3000/api/posts", {
           content,
           image: imageUrl,
         })
         .catch((err) => console.log(err));
-
-      //const post = await res.data;
+      const data = await res.data;
       setContent("");
       setImageUrl(null);
-      // setPosts([...posts, post.data]);
-      // if (!post.success) {
-      //   alert("Something went wrong");
-      // }
+      setIsLoading(false);
+      //console.log(data);
+      setPosts(data.posts);
+      console.log("Posted");
     } else {
       alert("Tweet needs at least an image or some text");
     }
 
-    router.replace("/");
+    // router.replace("/");
     //window.location.reload();
   };
 
@@ -101,9 +96,13 @@ export default function TweetBox() {
               reader.readAsDataURL(file);
             }}
           />
-          <button className={styles.tweetButton} onClick={tweetPost}>
-            Tweet
-          </button>
+          {isLoading ? (
+            <div className={loaderStyles.loader}></div>
+          ) : (
+            <button className={styles.tweetButton} onClick={tweetPost}>
+              Tweet
+            </button>
+          )}
         </div>
       </div>
     </div>

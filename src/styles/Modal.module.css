@@ -139,3 +139,21 @@
   color: #0a73b9;
   text-decoration: underline;
 }
+
+.loader {
+  height: 30px;
+  width: 30px;
+  border: 1px solid rgba(30, 155, 241, 0.4);
+  border-radius: 50%;
+  border-top-color: rgba(29, 155, 241);
+  animation: circle 1s linear infinite;
+}
+
+@keyframes circle {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}

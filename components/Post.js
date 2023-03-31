@@ -10,35 +10,32 @@ import { useRouter } from "next/router";
 import { useContext, useEffect, useState } from "react";
 import styles from "../src/styles/Post.module.css";
 
-export default function Post({ post, likedPosts }) {
-  const router = useRouter();
+export default function Post({ post, setPosts }) {
   const timeago = formatDistanceToNow(new Date(post.createdAt));
 
   const { setModalState } = useContext(ModalContext);
+  const router = useRouter();
 
   const { data: session } = useSession();
-  // const [state, setState] = useState(post.likes.length);
   const [liked, setLiked] = useState(false);
 
-  const matchFound = likedPosts.some((likedPost) => {
-    console.log(likedPost._id.toString() === post._id.toString());
-    return likedPost._id === post._id;
-  });
+  const refetchPosts = async () => {
+    const postResponse = await fetch("/api/posts");
+    const data = await postResponse.json();
+    setPosts(data.posts);
+  };
+
   // useEffect(() => {
-  //   console.log(user);
-  //   if (post.likes.length) {
-  //     post.likes.forEach((like) => {
-  //       console.log("Post Likes " + like.reactor + " ");
-  //     });
-  //   }
+  //   console.log(post);
   // }, []);
 
-  const handleComment = () => {
+  const handleComment = async () => {
     if (session) {
       setModalState({
         state: "Comment",
         data: post,
       });
+      await refetchPosts();
     } else {
       setModalState({
         state: "LogIn",
@@ -49,12 +46,7 @@ export default function Post({ post, likedPosts }) {
   const handleReact = async () => {
     if (session) {
       await react();
-      // if (liked) {
-      //   setState(state - 1);
-      // } else {
-      //   setState(state + 1);
-      // }
-      // setLiked(!liked);
+      await refetchPosts();
     } else {
       setModalState({
         state: "LogIn",
@@ -68,13 +60,11 @@ export default function Post({ post, likedPosts }) {
       .catch((err) => console.log(err));
 
     console.log(res);
-    router.replace("/");
-    //console.log(res);
-    // if (!result.success) {
-    //   alert("Something went wrong");
-    // } else {
-    //   console.log(result);
-    // }
+  };
+
+  const routeToPost = () => {
+    console.log(post._id);
+    router.push(`/posts/${post._id}`);
   };
 
   return (
@@ -87,18 +77,26 @@ export default function Post({ post, likedPosts }) {
           <div className={styles.dot}></div>
           <p>{timeago}</p>
         </div>
-        <div className={styles.postText}>{post.content}</div>
-        {post.image && <img className={styles.postPic} src={post.image} />}
+        <div className={styles.postText} onClick={routeToPost}>
+          {post.content}
+        </div>
+        {post.image && (
+          <img
+            className={styles.postPic}
+            src={post.image}
+            onClick={routeToPost}
+          />
+        )}
         <div className={styles.infos}>
           <div className={styles.comments} onClick={handleComment}>
             <ChatBubbleOvalLeftEllipsisIcon className={styles.icon} />
             <p>{post.comments.length}</p>
           </div>
-          {/* <div className={styles.reactions} onClick={handleReact}>
+          <div className={styles.reactions} onClick={handleReact}>
             <HeartIcon className={styles.icon} />
             <p>{post.likes.length}</p>
-          </div> */}
-          {matchFound ? (
+          </div>
+          {/* {matchFound ? (
             <div className={styles.liked} onClick={handleReact}>
               <HeartIcon className={styles.icon} />
               <p>{post.likes.length}</p>
@@ -108,7 +106,7 @@ export default function Post({ post, likedPosts }) {
               <HeartIcon className={styles.icon} />
               <p>{post.likes.length}</p>
             </div>
-          )}
+          )} */}
         </div>
       </div>
     </div>

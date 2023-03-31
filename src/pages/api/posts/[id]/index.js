@@ -30,16 +30,49 @@ const getPost = async (req, res) => {
   const { id } = req.query;
   console.log(id);
   try {
-    const post = await Posts.findById(id).populate({
-      path: "createdBy",
-      select: {
-        _id: 1,
-        name: 1,
-        username: 1,
-        email: 1,
-        profilePicture: 1,
-      },
-    });
+    const post = await Posts.findById(id)
+      .populate({
+        path: "createdBy",
+        select: {
+          _id: 1,
+          name: 1,
+          username: 1,
+          email: 1,
+          profilePicture: 1,
+        },
+      })
+      .populate({
+        path: "comments",
+        populate: [
+          {
+            path: "commentor",
+            select: {
+              _id: 1,
+              name: 1,
+              username: 1,
+              email: 1,
+              profilePicture: 1,
+            },
+          },
+          {
+            path: "replies",
+            populate: {
+              path: "commentor",
+              select: {
+                _id: 1,
+                name: 1,
+                username: 1,
+                email: 1,
+                profilePicture: 1,
+              },
+            },
+          },
+        ],
+        select: {
+          content: 1,
+          createdAt: 1,
+        },
+      });
     console.log(post);
     res.status(200).json({
       success: true,

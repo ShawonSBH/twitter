@@ -19,6 +19,7 @@ export default function SignUp() {
     profilePicture: "",
   });
   const { setModalState } = useContext(ModalContext);
+  const [isLoading, setIsLoading] = useState(false);
 
   const sendSignUpRequest = async (date) => {
     const res = await axios
@@ -48,17 +49,18 @@ export default function SignUp() {
     if (age < 13) {
       alert("You must be at least 13 years old to sign up.");
     } else {
+      setIsLoading(true);
       const data = await sendSignUpRequest(date);
       console.log(data);
       if (data.success) {
-        signIn("credentials", {
+        await signIn("credentials", {
           email: userData.email,
           password: userData.password,
         });
       } else {
         alert("Something went very wrong!!!");
       }
-      setModalState({});
+      // setModalState({});
     }
   };
 
@@ -113,9 +115,13 @@ export default function SignUp() {
       >
         <DatePicker />
       </DateContext.Provider>
-      <button onClick={handleSignUp} className={styles.submitButton}>
-        Submit
-      </button>
+      {isLoading ? (
+        <div className={styles.loader}></div>
+      ) : (
+        <button onClick={handleSignUp} className={styles.submitButton}>
+          Submit
+        </button>
+      )}
       <p>
         Have an account already?{" "}
         <div
