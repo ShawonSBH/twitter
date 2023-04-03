@@ -90,7 +90,7 @@ const updateUser = async (req, res) => {
   }
 };
 
-const unfollowUser = async (req, res) => {
+const unfollowUser = async (req, res, currentUser) => {
   try {
     const { userID } = req.query;
     if (currentUser.id.toString() !== userID) {
@@ -109,7 +109,7 @@ const unfollowUser = async (req, res) => {
     } else {
       res.status(400).json({
         success: false,
-        message: "You can't follow yourself",
+        message: "You can't unfollow yourself",
       });
     }
   } catch (error) {
@@ -132,7 +132,7 @@ export default async function handler(req, res) {
       await updateUser(req, res);
       break;
     case DELETE:
-      await unfollowUser(req, res);
+      await unfollowUser(req, res, session.user);
       break;
     default:
       res
