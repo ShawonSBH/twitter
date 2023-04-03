@@ -3,23 +3,25 @@ import connectMongo from "@/utils/db";
 import { GET, POST } from "@/utils/reqMethods";
 import { getServerSession } from "next-auth";
 import { authOptions } from "../auth/[...nextauth]";
-import path, { join } from "path";
+import path from "path";
 import formidable from "formidable";
+import { error } from "console";
 
 const FormidableError = formidable.errors.FormidableError;
 
-async function parseForm(req) {
-  const form = new formidable.IncomingForm({
-    uploadDir: path.join(process.cwd(), "public", "uploads"),
-    keepExtensions: true,
-  });
-  req.headers["content-type"] =
-    "multipart/form-data; boundary=" + form._boundary;
-  let formfields = await new Promise((resolve, reject) => {
-    // console.log("Parsing in progress....");
-    // console.log(req.headers);
+export const config = {
+  api: {
+    bodyParser: false,
+  },
+};
+
+export const parseForm = async (req) => {
+  return new Promise((resolve, reject) => {
+    const form = new formidable.IncomingForm({
+      uploadDir: path.join(process.cwd(), "public", "uploads"),
+      keepExtensions: true,
+    });
     form.parse(req, function (err, fields, files) {
-      console.log("IamPArsing");
       if (err) {
         console.log(err);
         return reject(err);
@@ -27,13 +29,19 @@ async function parseForm(req) {
       resolve({ fields, files });
     });
   });
-  console.log("FINISHED");
-}
+};
 
 const createPost = async (req, res, session) => {
   console.log("Create Posts Hit");
   try {
-    const { content, image } = req.body;
+    const { fields, files } = await parseForm(req);
+    console.log(fields);
+    const image = files.image
+      ? "/uploads/" + files.image?.newFilename
+      : undefined;
+    const content = fields.content;
+    console.log(image, content);
+
     const createdPost = await Posts.create({
       image,
       content,
@@ -50,20 +58,8 @@ const createPost = async (req, res, session) => {
         profilePicture: 1,
       },
     });
-    // await getAllPosts(req, res);
 
-    // const posts = await Posts.find({})
-    //   .sort({ createdAt: -1 })
-    //   .populate({
-    //     path: "createdBy",
-    //     select: {
-    //       _id: 1,
-    //       name: 1,
-    //       username: 1,
-    //       email: 1,
-    //       profilePicture: 1,
-    //     },
-    //   });
+    console.log(post);
     res.status(201).json({
       success: true,
       post,
@@ -114,3 +110,21 @@ export default async function handler(req, res) {
         .json({ success: false, message: "API endpoint not found" });
   }
 }
+
+// const { content, image } = req.body;
+// const createdPost = await Posts.create({
+//   image,
+//   content,
+//   createdBy: session.user.id,
+// });
+
+// const post = await createdPost.populate({
+//   path: "createdBy",
+//   select: {
+//     _id: 1,
+//     name: 1,
+//     username: 1,
+//     email: 1,
+//     profilePicture: 1,
+//   },
+// });

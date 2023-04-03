@@ -4,6 +4,7 @@ import {
 } from "@heroicons/react/24/outline";
 import styles from "../src/styles/UserProfile.module.css";
 import { useState } from "react";
+import Modal from "./Modal";
 
 export default function UserProfileView({
   user,
@@ -16,6 +17,12 @@ export default function UserProfileView({
       month: "long",
       year: "numeric",
     }).format(new Date(user.createdAt));
+
+  const [modalState, setModalState] = useState("");
+
+  const editProfile = () => {
+    setModalState("Update");
+  };
 
   return (
     <div>
@@ -71,6 +78,7 @@ export default function UserProfileView({
           Following
         </div>
       </div>
+      {modalState === "Update" && <Modal />}
     </div>
   );
 }

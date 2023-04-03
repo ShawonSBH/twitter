@@ -18,38 +18,29 @@ export default function TweetBox({ posts, setPosts }) {
 
   const tweetPost = async () => {
     if (content || selectedImage) {
-      setIsLoading(true);
-      const res = await axios
-        .post("http://localhost:3000/api/posts", {
-          content,
-          image: imageUrl,
-        })
-        .catch((err) => console.log(err));
-      const data = await res?.data;
-      setContent("");
-      setImageUrl(null);
-      setIsLoading(false);
-      //console.log(data);
-      setPosts([data.post, ...posts]);
-      console.log("Posted");
+      const formData = new FormData();
+      formData.append("content", content);
+      formData.append("image", selectedImage);
+      try {
+        const res = await fetch("/api/posts", {
+          method: "POST",
+          body: formData,
+        });
+        const data = await res.json();
+        console.log(data);
+        setContent("");
+        setImageUrl(null);
+        setIsLoading(false);
+        if (data.success) {
+          setPosts([data.post, ...posts]);
+        }
+      } catch (error) {
+        console.log(error);
+      }
     } else {
       alert("Tweet needs at least an image or some text");
     }
   };
-
-  // const uploadImage = async (file) => {
-  //   console.log(formData);
-  //   const res = await fetch("/api/upload", {
-  //     method: "POST",
-  //     headers: {
-  //       "Content-Type": "multipart/form-data",
-  //     },
-  //     body: formData,
-  //   });
-
-  //   const { url } = await res.json();
-  //   setImageUrl(url);
-  // };
 
   return (
     <div className={styles.container}>
@@ -84,11 +75,9 @@ export default function TweetBox({ posts, setPosts }) {
             onChange={(e) => {
               const file = e.target.files[0];
               setSelectedImage(file);
-              console.log(selectedImage);
               const reader = new FileReader();
               reader.onload = (e) => {
                 setImageUrl(e.target.result);
-                console.log(imageUrl);
               };
               reader.readAsDataURL(file);
             }}

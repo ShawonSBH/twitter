@@ -10,12 +10,6 @@ export default function Feed({ posts }) {
   const [fetchedPosts, setFetchedPosts] = useState(posts);
   const router = useRouter();
 
-  const fetchPosts = async () => {
-    const res = await fetch("/api/posts");
-    const data = await res.json();
-    setFetchedPosts(data.posts);
-  };
-
   // useEffect(() => {
   //   fetchPosts();
   // }, []);
@@ -27,7 +21,7 @@ export default function Feed({ posts }) {
       </div>
       {session && <TweetBox posts={fetchedPosts} setPosts={setFetchedPosts} />}
       {fetchedPosts.map((post) => (
-        <Post key={post.id} post={post} setPosts={setFetchedPosts} />
+        <Post key={post._id} post={post} setPosts={setFetchedPosts} />
       ))}
     </div>
   );

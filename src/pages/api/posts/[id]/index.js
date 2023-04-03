@@ -26,6 +26,27 @@ const deletePost = async (req, res, userData) => {
   }
 };
 
+const updatePost = async (req, res, userData) => {
+  const { id } = req.query;
+  try {
+    const post = await Posts.findById(id);
+    if (session.user.id === post.createdBy) {
+      await post.update({});
+      res.status(200).json({
+        success: true,
+        message: "Post deleted",
+      });
+    } else {
+      res.status(401).json({
+        success: false,
+        message: "You are not authorized to edit this post",
+      });
+    }
+  } catch (error) {
+    res.status(400).json({ success: false, error: error.message });
+  }
+};
+
 const getPost = async (req, res) => {
   const { id } = req.query;
   console.log(id);
@@ -90,6 +111,9 @@ export default async function handler(req, res) {
   switch (req.method) {
     case GET:
       await getPost(req, res);
+      break;
+    case PUT:
+      await updatePost(req, res, session.user);
       break;
     case DELETE:
       await deletePost(req, res, session.user);
