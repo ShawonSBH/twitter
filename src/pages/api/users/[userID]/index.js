@@ -1,5 +1,5 @@
 import connectMongo from "@/utils/db";
-import { DELETE } from "@/utils/reqMethods";
+import { DELETE, GET, POST, PUT } from "@/utils/reqMethods";
 import Users from "@/models/Users";
 import { getServerSession } from "next-auth";
 import { authOptions } from "../../auth/[...nextauth]";

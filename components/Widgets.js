@@ -1,4 +1,5 @@
 import { MagnifyingGlassIcon } from "@heroicons/react/24/solid";
+import axios from "axios";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import styles from "../src/styles/Widgets.module.css";
@@ -8,7 +9,15 @@ import News from "./News";
 export default function Widgets({ userResults, newsResults }) {
   const [numOfUsers, setNumOfUsers] = useState(3);
   const { data: session } = useSession();
-  //console.log(session);
+  console.log(userResults);
+
+  const followUser = async (user) => {
+    const res = await axios.post(`http://localhost:3000/api/users/${user._id}`);
+    const response = await res.data;
+    if (response.success) {
+      alert(response.message);
+    }
+  };
 
   return (
     <div className={styles.widgets}>
@@ -31,7 +40,10 @@ export default function Widgets({ userResults, newsResults }) {
           <div className={styles.container}>
             <h4 className={styles.header}>Who to Follow</h4>
             {[...userResults]?.slice(0, numOfUsers).map((user) => {
-              if (session.user.email !== user.email) {
+              if (
+                session.user.email !== user.email ||
+                user.followers.includes(session.user.id)
+              ) {
                 return (
                   <div className={styles.userContainer} key={user.email}>
                     <img
@@ -42,7 +54,12 @@ export default function Widgets({ userResults, newsResults }) {
                       <h5>{user.name}</h5>
                       <p>@{user.username}</p>
                     </div>
-                    <button className={styles.followButton}>Follow</button>
+                    <button
+                      className={styles.followButton}
+                      onClick={async () => await followUser(user)}
+                    >
+                      Follow
+                    </button>
                   </div>
                 );
               } else {

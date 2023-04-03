@@ -30,7 +30,7 @@ export default function TweetBox({ posts, setPosts }) {
       setImageUrl(null);
       setIsLoading(false);
       //console.log(data);
-      setPosts([...posts, data.post]);
+      setPosts([data.post, ...posts]);
       console.log("Posted");
     } else {
       alert("Tweet needs at least an image or some text");

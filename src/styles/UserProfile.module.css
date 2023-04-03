@@ -1,0 +1,123 @@
+.container {
+  display: flex;
+}
+
+/* .post {
+  display: flex;
+  height: fit-content;
+  padding: 0.75rem;
+  border: 1px solid #eff3f4;
+  border-top-style: none;
+  border-left-style: none;
+} */
+
+.profileBar {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  border: 1px solid #eff3f4;
+}
+
+.topBar {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  padding: 0rem 0.75rem;
+}
+
+.backIcon {
+  width: 1rem;
+}
+
+.headerInfo {
+  display: flex;
+  flex-direction: column;
+}
+
+.headerInfo p {
+  font-size: 0.8rem;
+  color: gray;
+}
+
+.coverPicture {
+  width: 35rem;
+  height: 12rem;
+  background-color: gray;
+}
+
+.pictureAndEditContentBox {
+  display: flex;
+  margin-left: 1rem;
+  justify-content: space-between;
+  align-items: center;
+  margin-right: 1rem;
+}
+
+.profilePicture {
+  width: 8rem;
+  border-radius: 50%;
+  margin-top: -5rem;
+}
+
+.editProfileButton {
+  height: 1.75rem;
+  font-size: 0.75rem;
+  padding: 0rem 0.75rem;
+  border-radius: 2rem;
+  /* border: none; */
+  outline: none;
+}
+
+.textContent {
+  display: flex;
+  flex-direction: column;
+  margin-left: 1rem;
+}
+
+.textContent p {
+  color: gray;
+  font-size: 0.8rem;
+}
+
+.joinTime {
+  margin-top: 0.4rem;
+  display: flex;
+  gap: 0.2rem;
+}
+
+.joinIcon {
+  width: 0.8rem;
+  color: gray;
+}
+
+.followerfollowingCount {
+  display: flex;
+  margin-top: 0.4rem;
+  gap: 1rem;
+}
+
+.followerfollowingCount p:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.viewOptions {
+  margin-top: 1.5rem;
+  display: flex;
+  border-bottom: 1px solid #eff3f4;
+}
+
+.options {
+  width: 33.33%;
+  padding: 0.5rem 0rem;
+  text-align: center;
+}
+
+.selected {
+  border-bottom: 3px solid blue;
+}
+
+.options:hover {
+  cursor: pointer;
+  background-color: rgb(250, 248, 248);
+}
