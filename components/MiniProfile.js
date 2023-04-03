@@ -28,6 +28,7 @@ export default function MiniProfile() {
           event.stopPropagation();
           console.log("SIGNING OUT...");
           await signOut();
+          //router.push("/");
         }}
       />
     </div>

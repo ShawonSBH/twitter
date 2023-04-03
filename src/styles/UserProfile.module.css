@@ -55,6 +55,7 @@
 
 .profilePicture {
   width: 8rem;
+  height: 8rem;
   border-radius: 50%;
   margin-top: -5rem;
 }
@@ -114,10 +115,45 @@
 }
 
 .selected {
-  border-bottom: 3px solid blue;
+  border-bottom: 3px solid #1d9bf0;
 }
 
 .options:hover {
   cursor: pointer;
   background-color: rgb(250, 248, 248);
+}
+
+.followerContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 1rem;
+}
+
+.followerContainer p {
+  font-size: 0.8rem;
+  color: gray;
+  max-width: 20rem;
+  margin: 1rem 0rem;
+}
+
+.followerContainer p {
+  font-size: 0.8rem;
+  color: gray;
+  max-width: 20rem;
+  margin: 1rem 0rem;
+}
+
+.findPeople {
+  color: white;
+  background-color: #1d9bf0;
+  padding: 1rem;
+  border-radius: 2rem;
+  outline: none;
+  border: none;
+}
+
+.findPeople:hover {
+  cursor: pointer;
+  background-color: #045f9c;
 }

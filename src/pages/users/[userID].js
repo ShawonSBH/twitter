@@ -6,6 +6,8 @@ import { useState } from "react";
 import Posts from "@/models/Posts";
 import connectMongo from "@/utils/db";
 import Post from "../../../components/Post";
+import Following from "../../../components/Following";
+import Followers from "../../../components/Followers";
 
 export default function ProfilePage({ user, posts }) {
   const [selectedOption, setSelectedOption] = useState("tweets");
@@ -21,8 +23,40 @@ export default function ProfilePage({ user, posts }) {
         />
         {selectedOption === "tweets" &&
           posts.map((post) => <Post post={post} key={post._id} />)}
-        {selectedOption === "followers" && <div>Followers</div>}
-        {selectedOption === "following" && <div>Following</div>}
+        {selectedOption === "followers" && user.followers.length > 0
+          ? user.followers.map((follower) => (
+              <Followers user={follower} key={follower._id} />
+            ))
+          : selectedOption === "followers" && (
+              <div className={styles.followerContainer}>
+                <img
+                  className={styles.notFollowingImage}
+                  src="/followers.png"
+                />
+                <h3>Looking for followers?</h3>
+                <p>
+                  When someone follows this account, they’ll show up here.
+                  Tweeting and interacting with others helps boost followers.
+                </p>
+              </div>
+            )}
+        {selectedOption === "following" && user.following.length > 0
+          ? user.following.map((followingUser) => (
+              <Following user={followingUser} key={followingUser._id} />
+            ))
+          : selectedOption === "following" && (
+              <div className={styles.followerContainer}>
+                <h3>Be in the know</h3>
+                <p>
+                  Following accounts is an easy way to curate your timeline and
+                  know what’s happening with the topics and people you’re
+                  interested in.
+                </p>
+                <button className={styles.findPeople}>
+                  Find People to Follow
+                </button>
+              </div>
+            )}
       </div>
     </div>
   );

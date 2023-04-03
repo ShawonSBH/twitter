@@ -25,7 +25,9 @@
 }
 
 .postContent {
+  max-width: 38rem;
   font-size: 1.2rem;
+  overflow-wrap: break-word;
 }
 
 .postPic {

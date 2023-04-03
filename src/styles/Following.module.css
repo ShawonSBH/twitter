@@ -1,0 +1,47 @@
+.userContainer {
+  display: flex;
+  padding: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.userProfilePic {
+  height: 5rem;
+  width: 5rem;
+  border-radius: 50%;
+}
+
+.userContainer:hover {
+  cursor: pointer;
+  background-color: rgb(231, 235, 232);
+}
+
+.userContainer .textPart h5:hover {
+  text-decoration: underline;
+}
+
+.textPart {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.textPart p {
+  font-size: 0.8rem;
+  color: gray;
+}
+
+.followButton {
+  background-color: black;
+  color: white;
+  border: none;
+  padding: 0.25rem 1rem;
+  border-radius: 0.75rem;
+  margin-left: auto;
+}
+
+.followButton:hover {
+  cursor: pointer;
+  background-color: rgba(0, 0, 0, 0.7);
+}

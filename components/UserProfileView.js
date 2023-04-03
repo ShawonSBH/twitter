@@ -29,7 +29,9 @@ export default function UserProfileView({
       <div className={styles.coverPicture}></div>
       <div className={styles.pictureAndEditContentBox}>
         <img src={user.profilePicture} className={styles.profilePicture} />
-        <button className={styles.editProfileButton}>Set Up Profile</button>
+        <button className={styles.editProfileButton} onClick={editProfile}>
+          Set Up Profile
+        </button>
       </div>
       <div className={styles.textContent}>
         <h3>{user.name}</h3>
