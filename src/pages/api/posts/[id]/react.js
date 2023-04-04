@@ -19,7 +19,7 @@ const react = async (req, res, user) => {
 
       res.status(201).json({
         success: true,
-        message: "React Delted to this post",
+        message: "React Deleted to this post",
       });
     } else {
       console.log("second");

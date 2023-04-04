@@ -18,6 +18,7 @@ export default function TweetBox({ posts, setPosts }) {
 
   const tweetPost = async () => {
     if (content || selectedImage) {
+      setIsLoading(true);
       const formData = new FormData();
       formData.append("content", content);
       formData.append("image", selectedImage);
@@ -29,10 +30,13 @@ export default function TweetBox({ posts, setPosts }) {
         const data = await res.json();
         console.log(data);
         setContent("");
+        setSelectedImage(null);
         setImageUrl(null);
         setIsLoading(false);
         if (data.success) {
           setPosts([data.post, ...posts]);
+        } else {
+          alert("Something went wrong");
         }
       } catch (error) {
         console.log(error);

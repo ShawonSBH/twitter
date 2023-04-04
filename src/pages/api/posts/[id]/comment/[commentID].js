@@ -4,14 +4,14 @@ import connectMongo from "@/utils/db";
 import { POST } from "@/utils/reqMethods";
 import { getServerSession } from "next-auth";
 
-const reply = async (req, res) => {
-  const { content, userID } = req.body;
+const reply = async (req, res, userData) => {
+  const { content } = req.body;
   const { id, commentID } = req.query;
 
   try {
     const comment = await Comments.create({
       content,
-      commentor: userID,
+      commentor: userData.id,
       postLink: id,
     });
 
@@ -31,11 +31,11 @@ const reply = async (req, res) => {
 
 export default async function handler(req, res) {
   await connectMongo();
-  // const session = getServerSession(req, res, authOptions);
+  const session = await getServerSession(req, res, authOptions);
 
   switch (req.method) {
     case POST:
-      await reply(req, res);
+      await reply(req, res, session.user);
       break;
     default:
       res

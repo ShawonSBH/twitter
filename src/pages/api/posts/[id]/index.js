@@ -89,9 +89,17 @@ const getPost = async (req, res) => {
             },
           },
         ],
+        options: { sort: { createdAt: -1 } },
         select: {
           content: 1,
           createdAt: 1,
+        },
+      })
+      .populate({
+        path: "likes",
+        select: {
+          _id: 0,
+          reactor: 1,
         },
       });
     console.log(post);

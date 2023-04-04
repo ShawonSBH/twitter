@@ -8,8 +8,11 @@ import connectMongo from "@/utils/db";
 import Post from "../../../components/Post";
 import Following from "../../../components/Following";
 import Followers from "../../../components/Followers";
+import Reacts from "@/models/Reacts";
+import { getServerSession } from "next-auth";
+import { authOptions } from "../api/auth/[...nextauth]";
 
-export default function ProfilePage({ user, posts }) {
+export default function ProfilePage({ user, posts, liked }) {
   const [selectedOption, setSelectedOption] = useState("tweets");
 
   return (
@@ -22,7 +25,9 @@ export default function ProfilePage({ user, posts }) {
           setSelectedOption={setSelectedOption}
         />
         {selectedOption === "tweets" &&
-          posts.map((post) => <Post post={post} key={post._id} />)}
+          posts.map((post) => (
+            <Post post={post} key={post._id} liked={liked} />
+          ))}
         {selectedOption === "followers" && user.followers.length > 0
           ? user.followers.map((follower) => (
               <Followers user={follower} key={follower._id} />
@@ -67,6 +72,7 @@ export async function getServerSideProps(context) {
   await connectMongo();
   const userResponse = await fetch(`http://localhost:3000/api/users/${userID}`);
   const data = await userResponse.json();
+  const session = await getServerSession(context.req, context.res, authOptions);
   try {
     const posts = await Posts.find({ createdBy: userID })
       .sort({ createdAt: -1 })
@@ -80,12 +86,28 @@ export async function getServerSideProps(context) {
           profilePicture: 1,
         },
       });
-    return {
-      props: {
-        user: data.data,
-        posts: JSON.parse(JSON.stringify(posts)),
-      },
-    };
+    if (session) {
+      const allLikedPosts = await Reacts.find({
+        reactor: session?.user.id,
+      }).select({
+        _id: 1,
+        postLink: 1,
+      });
+      return {
+        props: {
+          user: data.data,
+          posts: JSON.parse(JSON.stringify(posts)),
+          liked: JSON.parse(JSON.stringify(allLikedPosts)),
+        },
+      };
+    } else {
+      return {
+        props: {
+          user: data.data,
+          posts: JSON.parse(JSON.stringify(posts)),
+        },
+      };
+    }
   } catch (error) {
     return {
       props: {

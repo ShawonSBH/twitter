@@ -5,7 +5,10 @@ import { GET } from "@/utils/reqMethods";
 const getAllLikedPosts = async (req, res) => {
   const { userID } = req.query;
   try {
-    const allLikedPosts = await Reacts.find({ reactor: userID });
+    const allLikedPosts = await Reacts.find({ reactor: userID }).select({
+      _id: 1,
+      postLink: 1,
+    });
     res.status(200).json({
       success: true,
       data: allLikedPosts,

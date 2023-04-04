@@ -2,9 +2,16 @@ import styles from "../src/styles/Post.module.css";
 import commentStyle from "../src/styles/Comment.module.css";
 import { formatDistanceToNow } from "date-fns";
 import { ChatBubbleOvalLeftEllipsisIcon } from "@heroicons/react/24/outline";
+import { useState } from "react";
+import { useRouter } from "next/router";
+import OtherModal from "./OtherModal";
 
 export default function Comment({ comment }) {
   const timeago = formatDistanceToNow(new Date(comment.createdAt));
+  const [numberOfReplies, setNumberOfReplies] = useState(
+    comment.replies.length
+  );
+  const [modalState, setModalState] = useState("");
 
   return (
     <div className={commentStyle.comment}>
@@ -21,12 +28,24 @@ export default function Comment({ comment }) {
         </div>
         <div className={styles.postText}>{comment?.content}</div>
         <div className={styles.infos}>
-          <div className={styles.comments}>
+          <div
+            className={styles.comments}
+            onClick={() => setModalState("Reply")}
+          >
             <ChatBubbleOvalLeftEllipsisIcon className={styles.icon} />
-            <p>{comment.replies.length}</p>
+            <p>{numberOfReplies}</p>
           </div>
         </div>
       </div>
+      {modalState !== "" && (
+        <OtherModal
+          modalState={modalState}
+          setModalState={setModalState}
+          data={comment._id}
+          numberOfReplies={numberOfReplies}
+          setNumberOfReplies={setNumberOfReplies}
+        />
+      )}
     </div>
   );
 }

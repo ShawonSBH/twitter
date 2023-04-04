@@ -36,10 +36,9 @@ const createPost = async (req, res, session) => {
   try {
     const { fields, files } = await parseForm(req);
     console.log(fields);
-    const image = files.image
-      ? "/uploads/" + files.image?.newFilename
-      : undefined;
+    const image = files.image ? "/uploads/" + files.image?.newFilename : null;
     const content = fields.content;
+
     console.log(image, content);
 
     const createdPost = await Posts.create({
@@ -110,21 +109,3 @@ export default async function handler(req, res) {
         .json({ success: false, message: "API endpoint not found" });
   }
 }
-
-// const { content, image } = req.body;
-// const createdPost = await Posts.create({
-//   image,
-//   content,
-//   createdBy: session.user.id,
-// });
-
-// const post = await createdPost.populate({
-//   path: "createdBy",
-//   select: {
-//     _id: 1,
-//     name: 1,
-//     username: 1,
-//     email: 1,
-//     profilePicture: 1,
-//   },
-// });

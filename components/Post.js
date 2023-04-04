@@ -9,15 +9,23 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useContext, useEffect, useState } from "react";
 import styles from "../src/styles/Post.module.css";
+import LikedHeartIcon from "./LikedHeartIcon";
 
-export default function Post({ post, setPosts }) {
+export default function Post({ post, setPosts, liked }) {
   const timeago = formatDistanceToNow(new Date(post.createdAt));
 
   const { setModalState } = useContext(ModalContext);
   const router = useRouter();
 
   const { data: session } = useSession();
-  const [liked, setLiked] = useState(false);
+  const [isLiked, setIsLiked] = useState(
+    liked?.some((likedPost) => likedPost.postLink === post._id)
+  );
+
+  const [numberOfLikes, setNumberOfLikes] = useState(post.likes.length);
+  const [numberOfComments, setNumberOfComments] = useState(
+    post.comments.length
+  );
 
   const refetchPosts = async () => {
     const postResponse = await fetch("/api/posts");
@@ -36,7 +44,6 @@ export default function Post({ post, setPosts }) {
         state: "Comment",
         data: post,
       });
-      await refetchPosts();
     } else {
       setModalState({
         state: "LogIn",
@@ -48,7 +55,12 @@ export default function Post({ post, setPosts }) {
     event.stopPropagation();
     if (session) {
       await react();
-      await refetchPosts();
+      if (isLiked) {
+        setNumberOfLikes(numberOfLikes - 1);
+      } else {
+        setNumberOfLikes(numberOfLikes + 1);
+      }
+      setIsLiked(!isLiked);
     } else {
       setModalState({
         state: "LogIn",
@@ -84,23 +96,23 @@ export default function Post({ post, setPosts }) {
         <div className={styles.infos}>
           <div className={styles.comments} onClick={handleComment}>
             <ChatBubbleOvalLeftEllipsisIcon className={styles.icon} />
-            <p>{post.comments.length}</p>
+            <p>{numberOfComments}</p>
           </div>
-          <div className={styles.reactions} onClick={handleReact}>
+          {/* <div className={styles.reactions} onClick={handleReact}>
             <HeartIcon className={styles.icon} />
             <p>{post.likes.length}</p>
-          </div>
-          {/* {matchFound ? (
+          </div> */}
+          {isLiked ? (
             <div className={styles.liked} onClick={handleReact}>
-              <HeartIcon className={styles.icon} />
-              <p>{post.likes.length}</p>
+              <LikedHeartIcon postView={"Feed"} />
+              <p>{numberOfLikes}</p>
             </div>
           ) : (
             <div className={styles.reactions} onClick={handleReact}>
               <HeartIcon className={styles.icon} />
-              <p>{post.likes.length}</p>
+              <p>{numberOfLikes}</p>
             </div>
-          )} */}
+          )}
         </div>
       </div>
     </div>

@@ -120,7 +120,6 @@
   display: flex;
   align-items: center;
   margin-right: 1rem;
-  background-color: rgb(255, 20, 147);
   color: rgb(255, 20, 147);
 }
 
@@ -130,7 +129,7 @@
 
 .liked:hover {
   /* color: rgb(255,105,180); */
-  background-color: white;
+  color: white;
 }
 
 .liked:hover .icon {

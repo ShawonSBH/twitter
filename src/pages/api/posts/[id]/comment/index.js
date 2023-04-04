@@ -9,14 +9,27 @@ const comment = async (req, res, user) => {
   const { content } = req.body;
   const { id } = req.query;
   try {
-    const comment = await Comments.create({
+    const createdComment = await Comments.create({
       content,
       commentor: user.id,
       postLink: id,
     });
 
-    await Posts.updateOne({ _id: id }, { $push: { comments: comment._id } });
+    await Posts.updateOne(
+      { _id: id },
+      { $push: { comments: createdComment._id } }
+    );
 
+    const comment = await createdComment.populate({
+      path: "commentor",
+      select: {
+        _id: 1,
+        name: 1,
+        username: 1,
+        email: 1,
+        profilePicture: 1,
+      },
+    });
     res.status(201).json({
       success: true,
       data: comment,

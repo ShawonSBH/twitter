@@ -130,3 +130,27 @@
   cursor: pointer;
   background-color: #1d9bcf;
 }
+
+.liked {
+  display: flex;
+  align-items: center;
+  margin-right: 1rem;
+  color: rgb(255, 20, 147);
+}
+
+.liked p {
+  font-size: 0.85rem;
+}
+
+.liked:hover {
+  /* color: rgb(255,105,180); */
+  color: white;
+}
+
+.liked:hover .icon {
+  /* color: rgb(255,105,180); */
+  color: white;
+  border-radius: 50%;
+  /* background-color: rgba(255,105,180,0.2); */
+  background-color: rgba(255, 20, 147, 0.1);
+}

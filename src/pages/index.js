@@ -11,7 +11,12 @@ import styles from "../styles/Home.module.css";
 import { authOptions } from "./api/auth/[...nextauth]";
 import { ModalContext } from "./_app";
 
-export default function Home({ userResults, newsResults, postResults }) {
+export default function Home({
+  userResults,
+  newsResults,
+  postResults,
+  likedResults,
+}) {
   const { modalState } = useContext(ModalContext);
   const { data: session } = useSession();
   return (
@@ -24,7 +29,7 @@ export default function Home({ userResults, newsResults, postResults }) {
       </Head>
       <main className={styles.main}>
         <Sidebar />
-        <Feed posts={postResults} />
+        <Feed posts={postResults} liked={likedResults} />
         <Widgets userResults={userResults} newsResults={newsResults} />
         {modalState.state && <Modal />}
         {!session && <AuthBottomBar />}
@@ -42,11 +47,11 @@ export async function getServerSideProps(context) {
 
   const data = await postResponse.json();
   if (session?.user) {
-    // const userID = session.user.id;
-    // const likedPostsResponse = await fetch(
-    //   `http://localhost:3000/api/users/${userID}/liked`
-    // );
-    // likedResults = await likedPostsResponse.json();
+    const userID = session.user.id;
+    const likedPostsResponse = await fetch(
+      `http://localhost:3000/api/users/${userID}/liked`
+    );
+    likedResults = await likedPostsResponse.json();
     const res = await fetch(
       `https://saurav.tech/NewsAPI/top-headlines/category/technology/in.json`
     );
@@ -58,6 +63,7 @@ export async function getServerSideProps(context) {
         userResults: userResults.users,
         newsResults: newsResults.articles,
         postResults: data.posts,
+        likedResults: likedResults.data,
       },
     };
   } else {
