@@ -23,6 +23,15 @@ export default function Sidebar() {
   const { data: session } = useSession();
   const { setModalState } = useContext(ModalContext);
   const router = useRouter();
+
+  const routeToHome = () => {
+    router.push("/");
+  };
+
+  const routeToProfile = () => {
+    router.push(`/users/${session.user.id}`);
+  };
+
   return (
     // <div className={styles.stickyMenu}>
     <div className={styles.sidebar}>
@@ -32,17 +41,22 @@ export default function Sidebar() {
       <div className={styles.sidebarmenu}>
         {session ? (
           <>
-            <SidebarMenuItem text="Home" Icon={HomeIcon} />
+            <SidebarMenuItem
+              text="Home"
+              Icon={HomeIcon}
+              handleClick={routeToHome}
+            />
             <SidebarMenuItem text="Explore" Icon={HashtagIcon} />
             <SidebarMenuItem text="Notifications" Icon={BellIcon} />
             <SidebarMenuItem text="Messages" Icon={InboxIcon} />
             <SidebarMenuItem text="Bookmarks" Icon={BookmarkIcon} />
             <SidebarMenuItem text="Lists" Icon={ClipboardIcon} />
-            <SidebarMenuItem text="Profile" Icon={UserIcon} />
             <SidebarMenuItem
-              text="More"
-              Icon={EllipsisHorizontalCircleIcon}
-            />{" "}
+              text="Profile"
+              Icon={UserIcon}
+              handleClick={routeToProfile}
+            />
+            <SidebarMenuItem text="More" Icon={EllipsisHorizontalCircleIcon} />{" "}
           </>
         ) : (
           <div className={styles.logOutSideBar}>

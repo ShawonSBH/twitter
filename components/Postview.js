@@ -10,14 +10,15 @@ import Comment from "./Comment";
 import LikedHeartIcon from "./LikedHeartIcon";
 import axios from "axios";
 import loaderStyles from "../src/styles/Modal.module.css";
+import PostDetails from "./PostDetails";
 
 export default function Postview({ post }) {
   const { data: session } = useSession();
-  const [isLiked, setIsLiked] = useState(
-    post.likes?.some((like) => like.reactor === session?.user.id)
-  );
+  // const [isLiked, setIsLiked] = useState(
+  //   post.likes?.some((like) => like.reactor === session?.user.id)
+  // );
   const [content, setContent] = useState("");
-  const [numberOfLikes, setNumberOfLikes] = useState(post.likes.length);
+  //const [numberOfLikes, setNumberOfLikes] = useState(post.likes.length);
   const [isLoading, setIsLoading] = useState(false);
   const [comments, setComments] = useState(post.comments);
   const [numberOfComments, setNumberOfComments] = useState(
@@ -40,32 +41,32 @@ export default function Postview({ post }) {
     }
   };
 
-  const handleReact = async (event) => {
-    if (session) {
-      const res = await axios
-        .post(`http://localhost:3000/api/posts/${post._id}/react`)
-        .catch((err) => console.log(err));
-      const result = await res.data;
-      if (result.success) {
-        if (isLiked) {
-          setNumberOfLikes(numberOfLikes - 1);
-        } else {
-          setNumberOfLikes(numberOfLikes + 1);
-        }
-        setIsLiked(!isLiked);
-      } else {
-        alert("Something Went Wrong");
-      }
-    } else {
-      setModalState({
-        state: "LogIn",
-      });
-    }
-  };
+  // const handleReact = async (event) => {
+  //   if (session) {
+  //     const res = await axios
+  //       .post(`http://localhost:3000/api/posts/${post._id}/react`)
+  //       .catch((err) => console.log(err));
+  //     const result = await res.data;
+  //     if (result.success) {
+  //       if (isLiked) {
+  //         setNumberOfLikes(numberOfLikes - 1);
+  //       } else {
+  //         setNumberOfLikes(numberOfLikes + 1);
+  //       }
+  //       setIsLiked(!isLiked);
+  //     } else {
+  //       alert("Something Went Wrong");
+  //     }
+  //   } else {
+  //     setModalState({
+  //       state: "LogIn",
+  //     });
+  //   }
+  // };
 
   return (
     <div className={styles.container}>
-      <div className={styles.profile}>
+      {/* <div className={styles.profile}>
         <img
           src={post.createdBy.profilePicture}
           className={styles.profilePic}
@@ -95,7 +96,8 @@ export default function Postview({ post }) {
             <p>{numberOfLikes}</p>
           </div>
         )}
-      </div>
+      </div> */}
+      <PostDetails post={post} numberOfComments={numberOfComments} />
       {session && (
         <div className={styles.commentArea}>
           <img

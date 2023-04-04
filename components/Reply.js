@@ -32,10 +32,12 @@ export default function Reply({
   };
 
   return (
-    <div className={styles.container}>
+    <div className={styles.container} onClick={(e) => e.stopPropagation()}>
       <div className={styles.postBox}>
         <textarea
-          onChange={(e) => setContent(e.target.value)}
+          onChange={(e) => {
+            setContent(e.target.value);
+          }}
           value={content}
           placeholder="What's happening?"
         />

@@ -23,7 +23,7 @@ export default function SignUp() {
 
   const sendSignUpRequest = async (date) => {
     const res = await axios
-      .post("http://localhost:3000/api/users", {
+      .post("/api/users", {
         name: userData.name,
         username: userData.username,
         email: userData.email,

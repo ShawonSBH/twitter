@@ -30,7 +30,7 @@ const updatePost = async (req, res, userData) => {
   const { id } = req.query;
   try {
     const post = await Posts.findById(id);
-    if (session.user.id === post.createdBy) {
+    if (userData.id === post.createdBy) {
       await post.update({});
       res.status(200).json({
         success: true,

@@ -11,9 +11,11 @@ import Followers from "../../../components/Followers";
 import Reacts from "@/models/Reacts";
 import { getServerSession } from "next-auth";
 import { authOptions } from "../api/auth/[...nextauth]";
+import { useSession } from "next-auth/react";
 
 export default function ProfilePage({ user, posts, liked }) {
   const [selectedOption, setSelectedOption] = useState("tweets");
+  const { data: session } = useSession();
 
   return (
     <div className={styles.container}>
@@ -21,6 +23,7 @@ export default function ProfilePage({ user, posts, liked }) {
       <div className={styles.profileBar}>
         <UserProfileView
           user={user}
+          numberOfTweets={posts.length}
           selectedOption={selectedOption}
           setSelectedOption={setSelectedOption}
         />
@@ -28,40 +31,52 @@ export default function ProfilePage({ user, posts, liked }) {
           posts.map((post) => (
             <Post post={post} key={post._id} liked={liked} />
           ))}
-        {selectedOption === "followers" && user.followers.length > 0
-          ? user.followers.map((follower) => (
-              <Followers user={follower} key={follower._id} />
-            ))
-          : selectedOption === "followers" && (
-              <div className={styles.followerContainer}>
-                <img
-                  className={styles.notFollowingImage}
-                  src="/followers.png"
-                />
-                <h3>Looking for followers?</h3>
-                <p>
-                  When someone follows this account, they’ll show up here.
-                  Tweeting and interacting with others helps boost followers.
-                </p>
-              </div>
-            )}
-        {selectedOption === "following" && user.following.length > 0
-          ? user.following.map((followingUser) => (
-              <Following user={followingUser} key={followingUser._id} />
-            ))
-          : selectedOption === "following" && (
-              <div className={styles.followerContainer}>
-                <h3>Be in the know</h3>
-                <p>
-                  Following accounts is an easy way to curate your timeline and
-                  know what’s happening with the topics and people you’re
-                  interested in.
-                </p>
-                <button className={styles.findPeople}>
-                  Find People to Follow
-                </button>
-              </div>
-            )}
+        {selectedOption === "followers" && user.followers.length > 0 ? (
+          user.followers.map((follower) => (
+            <Followers user={follower} key={follower._id} />
+          ))
+        ) : selectedOption === "followers" &&
+          session.user.id === user._id &&
+          user.followers.length === 0 ? (
+          <div className={styles.followerContainer}>
+            <img className={styles.notFollowingImage} src="/followers.png" />
+            <h3>Looking for followers?</h3>
+            <p>
+              When someone follows this account, they’ll show up here. Tweeting
+              and interacting with others helps boost followers.
+            </p>
+          </div>
+        ) : (
+          selectedOption === "followers" &&
+          user.followers.length === 0 && (
+            <div>This user is not being followed by anyone</div>
+          )
+        )}
+        {selectedOption === "following" && user.following.length > 0 ? (
+          user.following.map((followingUser) => (
+            <Following
+              user={followingUser}
+              key={followingUser._id}
+              currentUser={user}
+            />
+          ))
+        ) : selectedOption === "following" &&
+          session.user.id === user._id &&
+          user.following.length === 0 ? (
+          <div className={styles.followerContainer}>
+            <h3>Be in the know</h3>
+            <p>
+              Following accounts is an easy way to curate your timeline and know
+              what’s happening with the topics and people you’re interested in.
+            </p>
+            <button className={styles.findPeople}>Find People to Follow</button>
+          </div>
+        ) : (
+          selectedOption === "following" &&
+          user.following.length === 0 && (
+            <div>This user is not following anyone</div>
+          )
+        )}
       </div>
     </div>
   );

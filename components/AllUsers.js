@@ -11,7 +11,7 @@ export default function AllUsers({ user }) {
   );
 
   const followUser = async () => {
-    const res = await axios.post(`http://localhost:3000/api/users/${user._id}`);
+    const res = await axios.post(`/api/users/${user._id}`);
     const response = await res.data;
     if (response.success) {
       alert(response.message);
@@ -19,9 +19,7 @@ export default function AllUsers({ user }) {
   };
 
   const unfollowUser = async () => {
-    const res = await axios.delete(
-      `http://localhost:3000/api/users/${user._id}`
-    );
+    const res = await axios.delete(`/api/users/${user._id}`);
     const response = await res.data;
     if (response.success) {
       alert(response.message);

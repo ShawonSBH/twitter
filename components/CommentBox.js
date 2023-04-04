@@ -15,7 +15,7 @@ export default function CommentBox() {
     const postID = modalState.data._id;
     setIsLoading(true);
     const res = await axios
-      .post(`http://localhost:3000/api/posts/${postID}/comment`, {
+      .post(`/api/posts/${postID}/comment`, {
         content,
       })
       .catch((err) => console.log(err));

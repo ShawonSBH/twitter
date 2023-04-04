@@ -8,6 +8,7 @@ import Modal from "./Modal";
 
 export default function UserProfileView({
   user,
+  numberOfTweets,
   selectedOption,
   setSelectedOption,
 }) {
@@ -30,7 +31,7 @@ export default function UserProfileView({
         <ArrowSmallLeftIcon className={styles.backIcon} />
         <div className={styles.headerInfo}>
           <h3>{user.name}</h3>
-          <p>0 Tweets</p>
+          <p>{numberOfTweets} Tweets</p>
         </div>
       </div>
       <div className={styles.coverPicture}></div>

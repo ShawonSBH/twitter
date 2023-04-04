@@ -11,10 +11,16 @@ export default function Comment({ comment }) {
   const [numberOfReplies, setNumberOfReplies] = useState(
     comment.replies.length
   );
+  console.log(comment);
   const [modalState, setModalState] = useState("");
+  const router = useRouter();
+  const { postID } = router.query;
 
   return (
-    <div className={commentStyle.comment}>
+    <div
+      className={commentStyle.comment}
+      onClick={() => router.push(`/comments/${comment._id}`)}
+    >
       <img
         className={styles.profilePic}
         src={comment?.commentor.profilePicture}
@@ -30,7 +36,10 @@ export default function Comment({ comment }) {
         <div className={styles.infos}>
           <div
             className={styles.comments}
-            onClick={() => setModalState("Reply")}
+            onClick={(event) => {
+              event.stopPropagation();
+              setModalState("Reply");
+            }}
           >
             <ChatBubbleOvalLeftEllipsisIcon className={styles.icon} />
             <p>{numberOfReplies}</p>

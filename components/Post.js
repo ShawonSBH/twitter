@@ -70,7 +70,7 @@ export default function Post({ post, setPosts, liked }) {
 
   const react = async () => {
     const res = await axios
-      .post(`http://localhost:3000/api/posts/${post._id}/react`)
+      .post(`/api/posts/${post._id}/react`)
       .catch((err) => console.log(err));
 
     console.log(res);
@@ -83,7 +83,14 @@ export default function Post({ post, setPosts, liked }) {
 
   return (
     <div className={styles.post} onClick={routeToPost}>
-      <img className={styles.profilePic} src={post.createdBy.profilePicture} />
+      <img
+        className={styles.profilePic}
+        src={post.createdBy.profilePicture}
+        onClick={(event) => {
+          event.stopPropagation();
+          router.push(`/users/${post.createdBy._id}`);
+        }}
+      />
       <div className={styles.postContents}>
         <div className={styles.headerContents}>
           <h4>{post.createdBy.name}</h4>

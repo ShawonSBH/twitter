@@ -10,14 +10,14 @@ export default function Feed({ posts, liked }) {
   const [fetchedPosts, setFetchedPosts] = useState(posts);
   const router = useRouter();
 
-  useEffect(() => {
-    console.log(liked);
-    console.log(
-      liked.some((post) => {
-        return post._id === "642517218c5c6f411f9f590a";
-      })
-    );
-  }, []);
+  // useEffect(() => {
+  //   console.log(liked);
+  //   console.log(
+  //     liked.some((post) => {
+  //       return post._id === "642517218c5c6f411f9f590a";
+  //     })
+  //   );
+  // }, []);
 
   return (
     <div className={styles.feed}>
