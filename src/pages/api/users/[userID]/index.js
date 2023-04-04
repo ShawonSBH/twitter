@@ -3,6 +3,13 @@ import { DELETE, GET, POST, PUT } from "@/utils/reqMethods";
 import Users from "@/models/Users";
 import { getServerSession } from "next-auth";
 import { authOptions } from "../../auth/[...nextauth]";
+import { parseForm } from "../../posts";
+
+export const config = {
+  api: {
+    bodyParser: false,
+  },
+};
 
 const getUserByID = async (req, res) => {
   try {
@@ -65,26 +72,28 @@ const followUser = async (req, res, currentUser) => {
 
 const updateUser = async (req, res) => {
   try {
+    const { fields, files } = await parseForm(req);
     const { userID } = req.query;
-    if (currentUser.id.toString() === userID) {
-      await Users.updateOne(
-        { _id: userID },
-        { $pull: { followers: currentUser.id } }
-      );
-      await Users.updateOne(
-        { _id: currentUser.id },
-        { $pull: { following: userID } }
-      );
-      res.status(200).json({
-        success: true,
-        message: `You unfollowed ${userID}`,
-      });
-    } else {
-      res.status(401).json({
-        success: false,
-        message: "You aren't authorized to do this",
-      });
-    }
+    const profilePicture = files.profilePicture
+      ? "/uploads/" + files.profilePicture?.newFilename
+      : null;
+    const name = fields.name;
+    const username = fields.username;
+
+    console.log(name, username, profilePicture);
+
+    const user = await Users.findById(userID);
+
+    user.name = name;
+    user.username = username;
+    user.profilePicture = profilePicture;
+
+    await user.save();
+
+    res.status(200).json({
+      success: true,
+      data: user,
+    });
   } catch (error) {
     res.status(400).json({ success: false, error: error.message });
   }

@@ -4,7 +4,8 @@ import {
 } from "@heroicons/react/24/outline";
 import styles from "../src/styles/UserProfile.module.css";
 import { useState } from "react";
-import Modal from "./Modal";
+import OtherModal from "./OtherModal";
+import { useSession } from "next-auth/react";
 
 export default function UserProfileView({
   user,
@@ -18,6 +19,7 @@ export default function UserProfileView({
       month: "long",
       year: "numeric",
     }).format(new Date(user.createdAt));
+  const { data: session } = useSession();
 
   const [modalState, setModalState] = useState("");
 
@@ -37,9 +39,11 @@ export default function UserProfileView({
       <div className={styles.coverPicture}></div>
       <div className={styles.pictureAndEditContentBox}>
         <img src={user.profilePicture} className={styles.profilePicture} />
-        <button className={styles.editProfileButton} onClick={editProfile}>
-          Set Up Profile
-        </button>
+        {session?.user.id === user._id && (
+          <button className={styles.editProfileButton} onClick={editProfile}>
+            Set Up Profile
+          </button>
+        )}
       </div>
       <div className={styles.textContent}>
         <h3>{user.name}</h3>
@@ -79,7 +83,13 @@ export default function UserProfileView({
           Following
         </div>
       </div>
-      {modalState === "Update" && <Modal />}
+      {modalState === "Update" && (
+        <OtherModal
+          modalState={modalState}
+          setModalState={setModalState}
+          data={user}
+        />
+      )}
     </div>
   );
 }

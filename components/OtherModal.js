@@ -15,7 +15,9 @@ export default function OtherModal({
         <span className={styles.close} onClick={() => setModalState("")}>
           &times;
         </span>
-        {modalState === "Update" && <UpdateForm />}
+        {modalState === "Update" && (
+          <UpdateForm setModalState={setModalState} user={data} />
+        )}
         {modalState === "Reply" && (
           <Reply
             setModalState={setModalState}
