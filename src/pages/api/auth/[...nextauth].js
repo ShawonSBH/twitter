@@ -2,6 +2,8 @@ import NextAuth from "next-auth/next";
 import GithubProvider from "next-auth/providers/github";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { POST } from "@/utils/reqMethods";
+import connectMongo from "@/utils/db";
+import Users from "@/models/Users";
 
 export const authOptions = {
   session: {
@@ -62,6 +64,22 @@ export const authOptions = {
       }
       return token;
     },
+    // async signIn({ user, account }) {
+    //   // UserDB.create()
+    //   await connectMongo();
+    //   const { email, name, image } = user;
+    //   const existingUser = await getUserByEmail(email);
+    //   if (existingUser) {
+    //     return true;
+    //   }
+    //   const newUser = await Users.create({
+    //     name,
+    //     username: user.email.split("@")[1],
+    //     email,
+    //     profilePicture: image,
+    //   });
+    //   return true;
+    // },
   },
   secret: process.env.NEXTAUTH_SECRET,
 };

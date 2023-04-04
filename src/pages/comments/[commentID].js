@@ -14,7 +14,7 @@ export default function CommentPage({ post, comment }) {
         <PostDetails post={post} numberOfComments={post.comments.length} />
         <Comment comment={comment} />
         {comment.replies?.map((reply) => (
-          <div style={{ paddingLeft: "2rem" }}>
+          <div key={reply._id} style={{ paddingLeft: "2rem" }}>
             <Comment comment={reply} />
           </div>
         ))}
