@@ -121,6 +121,7 @@ const getPost = async (req, res) => {
         select: {
           content: 1,
           createdAt: 1,
+          postLink: 1,
         },
       })
       .populate({

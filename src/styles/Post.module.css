@@ -87,6 +87,21 @@
   background-color: rgba(29, 155, 240, 0.2);
 }
 
+.delete {
+  display: flex;
+  align-items: center;
+  /* color: red; */
+}
+
+.delete:hover {
+  color: red;
+}
+
+.delete:hover .icon {
+  border-radius: 50%;
+  background-color: rgba(255, 67, 67, 0.2);
+}
+
 .reactions {
   display: flex;
   align-items: center;

@@ -22,7 +22,7 @@ export default function OtherModal({
         {modalState === "Reply" && (
           <Reply
             setModalState={setModalState}
-            commentID={data}
+            comment={data}
             numberOfReplies={numberOfReplies}
             setNumberOfReplies={setNumberOfReplies}
           />

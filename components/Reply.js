@@ -6,20 +6,23 @@ import axios from "axios";
 
 export default function Reply({
   setModalState,
-  commentID,
+  comment,
   numberOfReplies,
   setNumberOfReplies,
 }) {
   const [content, setContent] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
-  const { postID } = router.query;
+  console.log(comment);
 
   const handleReply = async () => {
     setIsLoading(true);
-    const res = await axios.post(`/api/posts/${postID}/comment/${commentID}`, {
-      content,
-    });
+    const res = await axios.post(
+      `/api/posts/${comment.postLink}/comment/${comment._id}`,
+      {
+        content,
+      }
+    );
     const result = await res.data;
     setIsLoading(false);
     if (result.success) {

@@ -7,6 +7,7 @@ import secondaryStyles from "../../styles/Postview.module.css";
 import Comment from "../../../components/Comment";
 
 export default function CommentPage({ post, comment }) {
+  console.log(comment);
   return (
     <div className={styles.container}>
       <Sidebar />

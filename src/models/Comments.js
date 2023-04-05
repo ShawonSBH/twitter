@@ -23,6 +23,10 @@ const commentSchema = new Schema(
       type: mongoose.SchemaTypes.ObjectId,
       ref: "Posts",
     },
+    parentComment: {
+      type: mongoose.SchemaTypes.ObjectId,
+      ref: "Comments",
+    },
   },
   { timestamps: true }
 );
