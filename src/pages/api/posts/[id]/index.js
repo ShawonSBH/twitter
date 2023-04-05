@@ -1,10 +1,18 @@
 import Posts from "@/models/Posts";
 import connectMongo from "@/utils/db";
-import { DELETE, GET } from "@/utils/reqMethods";
+import { DELETE, GET, PUT } from "@/utils/reqMethods";
 import { getServerSession } from "next-auth";
 import { authOptions } from "../../auth/[...nextauth]";
+import { parseForm } from "..";
+
+export const config = {
+  api: {
+    bodyParser: false,
+  },
+};
 
 const deletePost = async (req, res, userData) => {
+  console.log("Delete Route Hit");
   const { id } = req.query;
   console.log(userData);
   try {
@@ -27,14 +35,28 @@ const deletePost = async (req, res, userData) => {
 };
 
 const updatePost = async (req, res, userData) => {
+  console.log("Update Route Hit");
   const { id } = req.query;
   try {
     const post = await Posts.findById(id);
-    if (userData.id === post.createdBy) {
-      await post.update({});
+    if (userData.id === post.createdBy.toString()) {
+      const { fields, files } = await parseForm(req);
+      const image = files.image ? "/uploads/" + files.image?.newFilename : null;
+      const content = fields.content;
+      const imageURL = fields.imageUrl;
+
+      //console.log(content, imageURL);
+      post.content = content;
+      if (image || (image === null && imageURL === null)) {
+        post.image = image;
+      }
+
+      await post.save();
+
       res.status(200).json({
         success: true,
-        message: "Post deleted",
+        message: "Post updated",
+        post,
       });
     } else {
       res.status(401).json({
@@ -48,6 +70,7 @@ const updatePost = async (req, res, userData) => {
 };
 
 const getPost = async (req, res) => {
+  console.log("Get Route Hit");
   const { id } = req.query;
   console.log(id);
   try {

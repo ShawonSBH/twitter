@@ -1,0 +1,83 @@
+.box {
+  display: flex;
+  flex-direction: column;
+  margin-left: 5rem;
+}
+
+.container {
+  margin-top: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  height: fit-content;
+  padding: 0.75rem 2rem;
+  border: 1px solid #eff3f4;
+  background-color: rgb(214, 211, 211);
+  border-radius: 2rem;
+  gap: 1rem;
+  font-size: 1.5rem;
+}
+
+.button {
+  padding: 0.25rem 0.5rem;
+  border-radius: 2rem;
+  border: none;
+  font-size: 1rem;
+}
+
+.delete {
+  margin-bottom: 0.5rem;
+}
+
+.button:hover {
+  cursor: pointer;
+}
+
+.update {
+  color: #1d9bf0;
+}
+
+.delete {
+  color: red;
+}
+
+.delete:hover {
+  background-color: rgba(148, 16, 16, 0.2);
+}
+
+.update:hover {
+  background-color: rgba(95, 175, 228, 0.2);
+}
+
+.additionalContent {
+  display: flex;
+  flex-direction: column;
+  margin-top: 2rem;
+  align-self: center;
+  color: gray;
+  font-size: 0.9rem;
+  gap: 0.25rem;
+}
+
+.additionalContent a {
+  text-decoration: none;
+  color: gray;
+}
+
+.additionalContent a:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.row {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.lastRow {
+  display: flex;
+  align-items: center;
+}
+
+.lastRow p {
+  margin-left: 0.5rem;
+}

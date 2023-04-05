@@ -1,6 +1,7 @@
 import styles from "../src/styles/Modal.module.css";
 import Reply from "./Reply";
 import UpdateForm from "./UpdateForm";
+import UpdateTweet from "./UpdateTweet";
 
 export default function OtherModal({
   modalState,
@@ -25,6 +26,9 @@ export default function OtherModal({
             numberOfReplies={numberOfReplies}
             setNumberOfReplies={setNumberOfReplies}
           />
+        )}
+        {modalState === "Tweet" && (
+          <UpdateTweet setModalState={setModalState} post={data} />
         )}
       </div>
     </div>
