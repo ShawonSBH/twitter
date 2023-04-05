@@ -1,21 +1,70 @@
 import { EllipsisHorizontalIcon } from "@heroicons/react/24/outline";
 import styles from "../src/styles/PostOwnerControl.module.css";
 import OtherModal from "./OtherModal";
+import { useState } from "react";
+import { useRouter } from "next/router";
 
 export default function PostOwnerControl({ post, modalState, setModalState }) {
+  const [deleteConfirmMessage, setDeleteConfirmMessage] = useState(false);
+  const router = useRouter();
+
+  const handleDelete = async () => {
+    try {
+      const res = await fetch(`/api/posts/${post._id}`, {
+        method: "DELETE",
+      });
+      const data = await res.json();
+      if (data.success) {
+        setDeleteConfirmMessage(false);
+        router.push("/");
+      } else {
+        alert(`Something went wrong`);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+    setDeleteConfirmMessage(false);
+  };
+
   return (
     <div className={styles.box}>
       <div className={styles.container}>
         <h2>Post Options</h2>
-        <button
-          className={`${styles.button} ${styles.update}`}
-          onClick={() => setModalState("Tweet")}
-        >
-          Update Post
-        </button>
-        <button className={`${styles.button} ${styles.delete}`}>
-          Delete Post
-        </button>
+        {deleteConfirmMessage ? (
+          <>
+            <p style={{ fontSize: "0.95rem", color: "red" }}>
+              Are you sure you want to delete this Post? Once Deleted it cannot
+              be recovered.
+            </p>
+            <button
+              className={`${styles.button} ${styles.delete}`}
+              onClick={handleDelete}
+            >
+              Yes
+            </button>
+            <button
+              className={`${styles.button} ${styles.update}`}
+              onClick={() => setDeleteConfirmMessage(false)}
+            >
+              No
+            </button>
+          </>
+        ) : (
+          <>
+            <button
+              className={`${styles.button} ${styles.update}`}
+              onClick={() => setModalState("Tweet")}
+            >
+              Update Post
+            </button>
+            <button
+              className={`${styles.button} ${styles.delete}`}
+              onClick={() => setDeleteConfirmMessage(true)}
+            >
+              Delete Post
+            </button>
+          </>
+        )}
       </div>
       <div className={styles.additionalContent}>
         <div className={styles.row}>

@@ -103,7 +103,7 @@ export default function UpdateTweet({ post, setModalState }) {
             <div className={loaderStyles.loader}></div>
           ) : (
             <button className={styles.tweetButton} onClick={tweetPost}>
-              Tweet
+              Update
             </button>
           )}
         </div>

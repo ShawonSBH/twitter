@@ -16,7 +16,7 @@ export default function SinglePost({ post }) {
     <div className={styles.container}>
       <Sidebar />
       <Postview post={post} />
-      {session?.user.id === post.createdBy._id && (
+      {session?.user.id === post?.createdBy._id && (
         <PostOwnerControl
           post={post}
           modalState={modalState}

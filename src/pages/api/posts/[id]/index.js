@@ -1,9 +1,11 @@
 import Posts from "@/models/Posts";
+import Reacts from "@/models/Reacts";
 import connectMongo from "@/utils/db";
 import { DELETE, GET, PUT } from "@/utils/reqMethods";
 import { getServerSession } from "next-auth";
 import { authOptions } from "../../auth/[...nextauth]";
 import { parseForm } from "..";
+import Comments from "@/models/Comments";
 
 export const config = {
   api: {
@@ -17,7 +19,10 @@ const deletePost = async (req, res, userData) => {
   console.log(userData);
   try {
     const post = await Posts.findById(id);
-    if (session.user.id === post.createdBy) {
+    if (userData.id === post.createdBy.toString()) {
+      await Reacts.deleteMany({ postLink: post._id });
+      await Comments.deleteMany({ postLink: post._id });
+      //post.comments?.forEach(comment);
       await post.deleteOne();
       res.status(200).json({
         success: true,
