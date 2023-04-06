@@ -45,8 +45,6 @@ export const authOptions = {
       session.user.username = token.username;
       session.user.email = token.email;
       session.user.profilePicture = token.profilePicture;
-      // session.user.isComplete = token.isComplete;
-      // session.user.accessToken = token.accessToken;
       return session;
     },
     async jwt({ token, user, account, profile, isNewUser }) {
@@ -58,11 +56,6 @@ export const authOptions = {
         token.username = user.username;
         token.email = user.email;
         token.profilePicture = user.profilePicture;
-        // token.isComplete = user?.isComplete || false;
-        // token.accessToken = user?.accessToken || "";
-      }
-      if (account) {
-        // token.accessToken = account.access_token;
       }
       return token;
     },
