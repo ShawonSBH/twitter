@@ -39,7 +39,6 @@ export default function Edit({ setModalState, comment, setCommentContent }) {
         <textarea
           onChange={(e) => {
             setContent(e.target.value);
-            console.log(comment.content, content);
           }}
           value={content}
           placeholder="What's happening?"

@@ -51,6 +51,8 @@ export const authOptions = {
     },
     async jwt({ token, user, account, profile, isNewUser }) {
       if (user) {
+        const user = await Users.findOne({ email: token.email });
+        console.log(user);
         token.id = user._id;
         token.name = user.name;
         token.username = user.username;
@@ -64,22 +66,22 @@ export const authOptions = {
       }
       return token;
     },
-    // async signIn({ user, account }) {
-    //   // UserDB.create()
-    //   await connectMongo();
-    //   const { email, name, image } = user;
-    //   const existingUser = await getUserByEmail(email);
-    //   if (existingUser) {
-    //     return true;
-    //   }
-    //   const newUser = await Users.create({
-    //     name,
-    //     username: user.email.split("@")[1],
-    //     email,
-    //     profilePicture: image,
-    //   });
-    //   return true;
-    // },
+    async signIn({ user, account }) {
+      await connectMongo();
+      const { email, name, image } = user;
+      const existingUser = await Users.findOne({ email });
+      //console.log(existingUser);
+      if (existingUser) {
+        return true;
+      }
+      const newUser = await Users.create({
+        name,
+        username: user.email.split("@")[0],
+        email,
+        profilePicture: image,
+      });
+      return true;
+    },
   },
   secret: process.env.NEXTAUTH_SECRET,
 };

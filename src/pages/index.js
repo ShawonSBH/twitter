@@ -48,6 +48,7 @@ export async function getServerSideProps(context) {
   const data = await postResponse.json();
   if (session?.user) {
     const userID = session.user.id;
+    console.log(session.user);
     const likedPostsResponse = await fetch(
       `http://localhost:3000/api/users/${userID}/liked`
     );

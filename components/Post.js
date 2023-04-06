@@ -105,10 +105,6 @@ export default function Post({ post, setPosts, liked }) {
             <ChatBubbleOvalLeftEllipsisIcon className={styles.icon} />
             <p>{numberOfComments}</p>
           </div>
-          {/* <div className={styles.reactions} onClick={handleReact}>
-            <HeartIcon className={styles.icon} />
-            <p>{post.likes.length}</p>
-          </div> */}
           {isLiked ? (
             <div className={styles.liked} onClick={handleReact}>
               <LikedHeartIcon postView={"Feed"} />

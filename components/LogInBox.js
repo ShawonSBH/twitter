@@ -10,7 +10,10 @@ export default function LogInBox() {
     <div className={styles.container}>
       <h3>New to Twitter?</h3>
       <p>Sign up now to get your own personalized timeline!</p>
-      <div className={styles.logInButton} onClick={() => signIn("github")}>
+      <div
+        className={styles.logInButton}
+        onClick={async () => await signIn("github")}
+      >
         <img className={styles.btnImage} src="/social.png" />
         Sign In With Github!
       </div>
