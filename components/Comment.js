@@ -21,6 +21,7 @@ export default function Comment({ comment }) {
   const [modalState, setModalState] = useState("");
   const router = useRouter();
   const { data: session } = useSession();
+  const [commentContent, setCommentContent] = useState(comment?.content);
   const { postID } = router.query;
 
   const handleDelete = async (event) => {
@@ -55,7 +56,7 @@ export default function Comment({ comment }) {
           <div className={styles.dot}></div>
           <p>{timeago}</p>
         </div>
-        <div className={styles.postText}>{comment?.content}</div>
+        <div className={styles.postText}>{commentContent}</div>
         <div className={styles.infos}>
           <div
             className={styles.comments}
@@ -92,6 +93,7 @@ export default function Comment({ comment }) {
           data={comment}
           numberOfReplies={numberOfReplies}
           setNumberOfReplies={setNumberOfReplies}
+          setCommentContent={setCommentContent}
         />
       )}
     </div>

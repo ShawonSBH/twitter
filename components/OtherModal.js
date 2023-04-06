@@ -1,4 +1,5 @@
 import styles from "../src/styles/Modal.module.css";
+import Edit from "./Edit";
 import Reply from "./Reply";
 import UpdateForm from "./UpdateForm";
 import UpdateTweet from "./UpdateTweet";
@@ -9,6 +10,7 @@ export default function OtherModal({
   data,
   numberOfReplies,
   setNumberOfReplies,
+  setCommentContent,
 }) {
   return (
     <div className={styles.modalPage}>
@@ -18,6 +20,13 @@ export default function OtherModal({
         </span>
         {modalState === "Update" && (
           <UpdateForm setModalState={setModalState} user={data} />
+        )}
+        {modalState === "Edit" && (
+          <Edit
+            setModalState={setModalState}
+            comment={data}
+            setCommentContent={setCommentContent}
+          />
         )}
         {modalState === "Reply" && (
           <Reply
