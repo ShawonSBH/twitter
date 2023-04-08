@@ -33,8 +33,6 @@ export default function PostDetails({ post, numberOfComments }) {
           setNumberOfLikes(numberOfLikes + 1);
         }
         setIsLiked(!isLiked);
-      } else {
-        alert("Something Went Wrong");
       }
     } else {
       setModalState({

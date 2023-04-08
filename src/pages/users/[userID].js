@@ -17,6 +17,8 @@ export default function ProfilePage({ user, posts, liked }) {
   const [selectedOption, setSelectedOption] = useState("tweets");
   const { data: session } = useSession();
 
+  console.log(user);
+
   return (
     <div className={styles.container}>
       <Sidebar />

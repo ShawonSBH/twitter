@@ -17,8 +17,6 @@ export default function PostOwnerControl({ post, modalState, setModalState }) {
       if (data.success) {
         setDeleteConfirmMessage(false);
         router.push("/");
-      } else {
-        alert(`Something went wrong`);
       }
     } catch (err) {
       console.log(err);

@@ -154,3 +154,9 @@
   /* background-color: rgba(255,105,180,0.2); */
   background-color: rgba(255, 20, 147, 0.1);
 }
+
+.optionsIcon {
+  width: 16px;
+  align-self: flex-start;
+  margin-left: auto;
+}

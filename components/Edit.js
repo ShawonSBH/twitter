@@ -22,14 +22,12 @@ export default function Edit({ setModalState, comment, setCommentContent }) {
       const result = res.data;
       setIsLoading(false);
       if (result.success) {
-        alert(`${result.comment.content}`);
+        //alert(`${result.comment.content}`);
         setCommentContent(result.comment.content);
-      } else {
-        alert(result.error);
       }
       setModalState("");
     } else {
-      alert("You need to change something if you want to edit the comment");
+      //alert("You need to change something if you want to edit the comment");
     }
   };
 

@@ -22,11 +22,6 @@ export default function CommentBox() {
 
     const result = await res.data;
     setContent("");
-    if (!result.success) {
-      alert("Something went wrong");
-    } else {
-      console.log(result);
-    }
     router.push(`/posts/${postID}`);
     setModalState({});
   };

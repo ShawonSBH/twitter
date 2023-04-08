@@ -36,8 +36,6 @@ export default function Postview({ post }) {
     if (result.success) {
       setComments([result.data, ...comments]);
       setNumberOfComments(numberOfComments + 1);
-    } else {
-      alert(`Something went wrong`);
     }
   };
 

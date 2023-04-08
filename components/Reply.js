@@ -26,11 +26,8 @@ export default function Reply({
     const result = await res.data;
     setIsLoading(false);
     if (result.success) {
-      alert(`${result.data.content}`);
       setModalState("");
       setNumberOfReplies(numberOfReplies + 1);
-    } else {
-      alert("Something went wrong");
     }
   };
 

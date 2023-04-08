@@ -16,6 +16,7 @@ export default function Home({
   newsResults,
   postResults,
   likedResults,
+  tweetResults,
 }) {
   const { modalState } = useContext(ModalContext);
   const { data: session } = useSession();
@@ -29,7 +30,7 @@ export default function Home({
       </Head>
       <main className={styles.main}>
         <Sidebar />
-        <Feed posts={postResults} liked={likedResults} />
+        <Feed tweets={tweetResults} posts={postResults} liked={likedResults} />
         <Widgets userResults={userResults} newsResults={newsResults} />
         {modalState.state && <Modal />}
         {!session && <AuthBottomBar />}
@@ -42,6 +43,8 @@ export async function getServerSideProps(context) {
   const session = await getServerSession(context.req, context.res, authOptions);
   let likedResults;
   const postResponse = await fetch("http://localhost:3000/api/posts");
+  const tweetResponse = await fetch("http://localhost:3000/api/tweets");
+  const tweets = await tweetResponse.json();
 
   // setPosts(data.posts);
 
@@ -65,12 +68,14 @@ export async function getServerSideProps(context) {
         newsResults: newsResults.articles,
         postResults: data.posts,
         likedResults: likedResults.data,
+        tweetResults: tweets.tweets,
       },
     };
   } else {
     return {
       props: {
         postResults: data.posts,
+        tweetResults: tweets.tweets,
       },
     };
   }

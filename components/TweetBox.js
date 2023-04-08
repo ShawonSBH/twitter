@@ -22,8 +22,9 @@ export default function TweetBox({ posts, setPosts }) {
       const formData = new FormData();
       formData.append("content", content);
       formData.append("image", selectedImage);
+      formData.append("typeOfTweet", "Original");
       try {
-        const res = await fetch("/api/posts", {
+        const res = await fetch("/api/tweets", {
           method: "POST",
           body: formData,
         });
@@ -34,15 +35,13 @@ export default function TweetBox({ posts, setPosts }) {
         setImageUrl(null);
         setIsLoading(false);
         if (data.success) {
-          setPosts([data.post, ...posts]);
-        } else {
-          alert("Something went wrong");
+          setPosts([data.tweet, ...posts]);
         }
       } catch (error) {
         console.log(error);
       }
     } else {
-      alert("Tweet needs at least an image or some text");
+      //alert("Tweet needs at least an image or some text");
     }
   };
 

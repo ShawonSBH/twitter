@@ -33,11 +33,6 @@ export default function Comment({ comment }) {
       }
     );
     const response = await res.json();
-    if (response.success) {
-      alert(response.message);
-    } else {
-      alert("Something went wrong");
-    }
   };
 
   return (

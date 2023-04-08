@@ -47,7 +47,7 @@ export default function SignUp() {
       age--;
     }
     if (age < 13) {
-      alert("You must be at least 13 years old to sign up.");
+      //alert("You must be at least 13 years old to sign up.");
     } else {
       setIsLoading(true);
       const data = await sendSignUpRequest(date);
@@ -57,8 +57,6 @@ export default function SignUp() {
           email: userData.email,
           password: userData.password,
         });
-      } else {
-        alert("Something went very wrong!!!");
       }
       // setModalState({});
     }

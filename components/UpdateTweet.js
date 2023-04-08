@@ -39,7 +39,7 @@ export default function UpdateTweet({ post, setModalState }) {
         console.log(error);
       }
     } else {
-      alert("Tweet needs at least an image or some text");
+      //alert("Tweet needs at least an image or some text");
     }
     setModalState("");
   };

@@ -31,16 +31,9 @@ export default function UpdateForm({ setModalState, user }) {
         setSelectedImage(null);
         setImageUrl(null);
         setIsLoading(false);
-        if (data.success) {
-          alert("Profile Updated Successfully");
-        } else {
-          alert("Something went wrong");
-        }
       } catch (error) {
         console.log(error);
       }
-    } else {
-      alert(`Nothing has changed`);
     }
     setIsLoading(false);
     setModalState("");
