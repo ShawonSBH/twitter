@@ -9,40 +9,74 @@ import { useContext, useEffect, useState } from "react";
 import styles from "../src/styles/TweetBox.module.css";
 import loaderStyles from "../src/styles/Modal.module.css";
 
-export default function TweetBox({ posts, setPosts }) {
+export default function TweetBox({ tweets, setTweets }) {
   const { data: session } = useSession();
   const [content, setContent] = useState("");
   const [selectedImage, setSelectedImage] = useState(null);
   const [imageUrl, setImageUrl] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const { modalState, setModalState } = useContext(ModalContext);
 
   const tweetPost = async () => {
-    if (content || selectedImage) {
-      setIsLoading(true);
-      const formData = new FormData();
-      formData.append("content", content);
-      formData.append("image", selectedImage);
-      formData.append("typeOfTweet", "Original");
-      try {
-        const res = await fetch("/api/tweets", {
-          method: "POST",
-          body: formData,
-        });
-        const data = await res.json();
-        console.log(data);
-        setContent("");
-        setSelectedImage(null);
-        setImageUrl(null);
-        setIsLoading(false);
-        if (data.success) {
-          setPosts([data.tweet, ...posts]);
-        }
-      } catch (error) {
-        console.log(error);
-      }
+    console.log(modalState);
+    if (modalState.operation === "Edit") {
+      // setIsLoading(true);
+      // const formData = new FormData();
+      // formData.append("content", content);
+      // formData.append("image", selectedImage);
+      // formData.append("imageUrl", imageUrl);
+      // try {
+      //   const res = await fetch(`/api/tweets/${modalState.tweet._id}`, {
+      //     method: "PUT",
+      //     body: formData,
+      //   });
+      //   const data = await res.json();
+      //   console.log(data);
+      //   setContent("");
+      //   setSelectedImage(null);
+      //   setImageUrl(null);
+      //   setIsLoading(false);
+      //   if (data.success) {
+      //     modalState.setTweetContent({
+      //       content: data.tweet.content,
+      //       image: data.tweet.image,
+      //     });
+      //   }
+      // } catch (error) {
+      //   console.log(error);
+      // }
     } else {
-      //alert("Tweet needs at least an image or some text");
+      if (content || selectedImage) {
+        setIsLoading(true);
+        const formData = new FormData();
+        formData.append("content", content);
+        formData.append("image", selectedImage);
+        formData.append("typeOfTweet", "Original");
+        try {
+          const res = await fetch("/api/tweets", {
+            method: "POST",
+            body: formData,
+          });
+          const data = await res.json();
+          console.log(data);
+          setContent("");
+          setSelectedImage(null);
+          setImageUrl(null);
+          setIsLoading(false);
+          if (data.success) {
+            setTweets([data.tweet, ...tweets]);
+            if (modalState.state === "Tweet") {
+              setModalState({});
+            }
+          }
+        } catch (error) {
+          console.log(error);
+        }
+      } else {
+        //alert("Tweet needs at least an image or some text");
+      }
     }
+    setModalState({});
   };
 
   return (

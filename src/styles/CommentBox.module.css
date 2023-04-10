@@ -5,6 +5,13 @@
   padding: 0.75rem;
 }
 
+.profilePic {
+  margin-right: 1rem;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 50%;
+}
+
 .postBox {
   display: flex;
   flex-direction: column;
@@ -13,7 +20,7 @@
 }
 
 .postBox textarea {
-  width: 30rem;
+  width: 20rem;
   padding: 5px;
   outline: none;
   border: none;

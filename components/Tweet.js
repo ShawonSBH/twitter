@@ -15,7 +15,7 @@ import TweetComment from "./TweetComment";
 import axios from "axios";
 import LikedHeartIcon from "./LikedHeartIcon";
 
-export default function Tweet({ tweet, setTweets }) {
+export default function Tweet({ tweet, tweets, setTweets }) {
   const timeago = formatDistanceToNow(new Date(tweet.createdAt));
 
   const { setModalState } = useContext(ModalContext);
@@ -23,6 +23,7 @@ export default function Tweet({ tweet, setTweets }) {
 
   const { data: session } = useSession();
   const [isLiked, setIsLiked] = useState(false);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   useEffect(() => {
     // Update isLiked state when session object changes
@@ -42,6 +43,9 @@ export default function Tweet({ tweet, setTweets }) {
     tweet.numberOfRetweets
   );
 
+  const [tweetContent, setTweetContent] = useState(tweet.content);
+  const [tweetImage, setTweetImage] = useState(tweet.image);
+
   const [comments, setComments] = useState(tweet.comments);
 
   // useEffect(() => {
@@ -54,8 +58,10 @@ export default function Tweet({ tweet, setTweets }) {
       setModalState({
         state: "Comment",
         data: tweet,
-        setComments,
-        comments,
+        setFunction: setComments,
+        parameter: comments,
+        setNumberOfComments,
+        numberOfComments,
       });
     } else {
       setModalState({
@@ -79,6 +85,28 @@ export default function Tweet({ tweet, setTweets }) {
         state: "LogIn",
       });
     }
+  };
+
+  const handleEdit = async () => {
+    setModalState({
+      state: "Edit Tweet",
+      tweet,
+      setTweetContent,
+      setTweetImage,
+      tweetContent,
+      tweetImage,
+    });
+    setIsDropdownOpen(!isDropdownOpen);
+  };
+
+  const handleDelete = async () => {
+    setModalState({
+      state: "Delete",
+      tweet,
+      setTweets,
+      tweets,
+    });
+    setIsDropdownOpen(!isDropdownOpen);
   };
 
   const react = async () => {
@@ -108,8 +136,8 @@ export default function Tweet({ tweet, setTweets }) {
           <div className={styles.dot}></div>
           <p>{timeago}</p>
         </div>
-        <div className={styles.postText}>{tweet.content}</div>
-        {tweet.image && <img className={styles.postPic} src={tweet.image} />}
+        <div className={styles.postText}>{tweetContent}</div>
+        {tweetImage && <img className={styles.postPic} src={tweetImage} />}
         <div className={styles.infos}>
           <div className={styles.comments} onClick={handleComment}>
             <ChatBubbleOvalLeftIcon className={styles.icon} />
@@ -136,11 +164,42 @@ export default function Tweet({ tweet, setTweets }) {
           </div>
         </div>
         {comments.map((comment) => (
-          <TweetComment comment={comment} key={comment._id} />
+          <TweetComment
+            comment={comment}
+            key={comment._id}
+            comments={comments}
+            setComments={setComments}
+            totalNumberOfComments={numberOfComments}
+            setTotalNumberOfComments={setNumberOfComments}
+          />
         ))}
       </div>
       {session?.user.id === tweet.createdBy._id && (
-        <EllipsisVerticalIcon className={styles.optionsIcon} />
+        <div className={styles.optionsMenu}>
+          <EllipsisVerticalIcon
+            className={styles.optionsIcon}
+            onClick={() => {
+              console.log(isDropdownOpen);
+              setIsDropdownOpen(!isDropdownOpen);
+            }}
+          />
+          {isDropdownOpen && (
+            <ul className={styles.dropdownMenu}>
+              <li
+                className={`${styles.dropdownMenuItem} ${styles.update}`}
+                onClick={handleEdit}
+              >
+                Edit
+              </li>
+              <li
+                className={`${styles.dropdownMenuItem} ${styles.deleteOption}`}
+                onClick={handleDelete}
+              >
+                Delete
+              </li>
+            </ul>
+          )}
+        </div>
       )}
     </div>
   );

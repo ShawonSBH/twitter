@@ -1,7 +1,7 @@
 .comment {
   display: flex;
   height: fit-content;
-  padding: 0.75rem;
+  padding: 0.5rem;
   border-bottom: 1px solid #eff3f4;
 }
 
@@ -16,7 +16,7 @@
 }
 
 .headerContents h4 {
-  width: 10rem;
+  max-width: 10rem;
   font-size: 1rem;
   margin-right: 0.25rem;
   overflow: hidden;
@@ -40,7 +40,7 @@
 }
 
 .comment:hover {
-  background-color: rgba(33, 33, 33, 0.2);
+  background-color: rgba(231, 235, 232, 0.2);
   cursor: pointer;
 }
 

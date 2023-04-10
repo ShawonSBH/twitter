@@ -1,0 +1,48 @@
+.box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  text-align: center;
+}
+
+.dangerIcon {
+  width: 4rem;
+  color: red;
+}
+
+.box p {
+  font-size: 0.95rem;
+  max-width: 17rem;
+  padding: 0.5rem;
+  color: gray;
+}
+
+.button {
+  padding: 0.25rem 0.5rem;
+  width: 15rem;
+  border-radius: 2rem;
+  border: none;
+  font-size: 1rem;
+}
+
+.delete {
+  color: red;
+}
+
+.button:hover {
+  cursor: pointer;
+}
+
+.update {
+  color: #1d9bf0;
+  margin-bottom: 0.5rem;
+}
+
+.delete:hover {
+  background-color: rgba(148, 16, 16, 0.2);
+}
+
+.update:hover {
+  background-color: rgba(95, 175, 228, 0.2);
+}

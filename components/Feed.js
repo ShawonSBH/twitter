@@ -27,7 +27,7 @@ export default function Feed({ tweets, posts, liked }) {
         <h2>Home</h2>
       </div>
       {session && (
-        <TweetBox posts={fetchedTweets} setPosts={setFetchedTweets} />
+        <TweetBox tweets={fetchedTweets} setTweets={setFetchedTweets} />
       )}
       {fetchedPosts.map((post) => (
         <Post
@@ -38,7 +38,12 @@ export default function Feed({ tweets, posts, liked }) {
         />
       ))}
       {fetchedTweets.map((tweet) => (
-        <Tweet key={tweet._id} tweet={tweet} setTweets={setFetchedTweets} />
+        <Tweet
+          key={tweet._id}
+          tweet={tweet}
+          tweets={fetchedTweets}
+          setTweets={setFetchedTweets}
+        />
       ))}
     </div>
   );

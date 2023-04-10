@@ -5,7 +5,7 @@ import { useState } from "react";
 import { useRouter } from "next/router";
 
 export default function PostOwnerControl({ post, modalState, setModalState }) {
-  const [deleteConfirmMessage, setDeleteConfirmMessage] = useState(false);
+  const [deleteConfirmMessage, setDeleteConfirmMessage] = useState(true);
   const router = useRouter();
 
   const handleDelete = async () => {

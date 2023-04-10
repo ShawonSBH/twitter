@@ -62,7 +62,7 @@ const createPost = async (req, res, session) => {
 };
 
 const updateComment = async (req, res, userData) => {
-  console.log("Create Posts Hit");
+  console.log("Update Comments Hit");
   try {
     // const { fields, files } = await parseForm(req);
     // console.log(fields);
@@ -72,21 +72,15 @@ const updateComment = async (req, res, userData) => {
     // const originalTweetLink = fields.originalTweetLink;
 
     //console.log(image, content);
-    const { content, typeOfTweet, originalTweetLink } = req.body;
+    const { content, commentID } = req.body;
 
-    const createdComment = await Tweets.create({
-      content,
-      typeOfTweet,
-      originalTweetLink,
-      createdBy: userData.id,
-    });
+    const existingComment = await Tweets.findById(commentID);
 
-    await Tweets.updateOne(
-      { _id: originalTweetLink },
-      { $push: { comments: createdComment._id } }
-    );
+    existingComment.content = content;
 
-    const comment = await createdComment.populate({
+    await existingComment.save();
+
+    const comment = await existingComment.populate({
       path: "createdBy",
       select: {
         _id: 1,

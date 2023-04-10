@@ -6,7 +6,7 @@
 }
 
 .post:hover {
-  background-color: rgba(33, 33, 33, 0.2);
+  background-color: rgba(231, 235, 232, 0.4);
   cursor: pointer;
 }
 
@@ -28,7 +28,7 @@
 }
 
 .headerContents h4 {
-  width: 15rem;
+  max-width: 20rem;
   font-size: 1rem;
   margin-right: 0.25rem;
   overflow: hidden;
@@ -103,6 +103,7 @@
 
 .retweets:hover {
   color: #19cf86;
+  fill: #19cf86;
 }
 
 .retweets:hover .icon {
@@ -179,8 +180,61 @@
   background-color: rgba(255, 20, 147, 0.1);
 }
 
-.optionsIcon {
-  width: 16px;
-  align-self: flex-start;
+.optionsMenu {
+  position: relative;
+  display: flex;
   margin-left: auto;
+}
+
+.optionsIcon {
+  width: 24px;
+  align-self: flex-start;
+  border-radius: 50%;
+  padding: 0.125rem;
+}
+
+.optionsIcon:hover {
+  background-color: rgba(33, 33, 33, 0.2);
+  cursor: pointer;
+}
+
+.dropdownMenu {
+  position: absolute;
+  top: 30px;
+  left: 5px;
+  z-index: 50;
+  background-color: #fff;
+  border-radius: 4px;
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.1);
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.dropdownMenuItem {
+  padding: 10px 16px;
+  font-size: 14px;
+  color: #1c2938;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.dropdownMenuItem:hover {
+  background-color: #f5f8fa;
+}
+
+.update {
+  color: #1d9bf0;
+}
+
+.deleteOption {
+  color: red;
+}
+
+.deleteOption:hover {
+  background-color: rgba(148, 16, 16, 0.2);
+}
+
+.update:hover {
+  background-color: rgba(95, 175, 228, 0.2);
 }

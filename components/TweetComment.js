@@ -12,8 +12,15 @@ import { TrashIcon } from "@heroicons/react/24/outline";
 import { useSession } from "next-auth/react";
 import { DELETE } from "@/utils/reqMethods";
 import { ModalContext } from "@/pages/_app";
+import axios from "axios";
 
-export default function TweetComment({ comment }) {
+export default function TweetComment({
+  comment,
+  comments,
+  setComments,
+  totalNumberOfComments,
+  setTotalNumberOfComments,
+}) {
   const timeago = formatDistanceToNow(new Date(comment.createdAt));
   const [numberOfReplies, setNumberOfReplies] = useState(
     comment.comments.length
@@ -25,26 +32,40 @@ export default function TweetComment({ comment }) {
   const [commentContent, setCommentContent] = useState(comment?.content);
 
   const [replies, setReplies] = useState(comment?.comments);
-  //   const handleDelete = async (event) => {
-  //     event.stopPropagation();
-  //     const res = await fetch(
-  //       `/api/posts/${comment.postLink}/comment/${comment._id}`,
-  //       {
-  //         method: DELETE,
-  //       }
-  //     );
-  //     const response = await res.json();
-  //   };
 
-  const handleComment = async (event) => {
-    event.stopPropagation();
+  const handleDelete = async () => {
+    const res = await axios.delete(`/api/comment/${comment._id}`);
+    const response = await res.data;
+    if (response.success) {
+      const updatedComments = comments.filter(
+        (commentIterator) => commentIterator._id !== comment._id
+      );
+      setComments(updatedComments);
+      setTotalNumberOfComments(totalNumberOfComments - 1);
+    } else {
+      console.log("Something went wrong");
+    }
+  };
+
+  const handleComment = (operation) => {
     if (session) {
-      setModalState({
-        state: "Comment",
-        data: comment,
-        setComments: setReplies,
-        comments: replies,
-      });
+      if (operation === "Reply") {
+        setModalState({
+          state: "Comment",
+          data: comment,
+          setFunction: setReplies,
+          parameter: replies,
+          setNumberOfComments: setNumberOfReplies,
+          numberOfComments: numberOfReplies,
+        });
+      } else if (operation === "Edit") {
+        setModalState({
+          state: "Edit Comment",
+          data: comment,
+          setFunction: setCommentContent,
+          parameter: commentContent,
+        });
+      }
     } else {
       setModalState({
         state: "LogIn",
@@ -67,21 +88,21 @@ export default function TweetComment({ comment }) {
         </div>
         <div className={commentStyle.postText}>{commentContent}</div>
         <div className={styles.infos}>
-          <div className={styles.comments} onClick={handleComment}>
+          <div
+            className={styles.comments}
+            onClick={() => handleComment("Reply")}
+          >
             <ChatBubbleOvalLeftEllipsisIcon className={styles.icon} />
             <p>{numberOfReplies}</p>
           </div>
           {session?.user.id === comment.createdBy._id && (
             <>
               <div className={styles.delete}>
-                <TrashIcon className={styles.icon} />
+                <TrashIcon className={styles.icon} onClick={handleDelete} />
               </div>
               <div
                 className={styles.comments}
-                onClick={(event) => {
-                  event.stopPropagation();
-                  setModalState("Edit");
-                }}
+                onClick={() => handleComment("Edit")}
               >
                 <PencilSquareIcon className={styles.icon} />
               </div>
@@ -89,7 +110,14 @@ export default function TweetComment({ comment }) {
           )}
         </div>
         {replies.map((reply) => (
-          <TweetComment comment={reply} key={reply._id} />
+          <TweetComment
+            comment={reply}
+            key={reply._id}
+            comments={replies}
+            setComments={setReplies}
+            setTotalNumberOfComments={setNumberOfReplies}
+            totalNumberOfComments={numberOfReplies}
+          />
         ))}
       </div>
     </div>

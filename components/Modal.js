@@ -5,6 +5,9 @@ import CommentBox from "./CommentBox";
 import LogIn from "./LogIn";
 import SignUp from "./SignUp";
 import TweetBox from "./TweetBox";
+import TweetEditBox from "./TweetEditBox";
+import PostOwnerControl from "./PostOwnerControl";
+import DeleteModal from "./DeleteModal";
 
 export default function Modal() {
   const { modalState, setModalState } = useContext(ModalContext);
@@ -18,10 +21,13 @@ export default function Modal() {
         {modalState.state === "SignUp" && <SignUp />}
         {modalState.state === "LogIn" && <LogIn />}
         {modalState.state === "Tweet" && <TweetBox />}
-        {modalState.state === "Comment" && (
+        {modalState.state === "Delete" && <DeleteModal />}
+        {modalState.state === "Edit Tweet" && <TweetEditBox />}
+        {(modalState.state === "Edit Comment" ||
+          modalState.state === "Comment") && (
           <CommentBox
-            setComments={modalState.setComments}
-            comments={modalState.comments}
+            setFunction={modalState.setFunction}
+            parameter={modalState.parameter}
           />
         )}
       </div>
