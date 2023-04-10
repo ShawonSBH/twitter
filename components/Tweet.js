@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import styles from "../src/styles/Post.module.css";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { ModalContext } from "@/pages/_app";
 import { formatDistanceToNow } from "date-fns";
 import { useSession } from "next-auth/react";
@@ -9,6 +9,11 @@ import {
   EllipsisVerticalIcon,
   HeartIcon,
 } from "@heroicons/react/24/outline";
+import RetweetIcon from "./RetweetIcon";
+import { ChatBubbleOvalLeftIcon } from "@heroicons/react/24/outline";
+import TweetComment from "./TweetComment";
+import axios from "axios";
+import LikedHeartIcon from "./LikedHeartIcon";
 
 export default function Tweet({ tweet, setTweets }) {
   const timeago = formatDistanceToNow(new Date(tweet.createdAt));
@@ -17,57 +22,74 @@ export default function Tweet({ tweet, setTweets }) {
   const router = useRouter();
 
   const { data: session } = useSession();
-  //   const [isLiked, setIsLiked] = useState(
-  //     liked?.some((likedPost) => likedPost.postLink === tweet._id)
-  //   );
+  const [isLiked, setIsLiked] = useState(false);
+
+  useEffect(() => {
+    // Update isLiked state when session object changes
+    setIsLiked(
+      tweet.likes?.some(
+        (liker) => liker.toString() === session?.user.id.toString()
+      )
+    );
+    console.log(isLiked);
+  }, [session, tweet.likes]);
 
   const [numberOfLikes, setNumberOfLikes] = useState(tweet.likes.length);
   const [numberOfComments, setNumberOfComments] = useState(
     tweet.comments.length
   );
+  const [numberOfRetweets, setNumberOfRetweets] = useState(
+    tweet.numberOfRetweets
+  );
+
+  const [comments, setComments] = useState(tweet.comments);
 
   // useEffect(() => {
   //   console.log(post);
   // }, []);
 
   const handleComment = async (event) => {
-    // event.stopPropagation();
-    // if (session) {
-    //   setModalState({
-    //     state: "Comment",
-    //     data: post,
-    //   });
-    // } else {
-    //   setModalState({
-    //     state: "LogIn",
-    //   });
-    // }
+    event.stopPropagation();
+    if (session) {
+      setModalState({
+        state: "Comment",
+        data: tweet,
+        setComments,
+        comments,
+      });
+    } else {
+      setModalState({
+        state: "LogIn",
+      });
+    }
   };
 
   const handleReact = async (event) => {
-    // event.stopPropagation();
-    // if (session) {
-    //   await react();
-    //   if (isLiked) {
-    //     setNumberOfLikes(numberOfLikes - 1);
-    //   } else {
-    //     setNumberOfLikes(numberOfLikes + 1);
-    //   }
-    //   setIsLiked(!isLiked);
-    // } else {
-    //   setModalState({
-    //     state: "LogIn",
-    //   });
-    // }
+    event.stopPropagation();
+    if (session) {
+      await react();
+      if (isLiked) {
+        setNumberOfLikes(numberOfLikes - 1);
+      } else {
+        setNumberOfLikes(numberOfLikes + 1);
+      }
+      setIsLiked(!isLiked);
+    } else {
+      setModalState({
+        state: "LogIn",
+      });
+    }
   };
 
-  //   const react = async () => {
-  //     const res = await axios
-  //       .post(`/api/posts/${post._id}/react`)
-  //       .catch((err) => console.log(err));
+  const react = async () => {
+    const res = await axios
+      .post(`/api/react`, {
+        tweetID: tweet._id,
+      })
+      .catch((err) => console.log(err));
 
-  //     console.log(res);
-  //   };
+    console.log(res);
+  };
 
   return (
     <div className={styles.post}>
@@ -90,14 +112,10 @@ export default function Tweet({ tweet, setTweets }) {
         {tweet.image && <img className={styles.postPic} src={tweet.image} />}
         <div className={styles.infos}>
           <div className={styles.comments} onClick={handleComment}>
-            <ChatBubbleOvalLeftEllipsisIcon className={styles.icon} />
+            <ChatBubbleOvalLeftIcon className={styles.icon} />
             <p>{numberOfComments}</p>
           </div>
-          <div className={styles.reactions} onClick={handleReact}>
-            <HeartIcon className={styles.icon} />
-            <p>{numberOfLikes}</p>
-          </div>
-          {/* {isLiked ? (
+          {isLiked ? (
             <div className={styles.liked} onClick={handleReact}>
               <LikedHeartIcon postView={"Feed"} />
               <p>{numberOfLikes}</p>
@@ -107,8 +125,19 @@ export default function Tweet({ tweet, setTweets }) {
               <HeartIcon className={styles.icon} />
               <p>{numberOfLikes}</p>
             </div>
-          )} */}
+          )}
+          {/* <div className={styles.reactions} onClick={handleReact}>
+            <HeartIcon className={styles.icon} />
+            <p>{numberOfLikes}</p>
+          </div> */}
+          <div className={styles.retweets} onClick={handleReact}>
+            <RetweetIcon className={styles.icon} />
+            <p>{numberOfRetweets}</p>
+          </div>
         </div>
+        {comments.map((comment) => (
+          <TweetComment comment={comment} key={comment._id} />
+        ))}
       </div>
       {session?.user.id === tweet.createdBy._id && (
         <EllipsisVerticalIcon className={styles.optionsIcon} />

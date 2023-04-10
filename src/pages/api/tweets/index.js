@@ -72,7 +72,7 @@ const createTweet = async (req, res, session) => {
 
 const getAllTweets = async (req, res) => {
   try {
-    const tweets = await Tweets.find({})
+    const tweets = await Tweets.find({ typeOfTweet: { $ne: "Comment" } })
       .sort({ createdAt: -1 })
       .populate({
         path: "createdBy",
@@ -83,6 +83,36 @@ const getAllTweets = async (req, res) => {
           email: 1,
           profilePicture: 1,
         },
+      })
+      .populate({
+        path: "comments",
+        options: { sort: { createdAt: -1 } },
+        populate: [
+          {
+            path: "createdBy",
+            select: {
+              _id: 1,
+              name: 1,
+              username: 1,
+              email: 1,
+              profilePicture: 1,
+            },
+          },
+          {
+            path: "comments",
+            options: { sort: { createdAt: -1 } },
+            populate: {
+              path: "createdBy",
+              select: {
+                _id: 1,
+                name: 1,
+                username: 1,
+                email: 1,
+                profilePicture: 1,
+              },
+            },
+          },
+        ],
       });
     // Tweets.sort(-1);
     res.status(200).json({

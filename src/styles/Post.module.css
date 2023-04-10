@@ -2,10 +2,7 @@
   display: flex;
   height: fit-content;
   padding: 0.75rem;
-  border: 1px solid #eff3f4;
-  border-top-style: none;
-  border-right-style: none;
-  border-left-style: none;
+  border-bottom: 1px solid #eff3f4;
 }
 
 .post:hover {
@@ -31,13 +28,20 @@
 }
 
 .headerContents h4 {
+  width: 15rem;
   font-size: 1rem;
   margin-right: 0.25rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .headerContents p {
   color: gray;
   font-size: 0.96rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .dot {
@@ -85,6 +89,26 @@
   color: #1d9bf0;
   border-radius: 50%;
   background-color: rgba(29, 155, 240, 0.2);
+}
+
+.retweets {
+  display: flex;
+  align-items: center;
+  margin-right: 1rem;
+}
+
+.retweets p {
+  font-size: 0.85rem;
+}
+
+.retweets:hover {
+  color: #19cf86;
+}
+
+.retweets:hover .icon {
+  color: #19cf86;
+  border-radius: 50%;
+  background-color: rgba(31, 205, 135, 0.2);
 }
 
 .delete {

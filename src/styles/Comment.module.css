@@ -2,10 +2,41 @@
   display: flex;
   height: fit-content;
   padding: 0.75rem;
-  border: 1px solid #eff3f4;
-  border-top-style: none;
-  border-right-style: none;
-  border-left-style: none;
+  border-bottom: 1px solid #eff3f4;
+}
+
+.postContents {
+  display: flex;
+  flex-direction: column;
+}
+
+.headerContents {
+  display: flex;
+  align-items: center;
+}
+
+.headerContents h4 {
+  width: 10rem;
+  font-size: 1rem;
+  margin-right: 0.25rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.headerContents p {
+  color: gray;
+  font-size: 0.96rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.postText {
+  max-width: 22rem;
+  font-size: 1rem;
+  margin-top: 0.5rem;
+  overflow-wrap: break-word;
 }
 
 .comment:hover {

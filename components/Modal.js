@@ -18,7 +18,12 @@ export default function Modal() {
         {modalState.state === "SignUp" && <SignUp />}
         {modalState.state === "LogIn" && <LogIn />}
         {modalState.state === "Tweet" && <TweetBox />}
-        {modalState.state === "Comment" && <CommentBox />}
+        {modalState.state === "Comment" && (
+          <CommentBox
+            setComments={modalState.setComments}
+            comments={modalState.comments}
+          />
+        )}
       </div>
     </div>
   );
