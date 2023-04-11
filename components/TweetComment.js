@@ -3,9 +3,10 @@ import commentStyle from "../src/styles/Comment.module.css";
 import { formatDistanceToNow } from "date-fns";
 import {
   ChatBubbleOvalLeftEllipsisIcon,
+  HeartIcon,
   PencilSquareIcon,
 } from "@heroicons/react/24/outline";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import OtherModal from "./OtherModal";
 import { TrashIcon } from "@heroicons/react/24/outline";
@@ -13,6 +14,7 @@ import { useSession } from "next-auth/react";
 import { DELETE } from "@/utils/reqMethods";
 import { ModalContext } from "@/pages/_app";
 import axios from "axios";
+import LikedHeartIcon from "./LikedHeartIcon";
 
 export default function TweetComment({
   comment,
@@ -30,8 +32,21 @@ export default function TweetComment({
   //const router = useRouter();
   const { data: session } = useSession();
   const [commentContent, setCommentContent] = useState(comment?.content);
+  const [numberOfLikes, setNumberOfLikes] = useState(comment.likes.length);
 
   const [replies, setReplies] = useState(comment?.comments);
+
+  const [isLiked, setIsLiked] = useState(false);
+
+  useEffect(() => {
+    // Update isLiked state when session object changes
+    setIsLiked(
+      comment.likes?.some(
+        (liker) => liker.toString() === session?.user.id.toString()
+      )
+    );
+    console.log(isLiked);
+  }, [session, comment.likes]);
 
   const handleDelete = async () => {
     const res = await axios.delete(`/api/comment/${comment._id}`);
@@ -73,6 +88,33 @@ export default function TweetComment({
     }
   };
 
+  const handleReact = async (event) => {
+    event.stopPropagation();
+    if (session) {
+      await react();
+      if (isLiked) {
+        setNumberOfLikes(numberOfLikes - 1);
+      } else {
+        setNumberOfLikes(numberOfLikes + 1);
+      }
+      setIsLiked(!isLiked);
+    } else {
+      setModalState({
+        state: "LogIn",
+      });
+    }
+  };
+
+  const react = async () => {
+    const res = await axios
+      .post(`/api/react`, {
+        tweetID: comment._id,
+      })
+      .catch((err) => console.log(err));
+
+    console.log(res);
+  };
+
   return (
     <div className={commentStyle.comment}>
       <img
@@ -95,6 +137,17 @@ export default function TweetComment({
             <ChatBubbleOvalLeftEllipsisIcon className={styles.icon} />
             <p>{numberOfReplies}</p>
           </div>
+          {isLiked ? (
+            <div className={styles.liked} onClick={handleReact}>
+              <LikedHeartIcon postView={"Feed"} />
+              <p>{numberOfLikes}</p>
+            </div>
+          ) : (
+            <div className={styles.reactions} onClick={handleReact}>
+              <HeartIcon className={styles.icon} />
+              <p>{numberOfLikes}</p>
+            </div>
+          )}
           {session?.user.id === comment.createdBy._id && (
             <>
               <div className={styles.delete}>

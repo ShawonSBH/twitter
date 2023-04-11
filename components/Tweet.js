@@ -32,7 +32,6 @@ export default function Tweet({ tweet, tweets, setTweets }) {
         (liker) => liker.toString() === session?.user.id.toString()
       )
     );
-    console.log(isLiked);
   }, [session, tweet.likes]);
 
   const [numberOfLikes, setNumberOfLikes] = useState(tweet.likes.length);
@@ -119,6 +118,24 @@ export default function Tweet({ tweet, tweets, setTweets }) {
     console.log(res);
   };
 
+  const handleRetweet = async () => {
+    if (session) {
+      const res = await axios
+        .post(`/api/tweets/${tweet._id}`)
+        .catch((err) => console.log(err));
+      const response = await res.data;
+      if (response.success) {
+        setTweets([response.tweet, ...tweets]);
+        setNumberOfRetweets(numberOfRetweets + 1);
+        //alert("success");
+      }
+    } else {
+      setModalState({
+        state: "LogIn",
+      });
+    }
+  };
+
   return (
     <div className={styles.post}>
       <img
@@ -158,7 +175,7 @@ export default function Tweet({ tweet, tweets, setTweets }) {
             <HeartIcon className={styles.icon} />
             <p>{numberOfLikes}</p>
           </div> */}
-          <div className={styles.retweets} onClick={handleReact}>
+          <div className={styles.retweets} onClick={handleRetweet}>
             <RetweetIcon className={styles.icon} />
             <p>{numberOfRetweets}</p>
           </div>

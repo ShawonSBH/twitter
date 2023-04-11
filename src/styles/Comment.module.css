@@ -2,7 +2,7 @@
   display: flex;
   height: fit-content;
   padding: 0.5rem;
-  border-bottom: 1px solid #eff3f4;
+  border: 1px solid #eff3f4;
 }
 
 .postContents {

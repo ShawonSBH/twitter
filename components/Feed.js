@@ -5,6 +5,7 @@ import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import Tweet from "./Tweet";
+import TweetShower from "./TweetShower";
 
 export default function Feed({ tweets, posts, liked }) {
   const { data: session } = useSession();
@@ -38,7 +39,7 @@ export default function Feed({ tweets, posts, liked }) {
         />
       ))}
       {fetchedTweets.map((tweet) => (
-        <Tweet
+        <TweetShower
           key={tweet._id}
           tweet={tweet}
           tweets={fetchedTweets}

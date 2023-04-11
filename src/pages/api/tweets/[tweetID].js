@@ -1,6 +1,6 @@
 import Tweets from "@/models/Tweets";
 import connectMongo from "@/utils/db";
-import { DELETE, PUT } from "@/utils/reqMethods";
+import { DELETE, POST, PUT } from "@/utils/reqMethods";
 import { getServerSession } from "next-auth";
 import { authOptions } from "../auth/[...nextauth]";
 import path from "path";
@@ -60,6 +60,70 @@ const updateTweet = async (req, res, userData) => {
   }
 };
 
+const retweet = async (req, res, userData) => {
+  try {
+    const { tweetID } = req.query;
+    let existingTweet = await Tweets.findById(tweetID);
+
+    if (existingTweet.typeOfTweet !== "Original") {
+      existingTweet = await Tweets.findById(existingTweet.originalTweetLink);
+    }
+    //console.log(existingTweet);
+
+    const newTweet = await Tweets.create({
+      image: existingTweet.image,
+      content: existingTweet.content,
+      typeOfTweet: "Retweet",
+      createdBy: userData.id,
+      comments: existingTweet.comments,
+      likes: existingTweet.likes,
+      originalTweetLink: existingTweet._id,
+    });
+
+    existingTweet.numberOfRetweets = existingTweet.numberOfRetweets + 1;
+
+    await existingTweet.save();
+
+    const prevTweet = await newTweet.populate({
+      path: "createdBy",
+      select: {
+        _id: 1,
+        name: 1,
+        username: 1,
+        email: 1,
+        profilePicture: 1,
+      },
+    });
+
+    const tweet = await prevTweet.populate({
+      path: "originalTweetLink",
+      select: {
+        createdBy: 1,
+        comments: 1,
+        likes: 1,
+        numberOfRetweets: 1,
+      },
+      populate: {
+        path: "createdBy",
+        select: {
+          _id: 1,
+          name: 1,
+          username: 1,
+          email: 1,
+          profilePicture: 1,
+        },
+      },
+    });
+
+    res.status(201).json({
+      success: true,
+      tweet,
+    });
+  } catch (error) {
+    res.status(400).json({ success: false, error: error.message });
+  }
+};
+
 const deleteTweet = async (req, res, userData) => {
   try {
     const { tweetID } = req.query;
@@ -82,6 +146,9 @@ export default async function handler(req, res) {
   const session = await getServerSession(req, res, authOptions);
 
   switch (req.method) {
+    case POST:
+      await retweet(req, res, session.user);
+      break;
     case PUT:
       await updateTweet(req, res, session.user);
       break;

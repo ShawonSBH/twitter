@@ -4,6 +4,7 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import { POST } from "@/utils/reqMethods";
 import connectMongo from "@/utils/db";
 import Users from "@/models/Users";
+import { getToken } from "next-auth/jwt";
 
 export const authOptions = {
   session: {
@@ -21,6 +22,10 @@ export const authOptions = {
       name: "Credentials",
       credentials: {},
       async authorize(credentials, req) {
+        console.log(credentials);
+        // if (!credentials.email) {
+        //   const token = await getToken({req});
+        // } else {
         const res = await fetch("http://localhost:3000/api/users/login", {
           method: POST,
           body: JSON.stringify(credentials),
@@ -32,6 +37,7 @@ export const authOptions = {
         } else {
           return null;
         }
+        //}
       },
     }),
   ],

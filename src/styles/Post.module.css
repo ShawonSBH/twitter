@@ -238,3 +238,8 @@
 .update:hover {
   background-color: rgba(95, 175, 228, 0.2);
 }
+
+.retweetLit {
+  color: #19cf86;
+  fill: #19cf86;
+}
