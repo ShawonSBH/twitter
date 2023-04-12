@@ -63,47 +63,39 @@ const updateTweet = async (req, res, userData) => {
 const retweet = async (req, res, userData) => {
   try {
     const { tweetID } = req.query;
+
     let existingTweet = await Tweets.findById(tweetID);
 
-    if (existingTweet.typeOfTweet !== "Original") {
+    if (existingTweet.typeOfTweet === "Retweet") {
       existingTweet = await Tweets.findById(existingTweet.originalTweetLink);
     }
-    //console.log(existingTweet);
 
-    const newTweet = await Tweets.create({
-      image: existingTweet.image,
-      content: existingTweet.content,
-      typeOfTweet: "Retweet",
-      createdBy: userData.id,
-      comments: existingTweet.comments,
-      likes: existingTweet.likes,
-      originalTweetLink: existingTweet._id,
-    });
+    if (existingTweet.retweets.includes(userData.id)) {
+      console.log("Already here");
+      existingTweet.retweets.remove(userData.id);
+      await existingTweet.save();
+      const deletedTweet = await Tweets.findOneAndDelete({
+        originalTweetLink: existingTweet,
+        createdBy: userData.id,
+        typeOfTweet: "Retweet",
+      });
+      res.status(200).json({
+        success: true,
+        message: "Retweet exists",
+        deletedTweet,
+      });
+    } else {
+      const newTweet = await Tweets.create({
+        typeOfTweet: "Retweet",
+        createdBy: userData.id,
+        originalTweetLink: existingTweet._id,
+      });
 
-    existingTweet.numberOfRetweets = existingTweet.numberOfRetweets + 1;
+      existingTweet.retweets.push(userData.id);
 
-    await existingTweet.save();
+      await existingTweet.save();
 
-    const prevTweet = await newTweet.populate({
-      path: "createdBy",
-      select: {
-        _id: 1,
-        name: 1,
-        username: 1,
-        email: 1,
-        profilePicture: 1,
-      },
-    });
-
-    const tweet = await prevTweet.populate({
-      path: "originalTweetLink",
-      select: {
-        createdBy: 1,
-        comments: 1,
-        likes: 1,
-        numberOfRetweets: 1,
-      },
-      populate: {
+      const prevTweet = await newTweet.populate({
         path: "createdBy",
         select: {
           _id: 1,
@@ -112,13 +104,36 @@ const retweet = async (req, res, userData) => {
           email: 1,
           profilePicture: 1,
         },
-      },
-    });
+      });
 
-    res.status(201).json({
-      success: true,
-      tweet,
-    });
+      const tweet = await prevTweet.populate({
+        path: "originalTweetLink",
+        select: {
+          createdBy: 1,
+          comments: 1,
+          likes: 1,
+          retweets: 1,
+          content: 1,
+          image: 1,
+        },
+        populate: {
+          path: "createdBy",
+          select: {
+            _id: 1,
+            name: 1,
+            username: 1,
+            email: 1,
+            profilePicture: 1,
+          },
+        },
+      });
+
+      res.status(201).json({
+        success: true,
+        message: "Retweet Successful",
+        tweet,
+      });
+    }
   } catch (error) {
     res.status(400).json({ success: false, error: error.message });
   }

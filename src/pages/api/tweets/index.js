@@ -85,17 +85,54 @@ const getAllTweets = async (req, res) => {
         path: "originalTweetLink",
         select: {
           createdBy: 1,
+          comments: 1,
+          likes: 1,
+          retweets: 1,
+          content: 1,
+          image: 1,
         },
-        populate: {
-          path: "createdBy",
-          select: {
-            _id: 1,
-            name: 1,
-            username: 1,
-            email: 1,
-            profilePicture: 1,
+        populate: [
+          {
+            path: "createdBy",
+            select: {
+              _id: 1,
+              name: 1,
+              username: 1,
+              email: 1,
+              profilePicture: 1,
+            },
           },
-        },
+          {
+            path: "comments",
+            options: { sort: { createdAt: -1 } },
+            populate: [
+              {
+                path: "createdBy",
+                select: {
+                  _id: 1,
+                  name: 1,
+                  username: 1,
+                  email: 1,
+                  profilePicture: 1,
+                },
+              },
+              {
+                path: "comments",
+                options: { sort: { createdAt: -1 } },
+                populate: {
+                  path: "createdBy",
+                  select: {
+                    _id: 1,
+                    name: 1,
+                    username: 1,
+                    email: 1,
+                    profilePicture: 1,
+                  },
+                },
+              },
+            ],
+          },
+        ],
       })
       .populate({
         path: "comments",

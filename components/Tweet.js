@@ -32,6 +32,7 @@ export default function Tweet({ tweet, tweets, setTweets }) {
         (liker) => liker.toString() === session?.user.id.toString()
       )
     );
+    setRetweeted(tweet.retweets.includes(session?.user.id));
   }, [session, tweet.likes]);
 
   const [numberOfLikes, setNumberOfLikes] = useState(tweet.likes.length);
@@ -39,17 +40,14 @@ export default function Tweet({ tweet, tweets, setTweets }) {
     tweet.comments.length
   );
   const [numberOfRetweets, setNumberOfRetweets] = useState(
-    tweet.numberOfRetweets
+    tweet.retweets.length
   );
 
   const [tweetContent, setTweetContent] = useState(tweet.content);
   const [tweetImage, setTweetImage] = useState(tweet.image);
 
   const [comments, setComments] = useState(tweet.comments);
-
-  // useEffect(() => {
-  //   console.log(post);
-  // }, []);
+  const [retweeted, setRetweeted] = useState(false);
 
   const handleComment = async (event) => {
     event.stopPropagation();
@@ -125,8 +123,17 @@ export default function Tweet({ tweet, tweets, setTweets }) {
         .catch((err) => console.log(err));
       const response = await res.data;
       if (response.success) {
-        setTweets([response.tweet, ...tweets]);
-        setNumberOfRetweets(numberOfRetweets + 1);
+        setRetweeted(!retweeted);
+        if (response.message === "Retweet Successful") {
+          setTweets([response.tweet, ...tweets]);
+          setNumberOfRetweets(numberOfRetweets + 1);
+        } else {
+          const updatedTweets = tweets.filter(
+            (tweetIterator) => tweetIterator._id !== response.deletedTweet._id
+          );
+          setTweets(updatedTweets);
+          setNumberOfRetweets(numberOfRetweets - 1);
+        }
         //alert("success");
       }
     } else {
@@ -175,8 +182,15 @@ export default function Tweet({ tweet, tweets, setTweets }) {
             <HeartIcon className={styles.icon} />
             <p>{numberOfLikes}</p>
           </div> */}
-          <div className={styles.retweets} onClick={handleRetweet}>
-            <RetweetIcon className={styles.icon} />
+          <div
+            className={`${styles.retweets} ${
+              retweeted ? styles.retweetLit : ""
+            } `}
+            onClick={handleRetweet}
+          >
+            <RetweetIcon
+              className={`${styles.icon} ${retweeted ? styles.retweetLit : ""}`}
+            />
             <p>{numberOfRetweets}</p>
           </div>
         </div>

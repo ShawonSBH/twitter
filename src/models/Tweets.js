@@ -17,10 +17,12 @@ const tweetSchema = new Schema(
         ref: "Users",
       },
     ],
-    numberOfRetweets: {
-      type: Number,
-      default: 0,
-    },
+    retweets: [
+      {
+        type: mongoose.SchemaTypes.ObjectId,
+        ref: "Users",
+      },
+    ],
     typeOfTweet: String,
     originalTweetLink: {
       type: mongoose.SchemaTypes.ObjectId,

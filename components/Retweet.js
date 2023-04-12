@@ -24,28 +24,33 @@ export default function Retweet({ tweet, tweets, setTweets }) {
   const { data: session } = useSession();
   const [isLiked, setIsLiked] = useState(false);
 
+  const [numberOfLikes, setNumberOfLikes] = useState(
+    tweet.originalTweetLink.likes.length
+  );
+  const [numberOfComments, setNumberOfComments] = useState(
+    tweet.originalTweetLink.comments.length
+  );
+  const [numberOfRetweets, setNumberOfRetweets] = useState(
+    tweet.originalTweetLink.retweets.length
+  );
+
+  const [tweetContent, setTweetContent] = useState(
+    tweet.originalTweetLink.content
+  );
+  const [tweetImage, setTweetImage] = useState(tweet.originalTweetLink.image);
+
+  const [comments, setComments] = useState(tweet.comments);
+  const [retweeted, setRetweeted] = useState(false);
+
   useEffect(() => {
     // Update isLiked state when session object changes
     setIsLiked(
-      tweet.likes?.some(
+      tweet.originalTweetLink.likes?.some(
         (liker) => liker.toString() === session?.user.id.toString()
       )
     );
-    console.log(tweet);
+    setRetweeted(tweet.retweets.includes(session?.user.id));
   }, [session, tweet.likes]);
-
-  const [numberOfLikes, setNumberOfLikes] = useState(tweet.likes.length);
-  const [numberOfComments, setNumberOfComments] = useState(
-    tweet.comments.length
-  );
-  const [numberOfRetweets, setNumberOfRetweets] = useState(
-    tweet.originalTweetLink.numberOfRetweets
-  );
-
-  const [tweetContent, setTweetContent] = useState(tweet.content);
-  const [tweetImage, setTweetImage] = useState(tweet.image);
-
-  const [comments, setComments] = useState(tweet.comments);
 
   // useEffect(() => {
   //   console.log(post);
@@ -56,7 +61,7 @@ export default function Retweet({ tweet, tweets, setTweets }) {
     if (session) {
       setModalState({
         state: "Comment",
-        data: tweet,
+        data: tweet.originalTweetLink,
         setFunction: setComments,
         parameter: comments,
         setNumberOfComments,
@@ -89,7 +94,7 @@ export default function Retweet({ tweet, tweets, setTweets }) {
   const react = async () => {
     const res = await axios
       .post(`/api/react`, {
-        tweetID: tweet._id,
+        tweetID: tweet.originalTweetLink,
       })
       .catch((err) => console.log(err));
 
@@ -103,7 +108,17 @@ export default function Retweet({ tweet, tweets, setTweets }) {
         .catch((err) => console.log(err));
       const response = await res.data;
       if (response.success) {
-        setTweets([response.tweet, ...tweets]);
+        setRetweeted(!retweeted);
+        if (response.message === "Retweet Successful") {
+          setTweets([response.tweet, ...tweets]);
+          setNumberOfRetweets(numberOfRetweets + 1);
+        } else {
+          const updatedTweets = tweets.filter(
+            (tweetIterator) => tweetIterator._id !== response.deletedTweet._id
+          );
+          setTweets(updatedTweets);
+          setNumberOfRetweets(numberOfRetweets - 1);
+        }
         //alert("success");
       }
     } else {

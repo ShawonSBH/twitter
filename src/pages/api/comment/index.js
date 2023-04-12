@@ -26,7 +26,7 @@ const createPost = async (req, res, session) => {
     // const originalTweetLink = fields.originalTweetLink;
 
     //console.log(image, content);
-    const { content, typeOfTweet, originalTweetLink } = req.body;
+    const { content, typeOfTweet, originalTweetLink, tweetID } = req.body;
 
     const createdComment = await Tweets.create({
       content,

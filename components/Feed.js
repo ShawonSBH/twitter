@@ -30,9 +30,6 @@ export default function Feed({ tweets, posts }) {
       {session && (
         <TweetBox tweets={fetchedTweets} setTweets={setFetchedTweets} />
       )}
-      {fetchedPosts.map((post) => (
-        <Post key={post._id} post={post} setPosts={setFetchedPosts} />
-      ))}
       {fetchedTweets.map((tweet) => (
         <TweetShower
           key={tweet._id}
