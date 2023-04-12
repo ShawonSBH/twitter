@@ -7,7 +7,7 @@ import { useRouter } from "next/router";
 import Tweet from "./Tweet";
 import TweetShower from "./TweetShower";
 
-export default function Feed({ tweets, posts, liked }) {
+export default function Feed({ tweets, posts }) {
   const { data: session } = useSession();
   const [fetchedPosts, setFetchedPosts] = useState(posts);
   const [fetchedTweets, setFetchedTweets] = useState(tweets);
@@ -31,12 +31,7 @@ export default function Feed({ tweets, posts, liked }) {
         <TweetBox tweets={fetchedTweets} setTweets={setFetchedTweets} />
       )}
       {fetchedPosts.map((post) => (
-        <Post
-          key={post._id}
-          post={post}
-          setPosts={setFetchedPosts}
-          liked={liked}
-        />
+        <Post key={post._id} post={post} setPosts={setFetchedPosts} />
       ))}
       {fetchedTweets.map((tweet) => (
         <TweetShower

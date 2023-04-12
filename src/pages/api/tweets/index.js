@@ -40,8 +40,6 @@ const createTweet = async (req, res, session) => {
     const content = fields.content;
     const typeOfTweet = fields.typeOfTweet;
 
-    console.log(image, content);
-
     const createdTweet = await Tweets.create({
       image,
       content,
@@ -60,7 +58,6 @@ const createTweet = async (req, res, session) => {
       },
     });
 
-    console.log(tweet);
     res.status(201).json({
       success: true,
       tweet,
@@ -142,7 +139,7 @@ const getAllTweets = async (req, res) => {
 
 export default async function handler(req, res) {
   await connectMongo();
-  const session = await getServerSession(req, res, authOptions);
+  const session = await getServerSession(req, res, authOptions());
 
   switch (req.method) {
     case GET:

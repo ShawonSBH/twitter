@@ -15,7 +15,6 @@ export default function Home({
   userResults,
   newsResults,
   postResults,
-  likedResults,
   tweetResults,
 }) {
   const { modalState } = useContext(ModalContext);
@@ -30,7 +29,7 @@ export default function Home({
       </Head>
       <main className={styles.main}>
         <Sidebar />
-        <Feed tweets={tweetResults} posts={postResults} liked={likedResults} />
+        <Feed tweets={tweetResults} posts={postResults} />
         <Widgets userResults={userResults} newsResults={newsResults} />
         {modalState.state && <Modal />}
         {!session && <AuthBottomBar />}
@@ -40,7 +39,11 @@ export default function Home({
 }
 
 export async function getServerSideProps(context) {
-  const session = await getServerSession(context.req, context.res, authOptions);
+  const session = await getServerSession(
+    context.req,
+    context.res,
+    authOptions()
+  );
   let likedResults;
   const postResponse = await fetch("http://localhost:3000/api/posts");
   const tweetResponse = await fetch("http://localhost:3000/api/tweets");
@@ -52,10 +55,6 @@ export async function getServerSideProps(context) {
   if (session?.user) {
     const userID = session.user.id;
     console.log(session.user);
-    const likedPostsResponse = await fetch(
-      `http://localhost:3000/api/users/${userID}/liked`
-    );
-    likedResults = await likedPostsResponse.json();
     const res = await fetch(
       `https://saurav.tech/NewsAPI/top-headlines/category/technology/in.json`
     );
@@ -67,7 +66,6 @@ export async function getServerSideProps(context) {
         userResults: userResults.users,
         newsResults: newsResults.articles,
         postResults: data.posts,
-        likedResults: likedResults.data,
         tweetResults: tweets.tweets,
       },
     };

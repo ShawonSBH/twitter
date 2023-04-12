@@ -41,7 +41,7 @@ const comment = async (req, res, user) => {
 
 export default async function handler(req, res) {
   await connectMongo();
-  const session = await getServerSession(req, res, authOptions);
+  const session = await getServerSession(req, res, authOptions());
 
   switch (req.method) {
     case POST:

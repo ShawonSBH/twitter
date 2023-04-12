@@ -89,7 +89,11 @@ export async function getServerSideProps(context) {
   await connectMongo();
   const userResponse = await fetch(`http://localhost:3000/api/users/${userID}`);
   const data = await userResponse.json();
-  const session = await getServerSession(context.req, context.res, authOptions);
+  const session = await getServerSession(
+    context.req,
+    context.res,
+    authOptions()
+  );
   try {
     const posts = await Posts.find({ createdBy: userID })
       .sort({ createdAt: -1 })

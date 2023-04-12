@@ -1,6 +1,7 @@
 import { useState } from "react";
 import styles from "../src/styles/Modal.module.css";
 import updateFormStyles from "../src/styles/UpdateForm.module.css";
+import { signIn } from "next-auth/react";
 // import { PhotoIcon } from "@heroicons/react/24/outline";
 // import photoStyles from "../src/styles/TweetBox.module.css";
 
@@ -31,11 +32,12 @@ export default function UpdateForm({ setModalState, user }) {
         setSelectedImage(null);
         setImageUrl(null);
         setIsLoading(false);
+        setModalState("");
+        await signIn("credentials");
       } catch (error) {
         console.log(error);
       }
     }
-    setIsLoading(false);
     setModalState("");
   };
 
