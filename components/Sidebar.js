@@ -32,6 +32,10 @@ export default function Sidebar() {
     router.push(`/users/${session.user.id}`);
   };
 
+  const routeToMessages = () => {
+    router.push(`/messages`);
+  };
+
   return (
     // <div className={styles.stickyMenu}>
     <div className={styles.sidebar}>
@@ -48,7 +52,11 @@ export default function Sidebar() {
             />
             <SidebarMenuItem text="Explore" Icon={HashtagIcon} />
             <SidebarMenuItem text="Notifications" Icon={BellIcon} />
-            <SidebarMenuItem text="Messages" Icon={InboxIcon} />
+            <SidebarMenuItem
+              text="Messages"
+              Icon={InboxIcon}
+              onClick={routeToMessages}
+            />
             <SidebarMenuItem text="Bookmarks" Icon={BookmarkIcon} />
             <SidebarMenuItem text="Lists" Icon={ClipboardIcon} />
             <SidebarMenuItem

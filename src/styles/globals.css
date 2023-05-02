@@ -6,3 +6,23 @@
   padding: 0;
   font-family: "Open Sans";
 }
+
+:root {
+  --primary-color: rgb(29, 155, 240);
+  --primary-alpha: rgb(29, 155, 240, 0.1);
+  --primary-hover: rgb(26, 140, 216);
+  --white: rgb(239, 243, 244);
+  --black: rgb(15, 20, 25);
+  --dark-white: rgb(207, 217, 222);
+  --grey: rgb(83, 100, 113);
+  --black-alpha: rgba(15, 20, 25, 0.2);
+  --background-color: white;
+  --pink: rgb(249, 24, 128);
+  --pink-alpha: rgb(249, 24, 128, 0.1);
+  --green: rgba(0, 200, 0, 1);
+  --success: rgba(0, 200, 0, 0.4);
+  --success-alpha: rgba(0, 200, 0, 0.2);
+  --green-alpha: rgba(0, 200, 0, 0.2);
+  --error: rgba(200, 0, 0, 0.4);
+  --bg-color: white;
+}
