@@ -40,6 +40,12 @@ const userSchema = new mongoose.Schema(
       type: String,
       default: "/users.png",
     },
+    messageNotifications: [
+      {
+        type: mongoose.SchemaTypes.ObjectId,
+        ref: "Users",
+      },
+    ],
   },
   { timestamps: true }
 );
