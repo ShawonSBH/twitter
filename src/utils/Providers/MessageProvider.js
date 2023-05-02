@@ -1,5 +1,5 @@
 import { createContext, useEffect, useRef } from "react";
-import { useCustomState } from "@/shared/hooks/useCustomState";
+import { useCustomState } from "../../customHooks/useCustomState";
 import { useRouter } from "next/router";
 import { useSocket } from "./SocketProvider";
 import { useSession } from "next-auth/react";

@@ -33,7 +33,8 @@ export default function Sidebar() {
   };
 
   const routeToMessages = () => {
-    router.push(`/messages`);
+    console.log("MESSAGE CLICKED");
+    router.push("/messages");
   };
 
   return (
@@ -55,7 +56,7 @@ export default function Sidebar() {
             <SidebarMenuItem
               text="Messages"
               Icon={InboxIcon}
-              onClick={routeToMessages}
+              handleClick={routeToMessages}
             />
             <SidebarMenuItem text="Bookmarks" Icon={BookmarkIcon} />
             <SidebarMenuItem text="Lists" Icon={ClipboardIcon} />

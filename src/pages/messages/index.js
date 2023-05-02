@@ -1,31 +1,33 @@
-import { MainLayout } from "@/core/layouts/main-layout";
+//import { MainLayout } from "@/core/layouts/main-layout";
 import { getSocket } from "../../utils/getSocket";
-import { getUsers } from "@/features/user/services/server/get-user.server";
-import { CreatePost } from "@/shared/components/create-post/CreatePost";
-import { MiniProfile } from "@/shared/components/mini-profile/MiniProfile";
+//import { getUsers } from "@/features/user/services/server/get-user.server";
+//import { CreatePost } from "@/shared/components/create-post/CreatePost";
+import { MiniProfile } from "../../../components/MiniProfileMessage";
 import { useListState } from "../../customHooks/useListState";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { use, useCallback, useEffect, useMemo, useRef } from "react";
+import { use, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import styles from "../../styles/Message.module.css";
 import { getServerSession } from "next-auth";
 import { authOptions } from "../api/auth/[...nextauth]";
 import { useMessage } from "../../customHooks/useMessage";
 import { TbSettings } from "react-icons/tb";
 import { MdOutlineForward, MdOutlineForwardToInbox } from "react-icons/md";
-import { Input } from "@/shared/components/input/Input";
-import { MessageBubble } from "@/features/conversation/components/MessageBubble";
+import { Input } from "../../../components/Input";
+import { MessageBubble } from "../../../components/MessageBubble";
 import { debounce } from "../../utils/debounce";
 import axios from "axios";
 import { useCustomState } from "../../customHooks/useCustomState";
 import { useSocket } from "../../utils/Providers/SocketProvider";
-import { deleteMessageNotification } from "@/features/notification/services/server/delete-message-notification.server";
-import { getAllConversationsByUser } from "@/features/conversation/services/server/get-conversation.server";
+import { deleteMessageNotification } from "../../services/notifications/delete-message-notification.server";
+import { getAllConversationsByUser } from "../../services/conversations/get-conversation.server";
 import useIntersectionObserver from "../../customHooks/useIntersectionObserver";
 import Users from "@/models/Users";
 import connectMongo from "@/utils/db";
 import Sidebar from "../../../components/Sidebar";
+import tweetStyles from "../../styles/TweetBox.module.css";
+
 export async function getServerSideProps(ctx) {
   await connectMongo();
   const { user } = await getServerSession(
@@ -76,6 +78,7 @@ export default function Page({ users, previousMessages, receiver }) {
   const pageIndex = useCustomState(2);
   const isLastPage = useCustomState(false);
   const loaderRef = useRef();
+  const [message, setMessage] = useState("");
   const isLoaderOnScreen = !!useIntersectionObserver(loaderRef, {})
     ?.isIntersecting;
 
@@ -206,11 +209,17 @@ export default function Page({ users, previousMessages, receiver }) {
               {isLastPage.value ? <></> : <div ref={loaderRef}>Loading</div>}
             </div>
             <div className={styles.sendMsg}>
-              <CreatePost
-                submitButton="send"
-                placeholder="write your message"
-                onSubmit={(e) => postMessage(e.text)}
+              <textarea
+                onChange={(e) => setMessage(e.target.value)}
+                value={message}
+                placeholder="Write a message"
               />
+              <button
+                className={tweetStyles.tweetButton}
+                onClick={() => postMessage(message)}
+              >
+                Tweet
+              </button>
             </div>
           </div>
         ) : (
