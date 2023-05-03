@@ -1,4 +1,5 @@
 import "@/styles/globals.css";
+import { MessageProvider } from "../utils/Providers/MessageProvider";
 
 import { SessionProvider } from "next-auth/react";
 import { createContext, useState } from "react";
@@ -17,7 +18,9 @@ export default function App({
     <SessionProvider session={session}>
       <ModalContext.Provider value={{ modalState, setModalState }}>
         <PostContext.Provider value={{ posts, setPosts }}>
-          <Component {...pageProps} />
+          <MessageProvider>
+            <Component {...pageProps} />
+          </MessageProvider>
         </PostContext.Provider>
       </ModalContext.Provider>
     </SessionProvider>

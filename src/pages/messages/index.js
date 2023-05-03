@@ -36,14 +36,14 @@ export async function getServerSideProps(ctx) {
     authOptions(ctx.req)
   );
   let users = await Users.find();
-  users = users.filter((u) => u.id.toString() !== user.id.toString());
+  users = users.filter((u) => u._id.toString() !== user.id.toString());
   const { room } = ctx.query;
   let receiver;
   let messages;
   if (room) {
     const receiverId = room;
     receiver = users.reduce(
-      (acc, cur) => (cur.id.toString() === receiverId ? cur : acc),
+      (acc, cur) => (cur._id.toString() === receiverId ? cur : acc),
       undefined
     );
     await deleteMessageNotification({
@@ -86,21 +86,21 @@ export default function Page({ users, previousMessages, receiver }) {
     if (isLoaderOnScreen && !isLastPage.value) {
       const fetchMoreMessages = async () => {
         try {
-          console.log(session?.user.id + " " + receiver.id);
+          console.log(session?.user.id + " " + receiver._id);
           const { data: newPage } = await axios.post(
-            `/api/conversation/?pageIndex=${pageIndex.value}`,
+            `/api/conversations/?pageIndex=${pageIndex.value}`,
             {
               userId: session?.user.id,
-              receiverID: receiver.id,
+              receiverID: receiver._id,
             }
           );
-          console.log(newPage);
-          // if (newPage?.data?.length === 0) {
-          //   isLastPage.set(true);
-          // } else {
-          //   conversations.set((state) => [...state, ...newPage?.data]);
-          //   pageIndex.set((value) => value + 1);
-          // }
+          console.log(receiver._id);
+          if (newPage?.data?.length < 50) {
+            isLastPage.set(true);
+          } else {
+            conversations.set((state) => [...state, ...newPage?.data]);
+            pageIndex.set((value) => value + 1);
+          }
         } catch (error) {
           console.log(error);
         }
@@ -110,7 +110,7 @@ export default function Page({ users, previousMessages, receiver }) {
   }, [isLoaderOnScreen]);
 
   useEffect(() => {
-    const receiverMessages = messages?.value[receiver?.id] || [];
+    const receiverMessages = messages?.value[receiver?._id] || [];
     if (
       receiverMessages.length > 0 &&
       conversations.value.length != receiverMessages.length
@@ -121,26 +121,32 @@ export default function Page({ users, previousMessages, receiver }) {
 
   useEffect(() => {}, [conversations.value]);
 
+  // useEffect(() => {
+  //   console.log(users);
+  // }, []);
+
   useEffect(() => {
-    console.log(previousMessages);
-    if (receiver?.id) {
+    //console.log(previousMessages);
+    if (receiver?._id) {
       messages.set((curr) => {
-        if (!curr[receiver.id]) {
-          curr[receiver.id] = previousMessages;
+        if (!curr[receiver._id]) {
+          curr[receiver._id] = previousMessages;
         }
         return { ...curr };
       });
     }
   }, []);
 
-  const postMessage = (message) => {
+  const postMessage = () => {
     if (message) {
       const newMessage = {
         content: { text: message },
         sender: session.user.id,
         receiver: room,
       };
+      console.log(newMessage);
       sendMessage(newMessage);
+      setMessage("");
     }
   };
 
@@ -180,16 +186,16 @@ export default function Page({ users, previousMessages, receiver }) {
           {userList.value?.map((user) => (
             <div
               className={`${styles.user} ${
-                room === user.id ? styles.selected : ""
+                room === user._id ? styles.selected : ""
               }`}
             >
               <Link
                 style={{ position: "relative", width: "100%" }}
-                key={user.id}
-                href={{ pathname: "/message", query: { room: user.id } }}
+                key={user._id}
+                href={{ pathname: "/messages", query: { room: user._id } }}
               >
                 <MiniProfile user={user} />{" "}
-                {messageNotifications.value.has(user.id) && (
+                {messageNotifications.value.has(user._id) && (
                   <span className="notification-badge"></span>
                 )}
               </Link>
@@ -199,7 +205,7 @@ export default function Page({ users, previousMessages, receiver }) {
 
         {receiver ? (
           <div className={styles.chatBox}>
-            <Link href={`/profile/${receiver?.id}`} className={styles.receiver}>
+            <Link href={`/users/${receiver?._id}`} className={styles.receiver}>
               <MiniProfile user={receiver} />
             </Link>
             <div>
@@ -216,7 +222,7 @@ export default function Page({ users, previousMessages, receiver }) {
               />
               <button
                 className={tweetStyles.tweetButton}
-                onClick={() => postMessage(message)}
+                onClick={() => postMessage()}
               >
                 Tweet
               </button>

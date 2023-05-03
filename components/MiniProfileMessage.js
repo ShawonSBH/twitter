@@ -4,7 +4,7 @@ import { Avator } from "./Avatar";
 export function MiniProfile({ user, onClick, action }) {
   return (
     <div className={styles.profile} onClick={onClick}>
-      <Avator src={user?.image} size="48" />
+      <Avator src={user?.profilePicture} size="48" />
       <div className={styles.names}>
         <p className={styles.name}>{user?.name}</p>
         <p className={styles.username}>@{user?.username}</p>

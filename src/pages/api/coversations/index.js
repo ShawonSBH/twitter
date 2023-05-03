@@ -6,6 +6,7 @@ export default handleRequest({
     try {
       const { userId, receiverID } = req.body;
       const { pageIndex } = req.query;
+      console.log(userId + " " + receiverID + " First Hit ");
       const messages = await getAllConversationsByUser({
         userId,
         receiverID,

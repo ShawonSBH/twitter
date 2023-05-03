@@ -19,6 +19,7 @@ export async function createMessage({
       receiver,
       originalMessage,
     };
+    console.log(message);
     const conversations = await Conversations.find({
       members: { $all: [sender, receiver] },
     })
