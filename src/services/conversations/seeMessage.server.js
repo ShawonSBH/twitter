@@ -1,6 +1,7 @@
 import Conversations from "../../models/Conversations";
 
 export async function seeMessage({ messageIds }) {
+  console.log("Message Load: " + messageIds);
   try {
     await Conversations.updateMany(
       {

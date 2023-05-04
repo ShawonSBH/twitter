@@ -18,13 +18,11 @@ export default function App({
   return (
     <SessionProvider session={session}>
       <ModalContext.Provider value={{ modalState, setModalState }}>
-        <PostContext.Provider value={{ posts, setPosts }}>
-          <SocketProvider>
-            <MessageProvider>
-              <Component {...pageProps} />
-            </MessageProvider>
-          </SocketProvider>
-        </PostContext.Provider>
+        <SocketProvider>
+          <MessageProvider>
+            <Component {...pageProps} />
+          </MessageProvider>
+        </SocketProvider>
       </ModalContext.Provider>
     </SessionProvider>
   );

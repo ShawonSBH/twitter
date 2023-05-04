@@ -27,7 +27,9 @@ export function MessageBubble({ classname, style, message }) {
         <div className={`${styles.msg}`}>{message.content.text}</div>
         <div className={`${styles.label}`}>
           {getDateFormatString(message.createdAt || Date.now())} |{" "}
-          {message.seen ? "seen" : "sent"}
+          {message.seen || message.receiver === session?.user.id
+            ? "seen"
+            : "sent"}
         </div>
       </div>
     </div>

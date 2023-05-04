@@ -1,6 +1,7 @@
 import Conversations from "../../models/Conversations";
 import { mapId } from "../../utils/mapId";
 import mongoose from "mongoose";
+import { seeMessage } from "./seeMessage.server";
 
 export async function getAllConversationsByUser({
   userId,
@@ -15,7 +16,7 @@ export async function getAllConversationsByUser({
     //   members: { $all: [userId, receiverID] },
     // });
     // console.log(conversations);
-    const messages = await Conversations.aggregate([
+    let messages = await Conversations.aggregate([
       { $match: { members: { $all: [objectIdUserId, objectIdReceiverId] } } },
       { $unwind: "$messages" },
       {
@@ -29,8 +30,22 @@ export async function getAllConversationsByUser({
       { $limit: pageSize },
       { $replaceRoot: { newRoot: "$message" } },
     ]);
+
+    let unseenMessages = [];
+    messages =
+      messages?.map((msg) => {
+        if (!msg.seen && msg.sender.toString() === receiverID.toString()) {
+          unseenMessages.push(msg._id);
+          msg.seen = true;
+        }
+        return mapId(msg);
+      }) || [];
+
+    if (unseenMessages.length != 0) {
+      seeMessage({ messageIds: unseenMessages });
+    }
     //console.log(messages);
-    return messages?.map((msg) => mapId(msg)) || [];
+    return messages;
     //console.log(conversations);
   } catch (error) {
     throw { status: 500, message: error.message };

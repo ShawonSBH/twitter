@@ -106,10 +106,12 @@ export default function Page({ users, previousMessages, receiver }) {
             }
           );
           console.log(receiver._id);
-          if (newPage?.data?.length < 50) {
+          if (newPage?.data?.length < 30) {
             isLastPage.set(true);
           } else {
-            conversations.set((state) => [...state, ...newPage?.data]);
+            //conversations.set((state) => [...state, ...newPage?.data]);
+            const newMessages = [...messages?.value[room], ...newPage];
+            messages.set((value) => ({ ...value, [room]: newMessages }));
             pageIndex.set((value) => value + 1);
           }
         } catch (error) {
@@ -142,14 +144,14 @@ export default function Page({ users, previousMessages, receiver }) {
       messages.set((curr) => {
         if (!curr[receiver._id]) {
           curr[receiver._id] = previousMessages;
-          conversations.set(previousMessages);
+          //conversations.set(previousMessages);
         } else {
-          conversations.set([]);
+          //conversations.set([]);
         }
         return { ...curr };
       });
     }
-  }, [room]);
+  }, []);
 
   const postMessage = () => {
     if (message) {
@@ -158,7 +160,6 @@ export default function Page({ users, previousMessages, receiver }) {
         sender: session.user.id,
         receiver: room,
       };
-      console.log(newMessage);
       sendMessage(newMessage);
       setMessage("");
     }
@@ -223,7 +224,7 @@ export default function Page({ users, previousMessages, receiver }) {
               <MiniProfile user={receiver} />
             </Link>
             <div>
-              {conversations.value?.map((msg, idx) => (
+              {messages?.value[room]?.map((msg, idx) => (
                 <MessageBubble key={idx} message={msg} />
               ))}
               {isLastPage.value ? <></> : <div ref={loaderRef}>Loading</div>}
