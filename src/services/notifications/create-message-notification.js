@@ -4,11 +4,13 @@ export async function createMessageNotification({
   userId,
   notificationSenderId,
 }) {
+  console.log("Create Notifications Hit");
   try {
-    await UserModel.updateOne(
+    await Users.updateOne(
       { _id: userId },
       { $push: { messageNotifications: notificationSenderId } }
     );
+    //console.log("Update Complete");
     return true;
   } catch (err) {
     return false;

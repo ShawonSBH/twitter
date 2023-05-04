@@ -55,7 +55,10 @@ export async function getServerSideProps(ctx) {
       receiverID: receiverId,
       pageIndex: 1,
     });
-    messages.reverse();
+    const io = ctx.res.socket.server.io;
+    if (io && receiver) {
+      io.to(room).emit("message_seen", receiver._id);
+    }
   }
   return {
     props: JSON.parse(
@@ -73,7 +76,8 @@ export default function Page({ users, previousMessages, receiver }) {
   const { room } = router.query;
   const { data: session } = useSession();
   const userList = useCustomState(users);
-  const { messages, messageNotifications, sendMessage } = useMessage();
+  const { messages, newMessage, messageNotifications, sendMessage } =
+    useMessage();
   const conversations = useListState([]);
   const pageIndex = useCustomState(2);
   const isLastPage = useCustomState(false);
@@ -81,6 +85,13 @@ export default function Page({ users, previousMessages, receiver }) {
   const [message, setMessage] = useState("");
   const isLoaderOnScreen = !!useIntersectionObserver(loaderRef, {})
     ?.isIntersecting;
+  const socket = useSocket();
+
+  useEffect(() => {
+    if (newMessage?.value && newMessage?.value.sender === room) {
+      socket?.emit("see_message", newMessage?.value);
+    }
+  }, [newMessage?.value]);
 
   useEffect(() => {
     if (isLoaderOnScreen && !isLastPage.value) {
@@ -126,16 +137,19 @@ export default function Page({ users, previousMessages, receiver }) {
   // }, []);
 
   useEffect(() => {
-    //console.log(previousMessages);
+    //console.log("1");
     if (receiver?._id) {
       messages.set((curr) => {
         if (!curr[receiver._id]) {
           curr[receiver._id] = previousMessages;
+          conversations.set(previousMessages);
+        } else {
+          conversations.set([]);
         }
         return { ...curr };
       });
     }
-  }, []);
+  }, [room]);
 
   const postMessage = () => {
     if (message) {

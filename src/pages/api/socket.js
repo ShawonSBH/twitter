@@ -8,11 +8,12 @@ import Users from "../../models/Users";
 import { createMessageNotification } from "../../services/notifications/create-message-notification";
 import connectMongo from "../../utils/db";
 import { handleRequest } from "@/utils/request-handler";
+import { seeMessage } from "../../services/conversations/seeMessage.server";
+import mongoose from "mongoose";
 
 export default handleRequest({
   GET: async (req, res) => {
-    const { user } = await getServerSession(req, res, createOptions(req));
-    console.log("SocketBG");
+    const { user } = await getServerSession(req, res, authOptions(req));
     await createSocketConnection(user.id, res);
     res.end();
   },
@@ -24,6 +25,7 @@ async function createSocketConnection(userId, res) {
     const io = new Server(res.socket.server);
     io.on("connection", async (socket) => {
       socket.on("sendMessage", async ({ content, sender, receiver }) => {
+        console.log("New Message sent");
         const newMessage = await createMessage({
           sender: sender,
           receiver: receiver,
@@ -40,6 +42,7 @@ async function createSocketConnection(userId, res) {
       });
 
       socket.on("sendNotification", async (notification) => {
+        console.log("Socket Hit");
         createMessageNotification({
           userId: notification.receiver,
           notificationSenderId: notification.sender,
@@ -51,9 +54,10 @@ async function createSocketConnection(userId, res) {
         socket.leave(room);
       });
 
-      socket.on("see", async (messageId) => {
-        console.log("socket seen", messageId);
-        //   await seeMessage({ messageId });
+      socket.on("see_message", async (message) => {
+        console.log("socket seen", message.id);
+        seeMessage({ messageIds: [new mongoose.Types.ObjectId(message.id)] });
+        socket.to(message.sender).emit("message_seen", message.receiver);
       });
     });
     res.socket.server.io = io;

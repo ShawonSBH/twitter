@@ -24,7 +24,7 @@ export async function getAllConversationsByUser({
           message: "$messages",
         },
       },
-      { $sort: { "messages.createdAt": -1 } },
+      { $sort: { "message.createdAt": -1 } },
       { $skip: (pageIndex - 1) * pageSize },
       { $limit: pageSize },
       { $replaceRoot: { newRoot: "$message" } },

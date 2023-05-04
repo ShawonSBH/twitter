@@ -84,6 +84,23 @@ export function MessageProvider({ children }) {
     socket?.on("newMessage", async (message) => {
       newMessage.set(message);
     });
+    socket?.on("message_seen", (receiver) => {
+      const otherMessages = messages.value[receiver];
+      if (otherMessages && otherMessages.length > 0) {
+        console.log(otherMessages.length);
+        for (let i = 0; i < otherMessages.length; i++) {
+          if (otherMessages[i].seen) {
+            break;
+          }
+          otherMessages[i].seen = true;
+        }
+      }
+      messages.set((curr) => {
+        const newMessages = { ...curr, [receiver]: otherMessages };
+        console.log(newMessages);
+        return newMessages;
+      });
+    });
   }, [socket]);
 
   const sendMessage = (message) => {
@@ -100,14 +117,9 @@ export function MessageProvider({ children }) {
 
   return (
     <MessageContext.Provider
-      value={{ messages, messageNotifications, sendMessage }}
+      value={{ messages, newMessage, messageNotifications, sendMessage }}
     >
       {children}
-      <audio
-        src={"/sounds/notification.mp3"}
-        autoPlay
-        ref={notificationAudio}
-      />
     </MessageContext.Provider>
   );
 }

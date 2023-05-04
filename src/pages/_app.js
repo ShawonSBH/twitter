@@ -3,6 +3,7 @@ import { MessageProvider } from "../utils/Providers/MessageProvider";
 
 import { SessionProvider } from "next-auth/react";
 import { createContext, useState } from "react";
+import { SocketProvider } from "@/utils/Providers/SocketProvider";
 
 export const ModalContext = createContext();
 export const PostContext = createContext();
@@ -18,9 +19,11 @@ export default function App({
     <SessionProvider session={session}>
       <ModalContext.Provider value={{ modalState, setModalState }}>
         <PostContext.Provider value={{ posts, setPosts }}>
-          <MessageProvider>
-            <Component {...pageProps} />
-          </MessageProvider>
+          <SocketProvider>
+            <MessageProvider>
+              <Component {...pageProps} />
+            </MessageProvider>
+          </SocketProvider>
         </PostContext.Provider>
       </ModalContext.Provider>
     </SessionProvider>

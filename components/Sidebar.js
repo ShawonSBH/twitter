@@ -15,14 +15,16 @@ import {
 import MiniProfile from "./MiniProfile";
 import styles from "../src/styles/Sidebar.module.css";
 import { useSession } from "next-auth/react";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { ModalContext } from "@/pages/_app";
 import { useRouter } from "next/router";
+import { useMessage } from "@/customHooks/useMessage";
 
 export default function Sidebar() {
   const { data: session } = useSession();
   const { setModalState } = useContext(ModalContext);
   const router = useRouter();
+  const { messageNotifications } = useMessage();
 
   const routeToHome = () => {
     router.push("/");

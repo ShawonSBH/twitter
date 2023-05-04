@@ -4,8 +4,11 @@ export async function deleteMessageNotification({
   userId,
   notificationSenderId,
 }) {
+  console.log(
+    "Notifications removed for " + userId + " " + notificationSenderId
+  );
   try {
-    await UserModel.updateOne(
+    await Users.updateOne(
       { _id: userId },
       { $pull: { messageNotifications: notificationSenderId } }
     );
