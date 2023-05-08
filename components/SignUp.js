@@ -4,6 +4,7 @@ import { signIn } from "next-auth/react";
 import { createContext, useContext, useState } from "react";
 import styles from "../src/styles/Modal.module.css";
 import DatePicker from "./DatePicker";
+import { UserActions, userDispatch } from "@/actions/user";
 
 export const DateContext = createContext();
 
@@ -21,21 +22,21 @@ export default function SignUp() {
   const { setModalState } = useContext(ModalContext);
   const [isLoading, setIsLoading] = useState(false);
 
-  const sendSignUpRequest = async (date) => {
-    const res = await axios
-      .post("/api/users", {
-        name: userData.name,
-        username: userData.username,
-        email: userData.email,
-        password: userData.password,
-        dob: date,
-        profilePicture: userData.profilePicture,
-      })
-      .catch((err) => console.log(err));
+  // const sendSignUpRequest = async (date) => {
+  //   const res = await axios
+  //     .post("/api/users", {
+  //       name: userData.name,
+  //       username: userData.username,
+  //       email: userData.email,
+  //       password: userData.password,
+  //       dob: date,
+  //       profilePicture: userData.profilePicture,
+  //     })
+  //     .catch((err) => console.log(err));
 
-    const data = await res.data;
-    return data;
-  };
+  //   const data = await res.data;
+  //   return data;
+  // };
 
   const handleSignUp = async (event) => {
     event.preventDefault();
@@ -49,15 +50,15 @@ export default function SignUp() {
     if (age < 13) {
       //alert("You must be at least 13 years old to sign up.");
     } else {
-      setIsLoading(true);
-      const data = await sendSignUpRequest(date);
-      console.log(data);
-      if (data.success) {
-        await signIn("credentials", {
-          email: userData.email,
-          password: userData.password,
-        });
-      }
+      userDispatch({
+        type: UserActions.signup,
+        payload: {
+          userData,
+          setIsLoading,
+          date,
+          signIn,
+        },
+      });
       // setModalState({});
     }
   };

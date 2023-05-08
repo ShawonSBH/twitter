@@ -3,6 +3,7 @@ import { useState } from "react";
 import styles from "../src/styles/Following.module.css";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
+import { UserActions, userDispatch } from "@/actions/user";
 
 export default function Following({ user, currentUser }) {
   const [isFollowed, setIsFollowed] = useState(true);
@@ -11,13 +12,25 @@ export default function Following({ user, currentUser }) {
   console.log(isFollowed);
 
   const followUser = async () => {
-    const res = await axios.post(`/api/users/${user._id}`);
-    const response = await res.data;
+    userDispatch({
+      type: UserActions.followUser,
+      payload: {
+        user,
+        setIsFollowed,
+        isFollowed,
+      },
+    });
   };
 
   const unfollowUser = async () => {
-    const res = await axios.delete(`/api/users/${user._id}`);
-    const response = await res.data;
+    userDispatch({
+      type: UserActions.unfollowUser,
+      payload: {
+        user,
+        setIsFollowed,
+        isFollowed,
+      },
+    });
   };
   return (
     <div
@@ -45,7 +58,6 @@ export default function Following({ user, currentUser }) {
             className={styles.followButton}
             onClick={async (event) => {
               event.stopPropagation();
-              setIsFollowed(!isFollowed);
               await unfollowUser();
             }}
           >
@@ -56,7 +68,6 @@ export default function Following({ user, currentUser }) {
             className={styles.followButton}
             onClick={async (event) => {
               event.stopPropagation();
-              setIsFollowed(!isFollowed);
               await followUser();
             }}
           >

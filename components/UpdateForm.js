@@ -2,6 +2,7 @@ import { useState } from "react";
 import styles from "../src/styles/Modal.module.css";
 import updateFormStyles from "../src/styles/UpdateForm.module.css";
 import { signIn } from "next-auth/react";
+import { UserActions, userDispatch } from "@/actions/user";
 // import { PhotoIcon } from "@heroicons/react/24/outline";
 // import photoStyles from "../src/styles/TweetBox.module.css";
 
@@ -17,26 +18,20 @@ export default function UpdateForm({ setModalState, user }) {
 
   const handleUpdate = async () => {
     setIsLoading(true);
-    if (checkForChange()) {
-      const formData = new FormData();
-      formData.append("name", userData.name);
-      formData.append("username", userData.username);
-      formData.append("profilePicture", selectedImage);
-      try {
-        const res = await fetch(`/api/users/${user._id}`, {
-          method: "PUT",
-          body: formData,
-        });
-        const data = await res.json();
-        console.log(data);
-        setSelectedImage(null);
-        setImageUrl(null);
-        setIsLoading(false);
-        setModalState("");
-        await signIn("credentials");
-      } catch (error) {
-        console.log(error);
-      }
+    if (checkForChange) {
+      userDispatch({
+        type: UserActions.editUser,
+        payload: {
+          userData,
+          selectedImage,
+          user,
+          setSelectedImage,
+          setImageUrl,
+          setIsLoading,
+          setModalState,
+          signIn,
+        },
+      });
     }
     setModalState("");
   };

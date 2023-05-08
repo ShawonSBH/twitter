@@ -87,7 +87,7 @@ export default function ProfilePage({ user, posts, liked }) {
 export async function getServerSideProps(context) {
   const { userID } = context.query;
   await connectMongo();
-  const userResponse = await fetch(`http://localhost:3000/api/users/${userID}`);
+  const userResponse = await fetch(`/api/users/${userID}`);
   const data = await userResponse.json();
   const session = await getServerSession(
     context.req,

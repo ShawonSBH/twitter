@@ -2,6 +2,7 @@ import { ModalContext } from "@/pages/_app";
 import { signIn } from "next-auth/react";
 import { useContext, useState } from "react";
 import styles from "../src/styles/Modal.module.css";
+import { UserActions, userDispatch } from "@/actions/user";
 
 export default function LogIn() {
   const { setModalState } = useContext(ModalContext);
@@ -13,11 +14,13 @@ export default function LogIn() {
 
   const handleLogIn = (event) => {
     event.preventDefault();
-    setIsLoading(true);
-    console.log(userData);
-    signIn("credentials", {
-      email: userData.email,
-      password: userData.password,
+    userDispatch({
+      type: UserActions.login,
+      payload: {
+        setIsLoading,
+        userData,
+        signIn,
+      },
     });
     //setIsLoading(false);
   };
