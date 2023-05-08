@@ -15,6 +15,7 @@ import { DELETE } from "@/utils/reqMethods";
 import { ModalContext } from "@/pages/_app";
 import axios from "axios";
 import LikedHeartIcon from "./LikedHeartIcon";
+import { TweetActions, tweetDispatch } from "@/actions/tweet";
 
 export default function TweetComment({
   comment,
@@ -49,17 +50,16 @@ export default function TweetComment({
   }, [session, comment.likes]);
 
   const handleDelete = async () => {
-    const res = await axios.delete(`/api/comment/${comment._id}`);
-    const response = await res.data;
-    if (response.success) {
-      const updatedComments = comments.filter(
-        (commentIterator) => commentIterator._id !== comment._id
-      );
-      setComments(updatedComments);
-      setTotalNumberOfComments(totalNumberOfComments - 1);
-    } else {
-      console.log("Something went wrong");
-    }
+    tweetDispatch({
+      type: TweetActions.deleteComment,
+      payload: {
+        comment,
+        comments,
+        setComments,
+        setTotalNumberOfComments,
+        totalNumberOfComments,
+      },
+    });
   };
 
   const handleComment = (operation) => {
@@ -91,28 +91,21 @@ export default function TweetComment({
   const handleReact = async (event) => {
     event.stopPropagation();
     if (session) {
-      await react();
-      if (isLiked) {
-        setNumberOfLikes(numberOfLikes - 1);
-      } else {
-        setNumberOfLikes(numberOfLikes + 1);
-      }
-      setIsLiked(!isLiked);
+      tweetDispatch({
+        type: TweetActions.postLike,
+        payload: {
+          tweet: comment,
+          isLiked,
+          setIsLiked,
+          setNumberOfLikes,
+          numberOfLikes,
+        },
+      });
     } else {
       setModalState({
         state: "LogIn",
       });
     }
-  };
-
-  const react = async () => {
-    const res = await axios
-      .post(`/api/react`, {
-        tweetID: comment._id,
-      })
-      .catch((err) => console.log(err));
-
-    console.log(res);
   };
 
   return (

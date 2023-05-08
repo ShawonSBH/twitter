@@ -26,13 +26,12 @@ export default function Comment({ comment }) {
 
   const handleDelete = async (event) => {
     event.stopPropagation();
-    const res = await fetch(
-      `/api/posts/${comment.postLink}/comment/${comment._id}`,
-      {
-        method: DELETE,
-      }
-    );
+    const res = await fetch(`/api/comment/${comment._id}`, {
+      method: DELETE,
+    });
     const response = await res.json();
+    if (response.success) {
+    }
   };
 
   return (

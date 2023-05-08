@@ -25,7 +25,9 @@ export function MessageProvider({ children }) {
       console.log(notifications);
       messageNotifications.set(new Set(notifications));
     };
-    setNotifications();
+    if (session) {
+      setNotifications();
+    }
   }, []);
 
   useEffect(() => {

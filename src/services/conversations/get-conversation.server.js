@@ -44,7 +44,7 @@ export async function getAllConversationsByUser({
     if (unseenMessages.length != 0) {
       seeMessage({ messageIds: unseenMessages });
     }
-    //console.log(messages);
+    console.log(messages.length);
     return messages;
     //console.log(conversations);
   } catch (error) {

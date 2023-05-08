@@ -8,6 +8,7 @@ import { useRouter } from "next/router";
 import { useContext, useEffect, useState } from "react";
 import styles from "../src/styles/TweetBox.module.css";
 import loaderStyles from "../src/styles/Modal.module.css";
+import { TweetActions, tweetDispatch } from "@/actions/tweet";
 
 export default function TweetEditBox({ tweets, setTweets }) {
   const { data: session } = useSession();
@@ -18,31 +19,20 @@ export default function TweetEditBox({ tweets, setTweets }) {
   const [isLoading, setIsLoading] = useState(false);
 
   const tweetPost = async () => {
-    console.log(modalState);
-    setIsLoading(true);
-    const formData = new FormData();
-    formData.append("content", content);
-    formData.append("image", selectedImageFile);
-    formData.append("imageUrl", imageURL);
-    try {
-      const res = await fetch(`/api/tweets/${modalState.tweet._id}`, {
-        method: "PUT",
-        body: formData,
-      });
-      const data = await res.json();
-      console.log(data);
-      setContent("");
-      setSelectedImageFile(null);
-      setImageURL(null);
-      setIsLoading(false);
-      if (data.success) {
-        modalState.setTweetContent(data.tweet.content);
-        modalState.setTweetImage(data.tweet.image);
-      }
-    } catch (error) {
-      console.log(error);
-    }
-    setModalState({});
+    tweetDispatch({
+      type: TweetActions.editTweet,
+      payload: {
+        setIsLoading,
+        content,
+        selectedImageFile,
+        imageURL,
+        modalState,
+        setContent,
+        setSelectedImageFile,
+        setImageURL,
+        setModalState,
+      },
+    });
   };
 
   return (

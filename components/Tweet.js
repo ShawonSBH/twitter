@@ -14,6 +14,7 @@ import { ChatBubbleOvalLeftIcon } from "@heroicons/react/24/outline";
 import TweetComment from "./TweetComment";
 import axios from "axios";
 import LikedHeartIcon from "./LikedHeartIcon";
+import { TweetActions, tweetDispatch } from "@/actions/tweet";
 
 export default function Tweet({ tweet, tweets, setTweets }) {
   const timeago = formatDistanceToNow(new Date(tweet.createdAt));
@@ -70,13 +71,16 @@ export default function Tweet({ tweet, tweets, setTweets }) {
   const handleReact = async (event) => {
     event.stopPropagation();
     if (session) {
-      await react();
-      if (isLiked) {
-        setNumberOfLikes(numberOfLikes - 1);
-      } else {
-        setNumberOfLikes(numberOfLikes + 1);
-      }
-      setIsLiked(!isLiked);
+      tweetDispatch({
+        type: TweetActions.postLike,
+        payload: {
+          tweet,
+          isLiked,
+          setIsLiked,
+          setNumberOfLikes,
+          numberOfLikes,
+        },
+      });
     } else {
       setModalState({
         state: "LogIn",
@@ -106,36 +110,20 @@ export default function Tweet({ tweet, tweets, setTweets }) {
     setIsDropdownOpen(!isDropdownOpen);
   };
 
-  const react = async () => {
-    const res = await axios
-      .post(`/api/react`, {
-        tweetID: tweet._id,
-      })
-      .catch((err) => console.log(err));
-
-    console.log(res);
-  };
-
   const handleRetweet = async () => {
     if (session) {
-      const res = await axios
-        .post(`/api/tweets/${tweet._id}`)
-        .catch((err) => console.log(err));
-      const response = await res.data;
-      if (response.success) {
-        setRetweeted(!retweeted);
-        if (response.message === "Retweet Successful") {
-          setTweets([response.tweet, ...tweets]);
-          setNumberOfRetweets(numberOfRetweets + 1);
-        } else {
-          const updatedTweets = tweets.filter(
-            (tweetIterator) => tweetIterator._id !== response.deletedTweet._id
-          );
-          setTweets(updatedTweets);
-          setNumberOfRetweets(numberOfRetweets - 1);
-        }
-        //alert("success");
-      }
+      tweetDispatch({
+        type: TweetActions.postRetweet,
+        payload: {
+          tweet,
+          setRetweeted,
+          retweeted,
+          setTweets,
+          tweets,
+          setNumberOfRetweets,
+          numberOfRetweets,
+        },
+      });
     } else {
       setModalState({
         state: "LogIn",

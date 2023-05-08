@@ -27,6 +27,7 @@ import Users from "@/models/Users";
 import connectMongo from "@/utils/db";
 import Sidebar from "../../../components/Sidebar";
 import tweetStyles from "../../styles/TweetBox.module.css";
+import loaderStyles from "../../styles/Modal.module.css";
 
 export async function getServerSideProps(ctx) {
   await connectMongo();
@@ -57,6 +58,7 @@ export async function getServerSideProps(ctx) {
     });
     const io = ctx.res.socket.server.io;
     if (io && receiver) {
+      console.log("Emit to " + room);
       io.to(room).emit("message_seen", receiver._id);
     }
   }
@@ -97,7 +99,8 @@ export default function Page({ users, previousMessages, receiver }) {
     if (isLoaderOnScreen && !isLastPage.value) {
       const fetchMoreMessages = async () => {
         try {
-          console.log(session?.user.id + " " + receiver._id);
+          console.log(pageIndex.value);
+          //console.log(session?.user.id + " " + receiver._id);
           const { data: newPage } = await axios.post(
             `/api/conversations/?pageIndex=${pageIndex.value}`,
             {
@@ -105,9 +108,15 @@ export default function Page({ users, previousMessages, receiver }) {
               receiverID: receiver._id,
             }
           );
-          console.log(receiver._id);
-          if (newPage?.data?.length < 30) {
+          //console.log(newPage);
+          console.log(isLastPage.value);
+          if (newPage?.length < 30) {
             isLastPage.set(true);
+            if (newPage.length > 0) {
+              const newMessages = [...messages?.value[room], ...newPage];
+              messages.set((value) => ({ ...value, [room]: newMessages }));
+              pageIndex.set((value) => value + 1);
+            }
           } else {
             //conversations.set((state) => [...state, ...newPage?.data]);
             const newMessages = [...messages?.value[room], ...newPage];
@@ -152,6 +161,21 @@ export default function Page({ users, previousMessages, receiver }) {
       });
     }
   }, []);
+
+  useEffect(() => {
+    //console.log("1");
+    if (receiver?._id) {
+      messages.set((curr) => {
+        if (!curr[receiver._id]) {
+          curr[receiver._id] = previousMessages;
+          //conversations.set(previousMessages);
+        } else {
+          //conversations.set([]);
+        }
+        return { ...curr };
+      });
+    }
+  }, [room]);
 
   const postMessage = () => {
     if (message) {
@@ -227,7 +251,11 @@ export default function Page({ users, previousMessages, receiver }) {
               {messages?.value[room]?.map((msg, idx) => (
                 <MessageBubble key={idx} message={msg} />
               ))}
-              {isLastPage.value ? <></> : <div ref={loaderRef}>Loading</div>}
+              {isLastPage.value ? (
+                <></>
+              ) : (
+                <div className={loaderStyles.loader} ref={loaderRef}></div>
+              )}
             </div>
             <div className={styles.sendMsg}>
               <textarea

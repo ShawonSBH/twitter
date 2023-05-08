@@ -6,16 +6,23 @@ const SocketContext = createContext();
 export function SocketProvider({ children }) {
   const [socket, setSocket] = useState(undefined);
   const { data: session } = useSession();
+  const socketInitializer = async () => {
+    if (!socket) {
+      const socketClient = await getSocket();
+      setSocket(socketClient);
+    }
+  };
   useEffect(() => {
-    const socketInitializer = async () => {
-      if (!socket) {
-        const socketClient = await getSocket();
-        setSocket(socketClient);
-      }
-    };
-    socketInitializer();
+    if (session) {
+      socketInitializer();
+    }
     return () => socket?.removeAllListeners();
-  }, [socket]);
+  }, [socket, session?.user]);
+
+  // useEffect(() => {
+  //   socketInitializer();
+  //   return () => socket?.removeAllListeners();
+  // }, [session]);
 
   useEffect(() => {
     if (session && session.user) socket?.emit("join", session.user.id);

@@ -8,6 +8,7 @@ import { useRouter } from "next/router";
 import { useContext, useEffect, useState } from "react";
 import styles from "../src/styles/TweetBox.module.css";
 import loaderStyles from "../src/styles/Modal.module.css";
+import { TweetActions, tweetDispatch } from "@/actions/tweet";
 
 export default function TweetBox({ tweets, setTweets }) {
   const { data: session } = useSession();
@@ -18,60 +19,23 @@ export default function TweetBox({ tweets, setTweets }) {
   const { modalState, setModalState } = useContext(ModalContext);
 
   const tweetPost = async () => {
-    console.log(modalState);
-    if (modalState.operation === "Edit") {
-      // setIsLoading(true);
-      // const formData = new FormData();
-      // formData.append("content", content);
-      // formData.append("image", selectedImage);
-      // formData.append("imageUrl", imageUrl);
-      // try {
-      //   const res = await fetch(`/api/tweets/${modalState.tweet._id}`, {
-      //     method: "PUT",
-      //     body: formData,
-      //   });
-      //   const data = await res.json();
-      //   console.log(data);
-      //   setContent("");
-      //   setSelectedImage(null);
-      //   setImageUrl(null);
-      //   setIsLoading(false);
-      //   if (data.success) {
-      //     modalState.setTweetContent({
-      //       content: data.tweet.content,
-      //       image: data.tweet.image,
-      //     });
-      //   }
-      // } catch (error) {
-      //   console.log(error);
-      // }
-    } else {
+    if (modalState.operation !== "Edit") {
       if (content || selectedImage) {
-        setIsLoading(true);
-        const formData = new FormData();
-        formData.append("content", content);
-        formData.append("image", selectedImage);
-        formData.append("typeOfTweet", "Original");
-        try {
-          const res = await fetch("/api/tweets", {
-            method: "POST",
-            body: formData,
-          });
-          const data = await res.json();
-          console.log(data);
-          setContent("");
-          setSelectedImage(null);
-          setImageUrl(null);
-          setIsLoading(false);
-          if (data.success) {
-            setTweets([data.tweet, ...tweets]);
-            if (modalState.state === "Tweet") {
-              setModalState({});
-            }
-          }
-        } catch (error) {
-          console.log(error);
-        }
+        tweetDispatch({
+          type: TweetActions.postTweet,
+          payload: {
+            setIsLoading,
+            setContent,
+            setSelectedImage,
+            setImageUrl,
+            setTweets,
+            setModalState,
+            selectedImage,
+            content,
+            modalState,
+            tweets,
+          },
+        });
       } else {
         //alert("Tweet needs at least an image or some text");
       }

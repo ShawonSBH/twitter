@@ -5,6 +5,7 @@ import React, { useContext, useEffect, useState } from "react";
 import styles from "../src/styles/CommentBox.module.css";
 import loaderStyles from "../src/styles/Modal.module.css";
 import { useSession } from "next-auth/react";
+import { TweetActions, tweetDispatch } from "@/actions/tweet";
 
 export default function CommentBox({ parameter, setFunction }) {
   const { modalState, setModalState } = useContext(ModalContext);
@@ -24,32 +25,25 @@ export default function CommentBox({ parameter, setFunction }) {
     const commentID = modalState.data._id;
     setIsLoading(true);
     if (modalState.state === "Comment") {
-      const res = await axios
-        .post(`/api/comment`, {
-          content,
-          typeOfTweet: "Comment",
-          originalTweetLink: commentID,
-        })
-        .catch((err) => console.log(err));
-
-      console.log(res);
-      const result = await res.data;
-      if (result.success) {
-        setFunction([result.comment, ...parameter]);
-        modalState.setNumberOfComments(modalState.numberOfComments + 1);
-      }
-    } else {
-      const res = await axios
-        .put(`/api/comment`, {
+      tweetDispatch({
+        type: TweetActions.postComment,
+        payload: {
+          modalState,
           content,
           commentID,
-        })
-        .catch((err) => console.log(err));
-
-      const result = await res.data;
-      if (result.success) {
-        setFunction(result.comment.content);
-      }
+          setFunction,
+          parameter,
+        },
+      });
+    } else {
+      tweetDispatch({
+        type: TweetActions.editComment,
+        payload: {
+          content,
+          commentID,
+          setFunction,
+        },
+      });
     }
     setContent("");
     setModalState({});
