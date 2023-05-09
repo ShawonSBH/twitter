@@ -2,24 +2,51 @@ import { ArrowSmallLeftIcon, BackspaceIcon } from "@heroicons/react/24/outline";
 import Sidebar from "../../../components/Sidebar";
 import UserProfileView from "../../../components/UserProfileView";
 import styles from "../../styles/UserProfile.module.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Posts from "@/models/Posts";
 import connectMongo from "@/utils/db";
 import Post from "../../../components/Post";
-import Following from "../../../components/Following";
-import Followers from "../../../components/Followers";
 import Reacts from "@/models/Reacts";
 import { getServerSession } from "next-auth";
 import { authOptions } from "../api/auth/[...nextauth]";
 import { useSession } from "next-auth/react";
 import axios from "axios";
 import Users from "@/models/Users";
+import Tweets from "@/models/Tweets";
+import TweetShower from "../../../components/TweetShower";
+import Following from "../../../components/Following";
+import Followers from "../../../components/Followers";
+import { useRouter } from "next/router";
 
-export default function ProfilePage({ user, posts, liked }) {
+export default function ProfilePage({ user, posts, liked, tweets }) {
   const [selectedOption, setSelectedOption] = useState("tweets");
   const { data: session } = useSession();
+  const [fetchedTweets, setFetchedTweets] = useState(tweets);
+  const [isFollowed, setIsFollowed] = useState(false);
+  const [following, setFollowing] = useState(user.following);
+  const [followers, setFollowers] = useState(user.followers);
+  const router = useRouter();
 
-  console.log(user);
+  useEffect(() => {
+    // Update isLiked state when session object changes
+    console.log(isFollowed);
+    setIsFollowed(
+      user.followers?.some((follower) => {
+        console.log(
+          follower._id.toString() + " " + session?.user.id.toString()
+        );
+        return follower._id.toString() === session?.user.id.toString();
+      })
+    );
+  }, [session]);
+
+  //console.log(user);
+
+  useEffect(() => {
+    setFetchedTweets(tweets);
+    setFollowers(user.followers);
+    setFollowing(user.following);
+  }, [router.query]);
 
   return (
     <div className={styles.container}>
@@ -27,21 +54,29 @@ export default function ProfilePage({ user, posts, liked }) {
       <div className={styles.profileBar}>
         <UserProfileView
           user={user}
-          numberOfTweets={posts.length}
+          numberOfTweets={tweets.length}
           selectedOption={selectedOption}
           setSelectedOption={setSelectedOption}
+          isFollowed={isFollowed}
+          setIsFollowed={setIsFollowed}
+          followers={followers}
+          setFollowers={setFollowers}
         />
         {selectedOption === "tweets" &&
-          posts.map((post) => (
-            <Post post={post} key={post._id} liked={liked} />
+          fetchedTweets.map((tweet) => (
+            <TweetShower
+              tweet={tweet}
+              tweets={fetchedTweets}
+              setTweets={setFetchedTweets}
+            />
           ))}
-        {selectedOption === "followers" && user.followers.length > 0 ? (
-          user.followers.map((follower) => (
+        {selectedOption === "followers" && followers.length > 0 ? (
+          followers.map((follower) => (
             <Followers user={follower} key={follower._id} />
           ))
         ) : selectedOption === "followers" &&
           session.user.id === user._id &&
-          user.followers.length === 0 ? (
+          followers.length === 0 ? (
           <div className={styles.followerContainer}>
             <img className={styles.notFollowingImage} src="/followers.png" />
             <h3>Looking for followers?</h3>
@@ -52,12 +87,12 @@ export default function ProfilePage({ user, posts, liked }) {
           </div>
         ) : (
           selectedOption === "followers" &&
-          user.followers.length === 0 && (
+          followers.length === 0 && (
             <div>This user is not being followed by anyone</div>
           )
         )}
-        {selectedOption === "following" && user.following.length > 0 ? (
-          user.following.map((followingUser) => (
+        {selectedOption === "following" && following.length > 0 ? (
+          following.map((followingUser) => (
             <Following
               user={followingUser}
               key={followingUser._id}
@@ -66,7 +101,7 @@ export default function ProfilePage({ user, posts, liked }) {
           ))
         ) : selectedOption === "following" &&
           session.user.id === user._id &&
-          user.following.length === 0 ? (
+          following.length === 0 ? (
           <div className={styles.followerContainer}>
             <h3>Be in the know</h3>
             <p>
@@ -77,9 +112,7 @@ export default function ProfilePage({ user, posts, liked }) {
           </div>
         ) : (
           selectedOption === "following" &&
-          user.following.length === 0 && (
-            <div>This user is not following anyone</div>
-          )
+          following.length === 0 && <div>This user is not following anyone</div>
         )}
       </div>
     </div>
@@ -126,6 +159,104 @@ export async function getServerSideProps(context) {
           profilePicture: 1,
         },
       });
+    const tweets = await Tweets.find({
+      typeOfTweet: { $ne: "Comment" },
+      createdBy: userID,
+    })
+      .sort({ createdAt: -1 })
+      .populate({
+        path: "createdBy",
+        select: {
+          _id: 1,
+          name: 1,
+          username: 1,
+          email: 1,
+          profilePicture: 1,
+        },
+      })
+      .populate({
+        path: "originalTweetLink",
+        select: {
+          createdBy: 1,
+          comments: 1,
+          likes: 1,
+          retweets: 1,
+          content: 1,
+          image: 1,
+        },
+        populate: [
+          {
+            path: "createdBy",
+            select: {
+              _id: 1,
+              name: 1,
+              username: 1,
+              email: 1,
+              profilePicture: 1,
+            },
+          },
+          {
+            path: "comments",
+            options: { sort: { createdAt: -1 } },
+            populate: [
+              {
+                path: "createdBy",
+                select: {
+                  _id: 1,
+                  name: 1,
+                  username: 1,
+                  email: 1,
+                  profilePicture: 1,
+                },
+              },
+              {
+                path: "comments",
+                options: { sort: { createdAt: -1 } },
+                populate: {
+                  path: "createdBy",
+                  select: {
+                    _id: 1,
+                    name: 1,
+                    username: 1,
+                    email: 1,
+                    profilePicture: 1,
+                  },
+                },
+              },
+            ],
+          },
+        ],
+      })
+      .populate({
+        path: "comments",
+        options: { sort: { createdAt: -1 } },
+        populate: [
+          {
+            path: "createdBy",
+            select: {
+              _id: 1,
+              name: 1,
+              username: 1,
+              email: 1,
+              profilePicture: 1,
+            },
+          },
+          {
+            path: "comments",
+            options: { sort: { createdAt: -1 } },
+            populate: {
+              path: "createdBy",
+              select: {
+                _id: 1,
+                name: 1,
+                username: 1,
+                email: 1,
+                profilePicture: 1,
+              },
+            },
+          },
+        ],
+      });
     if (session) {
       const allLikedPosts = await Reacts.find({
         reactor: session?.user.id,
@@ -138,6 +269,7 @@ export async function getServerSideProps(context) {
           user: JSON.parse(JSON.stringify(user)),
           posts: JSON.parse(JSON.stringify(posts)),
           liked: JSON.parse(JSON.stringify(allLikedPosts)),
+          tweets: JSON.parse(JSON.stringify(tweets)),
         },
       };
     } else {
@@ -145,6 +277,7 @@ export async function getServerSideProps(context) {
         props: {
           user: JSON.parse(JSON.stringify(user)),
           posts: JSON.parse(JSON.stringify(posts)),
+          tweets: JSON.parse(JSON.stringify(tweets)),
         },
       };
     }

@@ -6,12 +6,17 @@ import styles from "../src/styles/UserProfile.module.css";
 import { useState } from "react";
 import OtherModal from "./OtherModal";
 import { useSession } from "next-auth/react";
+import { UserActions, userDispatch } from "@/actions/user";
 
 export default function UserProfileView({
   user,
   numberOfTweets,
   selectedOption,
   setSelectedOption,
+  isFollowed,
+  setIsFollowed,
+  followers,
+  setFollowers,
 }) {
   const formatted_date = () =>
     new Intl.DateTimeFormat("en-GB", {
@@ -27,6 +32,35 @@ export default function UserProfileView({
     setModalState("Update");
   };
 
+  const followUser = async () => {
+    userDispatch({
+      type: UserActions.followUser,
+      payload: {
+        user,
+        setIsFollowed,
+        isFollowed,
+      },
+    });
+    setFollowers([...followers, session.user]);
+  };
+
+  const unfollowUser = async () => {
+    userDispatch({
+      type: UserActions.unfollowUser,
+      payload: {
+        user,
+        setIsFollowed,
+        isFollowed,
+      },
+    });
+    const updatedFollowers = followers.filter(
+      (Follower) =>
+        Follower.id !== session.user.id && Follower._id !== session.user.id
+    );
+    console.log(updatedFollowers);
+    setFollowers(updatedFollowers);
+  };
+
   return (
     <div>
       <div className={styles.topBar}>
@@ -39,9 +73,23 @@ export default function UserProfileView({
       <div className={styles.coverPicture}></div>
       <div className={styles.pictureAndEditContentBox}>
         <img src={user.profilePicture} className={styles.profilePicture} />
-        {session?.user.id === user._id && (
+        {session?.user.id === user._id ? (
           <button className={styles.editProfileButton} onClick={editProfile}>
             Set Up Profile
+          </button>
+        ) : isFollowed ? (
+          <button
+            className={styles.editProfileButton}
+            onClick={() => unfollowUser()}
+          >
+            Unfollow
+          </button>
+        ) : (
+          <button
+            className={styles.editProfileButton}
+            onClick={() => followUser()}
+          >
+            Follow
           </button>
         )}
       </div>
