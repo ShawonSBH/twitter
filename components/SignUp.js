@@ -17,7 +17,6 @@ export default function SignUp() {
     username: "",
     email: "",
     password: "",
-    profilePicture: "",
   });
   const { setModalState } = useContext(ModalContext);
   const [isLoading, setIsLoading] = useState(false);

@@ -51,7 +51,6 @@ const signUp = async ({ userData, setIsLoading, date, signIn }) => {
       email: userData.email,
       password: userData.password,
       dob: date,
-      profilePicture: userData.profilePicture,
     })
     .catch((err) => console.log(err));
 

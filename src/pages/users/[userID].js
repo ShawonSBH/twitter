@@ -12,6 +12,8 @@ import Reacts from "@/models/Reacts";
 import { getServerSession } from "next-auth";
 import { authOptions } from "../api/auth/[...nextauth]";
 import { useSession } from "next-auth/react";
+import axios from "axios";
+import Users from "@/models/Users";
 
 export default function ProfilePage({ user, posts, liked }) {
   const [selectedOption, setSelectedOption] = useState("tweets");
@@ -87,8 +89,25 @@ export default function ProfilePage({ user, posts, liked }) {
 export async function getServerSideProps(context) {
   const { userID } = context.query;
   await connectMongo();
-  const userResponse = await fetch(`/api/users/${userID}`);
-  const data = await userResponse.json();
+  const user = await Users.findById(userID)
+    .populate({
+      path: "followers",
+      select: {
+        _id: 1,
+        name: 1,
+        username: 1,
+        profilePicture: 1,
+      },
+    })
+    .populate({
+      path: "following",
+      select: {
+        _id: 1,
+        name: 1,
+        username: 1,
+        profilePicture: 1,
+      },
+    });
   const session = await getServerSession(
     context.req,
     context.res,
@@ -116,7 +135,7 @@ export async function getServerSideProps(context) {
       });
       return {
         props: {
-          user: data.data,
+          user: JSON.parse(JSON.stringify(user)),
           posts: JSON.parse(JSON.stringify(posts)),
           liked: JSON.parse(JSON.stringify(allLikedPosts)),
         },
@@ -124,7 +143,7 @@ export async function getServerSideProps(context) {
     } else {
       return {
         props: {
-          user: data.data,
+          user: JSON.parse(JSON.stringify(user)),
           posts: JSON.parse(JSON.stringify(posts)),
         },
       };
@@ -132,7 +151,7 @@ export async function getServerSideProps(context) {
   } catch (error) {
     return {
       props: {
-        user: data.data,
+        user: JSON.parse(JSON.stringify(user)),
         error: JSON.parse(JSON.stringify(error.message)),
       },
     };
