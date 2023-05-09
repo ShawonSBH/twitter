@@ -122,11 +122,23 @@
   margin-top: 2rem;
   padding: 0.5rem;
   border-radius: 2rem;
+  border: none;
 }
 
 .submitButton:hover {
   cursor: pointer;
   background-color: #0a73b9;
+}
+
+.submitButton label {
+  display: block;
+  width: 100%;
+  height: 100%;
+  padding: 2px;
+}
+
+.submitButton label:hover {
+  cursor: pointer;
 }
 
 .link {

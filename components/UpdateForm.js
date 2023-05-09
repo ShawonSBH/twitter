@@ -88,9 +88,12 @@ export default function UpdateForm({ setModalState, user }) {
           )}
         </div>
       </div>
+      <button className={styles.submitButton}>
+        <label htmlFor="profile-picture-upload">Upload Image</label>
+      </button>
       <input
         type="file"
-        id="photo-upload"
+        id="profile-picture-upload"
         accept="image/*"
         onChange={(e) => {
           const file = e.target.files[0];

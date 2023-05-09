@@ -94,18 +94,42 @@ const editUser = async ({
   }
 };
 
-const followUser = async ({ user, setIsFollowed, isFollowed }) => {
+const followUser = async ({
+  user,
+  setIsFollowed,
+  isFollowed,
+  followers,
+  setFollowers,
+  currentUser,
+}) => {
   const res = await axios.post(`/api/users/${user._id}`);
   const response = await res.data;
   if (response.success) {
     setIsFollowed(!isFollowed);
+    if (followers) {
+      setFollowers([...followers, currentUser]);
+    }
   }
 };
 
-const unfollowUser = async ({ user, setIsFollowed, isFollowed }) => {
+const unfollowUser = async ({
+  user,
+  setIsFollowed,
+  isFollowed,
+  followers,
+  setFollowers,
+  currentUser,
+}) => {
   const res = await axios.delete(`/api/users/${user._id}`);
   const response = await res.data;
   if (response.success) {
     setIsFollowed(!isFollowed);
+    if (followers) {
+      const updatedFollowers = followers.filter(
+        (Follower) =>
+          Follower.id !== currentUser.id && Follower._id !== currentUser.id
+      );
+      setFollowers(updatedFollowers);
+    }
   }
 };

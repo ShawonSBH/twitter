@@ -39,9 +39,12 @@ export default function UserProfileView({
         user,
         setIsFollowed,
         isFollowed,
+        followers,
+        setFollowers,
+        currentUser: session.user,
       },
     });
-    setFollowers([...followers, session.user]);
+    // setFollowers([...followers, session.user]);
   };
 
   const unfollowUser = async () => {
@@ -51,14 +54,17 @@ export default function UserProfileView({
         user,
         setIsFollowed,
         isFollowed,
+        followers,
+        setFollowers,
+        currentUser: session.user,
       },
     });
-    const updatedFollowers = followers.filter(
-      (Follower) =>
-        Follower.id !== session.user.id && Follower._id !== session.user.id
-    );
-    console.log(updatedFollowers);
-    setFollowers(updatedFollowers);
+    // const updatedFollowers = followers.filter(
+    //   (Follower) =>
+    //     Follower.id !== session.user.id && Follower._id !== session.user.id
+    // );
+    // console.log(updatedFollowers);
+    // setFollowers(updatedFollowers);
   };
 
   return (

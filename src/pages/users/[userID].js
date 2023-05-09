@@ -46,6 +46,14 @@ export default function ProfilePage({ user, posts, liked, tweets }) {
     setFetchedTweets(tweets);
     setFollowers(user.followers);
     setFollowing(user.following);
+    setIsFollowed(
+      user.followers?.some((follower) => {
+        console.log(
+          follower._id.toString() + " " + session?.user.id.toString()
+        );
+        return follower._id.toString() === session?.user.id.toString();
+      })
+    );
   }, [router.query]);
 
   return (
