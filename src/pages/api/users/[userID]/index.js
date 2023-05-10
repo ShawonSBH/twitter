@@ -70,30 +70,37 @@ const followUser = async (req, res, currentUser) => {
   }
 };
 
-const updateUser = async (req, res) => {
+const updateUser = async (req, res, currentUser) => {
   try {
     const { fields, files } = await parseForm(req);
     const { userID } = req.query;
-    const profilePicture = files.profilePicture
-      ? "/uploads/" + files.profilePicture?.newFilename
-      : null;
-    const name = fields.name;
-    const username = fields.username;
+    if (currentUser.id === userID) {
+      const profilePicture = files.profilePicture
+        ? "/uploads/" + files.profilePicture?.newFilename
+        : null;
+      const name = fields.name;
+      const username = fields.username;
 
-    console.log(name, username, profilePicture);
+      console.log(name, username, profilePicture);
 
-    const user = await Users.findById(userID);
+      const user = await Users.findById(userID);
 
-    user.name = name;
-    user.username = username;
-    user.profilePicture = profilePicture;
+      user.name = name;
+      user.username = username;
+      user.profilePicture = profilePicture;
 
-    await user.save();
+      await user.save();
 
-    res.status(200).json({
-      success: true,
-      data: user,
-    });
+      res.status(200).json({
+        success: true,
+        data: user,
+      });
+    } else {
+      res.status(401).json({
+        success: false,
+        message: "Not Authorized",
+      });
+    }
   } catch (error) {
     res.status(400).json({ success: false, error: error.message });
   }
@@ -138,7 +145,7 @@ export default async function handler(req, res) {
       await followUser(req, res, session.user);
       break;
     case PUT:
-      await updateUser(req, res);
+      await updateUser(req, res, session.user);
       break;
     case DELETE:
       await unfollowUser(req, res, session.user);

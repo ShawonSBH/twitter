@@ -10,22 +10,29 @@ const deleteComment = async (req, res, userData) => {
     const { commentID } = req.query;
     const deletedComment = await Tweets.findById(commentID);
 
-    await Tweets.updateOne(
-      { _id: deletedComment.originalTweetLink },
-      { $pull: { comments: deletedComment._id } }
-    );
+    if (userData.id.toString() === deletedComment.createdBy.toString()) {
+      await Tweets.updateOne(
+        { _id: deletedComment.originalTweetLink },
+        { $pull: { comments: deletedComment._id } }
+      );
 
-    if (deletedComment.comments.length > 0) {
-      const replyIds = deletedComment.comments.map((reply) => reply._id);
-      await Tweets.deleteMany({ _id: { $in: replyIds } });
+      if (deletedComment.comments.length > 0) {
+        const replyIds = deletedComment.comments.map((reply) => reply._id);
+        await Tweets.deleteMany({ _id: { $in: replyIds } });
+      }
+
+      await deletedComment.deleteOne();
+
+      res.status(201).json({
+        success: true,
+        message: "Comment deleted Successfully",
+      });
+    } else {
+      res.status(403).json({
+        success: false,
+        message: "Not Authorized",
+      });
     }
-
-    await deletedComment.deleteOne();
-
-    res.status(201).json({
-      success: true,
-      message: "Comment deleted Successfully",
-    });
   } catch (error) {
     res.status(400).json({ success: false, error: error.message });
   }

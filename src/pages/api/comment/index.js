@@ -76,26 +76,33 @@ const updateComment = async (req, res, userData) => {
 
     const existingComment = await Tweets.findById(commentID);
 
-    existingComment.content = content;
+    if (existingComment.createdBy.toString() === userData.id.toString()) {
+      existingComment.content = content;
 
-    await existingComment.save();
+      await existingComment.save();
 
-    const comment = await existingComment.populate({
-      path: "createdBy",
-      select: {
-        _id: 1,
-        name: 1,
-        username: 1,
-        email: 1,
-        profilePicture: 1,
-      },
-    });
+      const comment = await existingComment.populate({
+        path: "createdBy",
+        select: {
+          _id: 1,
+          name: 1,
+          username: 1,
+          email: 1,
+          profilePicture: 1,
+        },
+      });
 
-    console.log(comment);
-    res.status(201).json({
-      success: true,
-      comment,
-    });
+      //console.log(comment);
+      res.status(201).json({
+        success: true,
+        comment,
+      });
+    } else {
+      res.status(401).json({
+        success: false,
+        message: "Not Authorized",
+      });
+    }
   } catch (error) {
     res.status(400).json({ success: false, error: error.message });
   }

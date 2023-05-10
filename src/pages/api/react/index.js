@@ -4,9 +4,11 @@ import { POST } from "@/utils/reqMethods";
 import { getServerSession } from "next-auth";
 import Tweets from "@/models/Tweets";
 import { authOptions } from "../auth/[...nextauth]";
+import { use } from "react";
 
 const react = async (req, res, user) => {
   const { tweetID } = req.body;
+  console.log(req.body.tweetID);
   try {
     const react = await Tweets.findOne({
       _id: tweetID,
@@ -22,6 +24,7 @@ const react = async (req, res, user) => {
       });
     } else {
       console.log("second");
+      console.log(user.id + " " + tweetID);
       await Tweets.updateOne({ _id: tweetID }, { $push: { likes: user.id } });
 
       res.status(201).json({
