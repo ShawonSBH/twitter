@@ -36,7 +36,71 @@
 							]
 						}
 					},
-					"response": []
+					"response": [
+						{
+							"name": "Create a user",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"Nihal Shahria Eid\",\n    \"username\": \"nihalshahria\",\n    \"email\": \"nihalshahria@gmail.com\",\n    \"password\": \"nihalshahria\",\n    \"dob\": \"2000-02-20\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/api/users",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"users"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "ETag",
+									"value": "\"omfdca4d0dbr\""
+								},
+								{
+									"key": "Content-Length",
+									"value": "423"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 10 May 2023 06:08:36 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"data\": {\n        \"name\": \"Nihal Shahria Eid\",\n        \"username\": \"nihalshahria\",\n        \"email\": \"nihalshahria@gmail.com\",\n        \"password\": \"$2b$12$/k6d.C0uQnuna56xhCSyreyvSrnO6XxbG78kxIm8NZv2W9N.ocMcu\",\n        \"dob\": \"2000-02-20T00:00:00.000Z\",\n        \"followers\": [],\n        \"following\": [],\n        \"profilePicture\": \"/users.png\",\n        \"messageNotifications\": [],\n        \"_id\": \"645b34e2942547e5cbc076da\",\n        \"createdAt\": \"2023-05-10T06:08:34.956Z\",\n        \"updatedAt\": \"2023-05-10T06:08:34.956Z\",\n        \"__v\": 0\n    }\n}"
+						}
+					]
 				},
 				{
 					"name": "Get Users List",
@@ -56,7 +120,66 @@
 							]
 						}
 					},
-					"response": []
+					"response": [
+						{
+							"name": "Get Users List",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/api/users",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"users"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "ETag",
+									"value": "\"p3szkpbz4a230\""
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Content-Encoding",
+									"value": "gzip"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 10 May 2023 06:11:45 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"users\": [\n        {\n            \"_id\": \"642e7a82298841009d108385\",\n            \"name\": \"Mohammed Mazhar Ali Shawon\",\n            \"username\": \"shawon204\",\n            \"email\": \"shawon2046@gmail.com\",\n            \"password\": \"$2b$12$xK5JWEpLnrDMdCN3BI75aePbl.sRaMkaejVLnZmQWqe3qK5/cikpO\",\n            \"dob\": \"2000-12-10T18:00:00.000Z\",\n            \"followers\": [\n                \"6459d93fb542bb10eb14b42c\"\n            ],\n            \"following\": [\n                \"642e7b40298841009d1083a6\",\n                \"642e7baf298841009d1083ba\"\n            ],\n            \"profilePicture\": \"/uploads/21bcbac6f40d9b30643dbb909.jpg\",\n            \"createdAt\": \"2023-04-06T07:53:38.325Z\",\n            \"updatedAt\": \"2023-05-09T10:16:09.208Z\",\n            \"__v\": 0,\n            \"messageNotifications\": []\n        },\n        {\n            \"messageNotifications\": [],\n            \"_id\": \"642e7b40298841009d1083a6\",\n            \"name\": \"Sourav Ahmed\",\n            \"username\": \"sourav5654\",\n            \"email\": \"sourav5654@gmail.com\",\n            \"password\": \"$2b$12$XoqTryEJCVGGT.WxTE/kFu7nU8mZ4jV0GuZjE5PxAunmevsynZpLG\",\n            \"dob\": \"1999-08-14T18:00:00.000Z\",\n            \"followers\": [\n                \"642e7a82298841009d108385\",\n                \"6459d93fb542bb10eb14b42c\"\n            ],\n            \"following\": [],\n            \"profilePicture\": \"/uploads/73bdb40d097cfce1e8e695201.jpg\",\n            \"createdAt\": \"2023-04-06T07:56:48.841Z\",\n            \"updatedAt\": \"2023-05-09T09:53:09.694Z\",\n            \"__v\": 0\n        },\n        {\n            \"_id\": \"642e7baf298841009d1083ba\",\n            \"name\": \"Maruf\",\n            \"username\": \"heromaruf\",\n            \"email\": \"heromaruf@gmail.com\",\n            \"password\": \"$2b$12$Zdbga0CYSvJq56NHRjrJTeNxngvuzV.syAhyzcVMmVWaVTQpomxMS\",\n            \"dob\": \"1998-10-18T18:00:00.000Z\",\n            \"followers\": [\n                \"642e7a82298841009d108385\"\n            ],\n            \"following\": [],\n            \"profilePicture\": \"/uploads/73bdb40d097cfce1e8e695202.jpg\",\n            \"createdAt\": \"2023-04-06T07:58:39.891Z\",\n            \"updatedAt\": \"2023-05-08T11:25:43.314Z\",\n            \"__v\": 0,\n            \"messageNotifications\": []\n        },\n        {\n            \"_id\": \"6458e887b7e59d50cebbf6dc\",\n            \"name\": \"Sabit\",\n            \"username\": \"sabit12\",\n            \"email\": \"sabit12@gmail.com\",\n            \"password\": \"$2b$12$0ulQKh.NJskkA5fpyKxoB.g8.ndEJxweXsEf13D7W1TzpE6X1c/oO\",\n            \"dob\": \"1997-02-14T18:00:00.000Z\",\n            \"followers\": [],\n            \"following\": [],\n            \"profilePicture\": \"/users.png\",\n            \"messageNotifications\": [],\n            \"createdAt\": \"2023-05-08T12:18:15.556Z\",\n            \"updatedAt\": \"2023-05-08T12:18:15.556Z\",\n            \"__v\": 0\n        },\n        {\n            \"_id\": \"6459d93fb542bb10eb14b42c\",\n            \"name\": \"Farhan Mahtab Mahi\",\n            \"username\": \"ironblood\",\n            \"email\": \"ironblood@gmail.com\",\n            \"password\": \"$2b$12$kv12/X8eE3GRcPf70rS7SevlKaoMBiGkuOYhp2puobYUG.EvunuFS\",\n            \"dob\": \"2000-08-16T18:00:00.000Z\",\n            \"followers\": [],\n            \"following\": [\n                \"642e7b40298841009d1083a6\",\n                \"642e7a82298841009d108385\"\n            ],\n            \"profilePicture\": \"/uploads/c51d9b6c0c6cb1f585c66cd00.jpeg\",\n            \"messageNotifications\": [],\n            \"createdAt\": \"2023-05-09T05:25:19.394Z\",\n            \"updatedAt\": \"2023-05-09T11:44:23.810Z\",\n            \"__v\": 0\n        },\n        {\n            \"_id\": \"645b34e2942547e5cbc076da\",\n            \"name\": \"Nihal Shahria Eid\",\n            \"username\": \"nihalshahria\",\n            \"email\": \"nihalshahria@gmail.com\",\n            \"password\": \"$2b$12$/k6d.C0uQnuna56xhCSyreyvSrnO6XxbG78kxIm8NZv2W9N.ocMcu\",\n            \"dob\": \"2000-02-20T00:00:00.000Z\",\n            \"followers\": [],\n            \"following\": [],\n            \"profilePicture\": \"/users.png\",\n            \"messageNotifications\": [],\n            \"createdAt\": \"2023-05-10T06:08:34.956Z\",\n            \"updatedAt\": \"2023-05-10T06:08:34.956Z\",\n            \"__v\": 0\n        }\n    ]\n}"
+						}
+					]
 				},
 				{
 					"name": "Log In",
@@ -86,7 +209,72 @@
 							]
 						}
 					},
-					"response": []
+					"response": [
+						{
+							"name": "Log In",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\": \"nihalshahria@gmail.com\",\n    \"password\": \"nihalshahria\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/api/users/login",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"users",
+										"login"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "ETag",
+									"value": "\"hon4lk2kmwcd\""
+								},
+								{
+									"key": "Content-Length",
+									"value": "445"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 10 May 2023 06:10:10 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"message\": \"Logged In\",\n    \"user\": {\n        \"_id\": \"645b34e2942547e5cbc076da\",\n        \"name\": \"Nihal Shahria Eid\",\n        \"username\": \"nihalshahria\",\n        \"email\": \"nihalshahria@gmail.com\",\n        \"password\": \"$2b$12$/k6d.C0uQnuna56xhCSyreyvSrnO6XxbG78kxIm8NZv2W9N.ocMcu\",\n        \"dob\": \"2000-02-20T00:00:00.000Z\",\n        \"followers\": [],\n        \"following\": [],\n        \"profilePicture\": \"/users.png\",\n        \"messageNotifications\": [],\n        \"createdAt\": \"2023-05-10T06:08:34.956Z\",\n        \"updatedAt\": \"2023-05-10T06:08:34.956Z\",\n        \"__v\": 0\n    }\n}"
+						}
+					]
 				},
 				{
 					"name": "Specific User Details",
@@ -114,7 +302,75 @@
 							]
 						}
 					},
-					"response": []
+					"response": [
+						{
+							"name": "Specific User Details",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": []
+								},
+								"url": {
+									"raw": "http://localhost:3000/api/users/645b34e2942547e5cbc076da",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"users",
+										"645b34e2942547e5cbc076da"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Set-Cookie",
+									"value": "next-auth.csrf-token=5b1cfad251eb6504a5eb8207209399d35afce917bd427b8e5cec8084c83cdb27%7Cd846480918b70ad0e6586c675a7b58bb8ccd70e8dca7748e30256aae971669ce; Path=/; HttpOnly; SameSite=Lax"
+								},
+								{
+									"key": "Set-Cookie",
+									"value": "next-auth.callback-url=http%3A%2F%2Flocalhost%3A3000; Path=/; HttpOnly; SameSite=Lax"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "ETag",
+									"value": "\"125gcy7fodxbr\""
+								},
+								{
+									"key": "Content-Length",
+									"value": "423"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 10 May 2023 06:11:15 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"data\": {\n        \"_id\": \"645b34e2942547e5cbc076da\",\n        \"name\": \"Nihal Shahria Eid\",\n        \"username\": \"nihalshahria\",\n        \"email\": \"nihalshahria@gmail.com\",\n        \"password\": \"$2b$12$/k6d.C0uQnuna56xhCSyreyvSrnO6XxbG78kxIm8NZv2W9N.ocMcu\",\n        \"dob\": \"2000-02-20T00:00:00.000Z\",\n        \"followers\": [],\n        \"following\": [],\n        \"profilePicture\": \"/users.png\",\n        \"messageNotifications\": [],\n        \"createdAt\": \"2023-05-10T06:08:34.956Z\",\n        \"updatedAt\": \"2023-05-10T06:08:34.956Z\",\n        \"__v\": 0\n    }\n}"
+						}
+					]
 				},
 				{
 					"name": "Update User",
@@ -155,7 +411,87 @@
 							]
 						}
 					},
-					"response": []
+					"response": [
+						{
+							"name": "Update User",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "name",
+											"value": "Farhan Mahtab Mahi",
+											"type": "text"
+										},
+										{
+											"key": "username",
+											"value": "ironblood",
+											"type": "text"
+										},
+										{
+											"key": "profilePicture",
+											"type": "file",
+											"src": "/home/sbh/CodeFiles/twitter/public/Mahi.jpeg"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost:3000/api/users/6459d93fb542bb10eb14b42c",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"users",
+										"6459d93fb542bb10eb14b42c"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Set-Cookie",
+									"value": "next-auth.session-token=eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..ssYM-VfpfF9xt1kv.k2PYZXZpeHLG-KQL2J-TXPC4FCamQNFUCJMkSTdSVvLETGm1rmw1Pk7oyGVN70r1E8hRoUIsdm0tUvvLcNAvwunqv_t7AT-tFPOz5q2by3uS3shXhZZxojDUfOYh_t1HjdWXelMeibrdvrhk1bZqkJGJbOTBPhXGTunwR1F9JqHft85_wxMhgu6HZUXIVlz-35qZt7STLqS38KZ1idKU8aBcXywM2xyQP7TvdbmkSFE-z9V-e2VPQoJP8aP23uDelgAMJVmoGdRphmD7Ho2T9nvxeR2UC7jqDWYxExza2DzZvERFrCAPUiX0VsOXaBnfeEnJj2QEeqhbCs6fDarjBQ88ewp2NTg8VmKfY-EfbGY7RMmRVT7C1itPM-ss.D3vrH4ntPidAJpT6XT5_9g; Path=/; Expires=Fri, 09 Jun 2023 06:25:13 GMT; HttpOnly; SameSite=Lax"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "ETag",
+									"value": "\"aibtaz26wedw\""
+								},
+								{
+									"key": "Content-Length",
+									"value": "500"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 10 May 2023 06:25:14 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"data\": {\n        \"_id\": \"6459d93fb542bb10eb14b42c\",\n        \"name\": \"Farhan Mahtab Mahi\",\n        \"username\": \"ironblood\",\n        \"email\": \"ironblood@gmail.com\",\n        \"password\": \"$2b$12$kv12/X8eE3GRcPf70rS7SevlKaoMBiGkuOYhp2puobYUG.EvunuFS\",\n        \"dob\": \"2000-08-16T18:00:00.000Z\",\n        \"followers\": [],\n        \"following\": [\n            \"642e7b40298841009d1083a6\",\n            \"642e7a82298841009d108385\"\n        ],\n        \"profilePicture\": \"/uploads/779010dbc4cf1475b936ffa04.jpeg\",\n        \"messageNotifications\": [],\n        \"createdAt\": \"2023-05-09T05:25:19.394Z\",\n        \"updatedAt\": \"2023-05-10T06:25:14.147Z\",\n        \"__v\": 0\n    }\n}"
+						}
+					]
 				},
 				{
 					"name": "Follow User",
@@ -176,7 +512,67 @@
 							]
 						}
 					},
-					"response": []
+					"response": [
+						{
+							"name": "Follow User",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/api/users/645b34e2942547e5cbc076da",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"users",
+										"645b34e2942547e5cbc076da"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Set-Cookie",
+									"value": "next-auth.session-token=eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..ZT3T07xEm4g15Q-x.g1n1oGO6q_GL1tfLJXx20zvZ0uqoCPnKgBAxvDK8zZpXVkJX2-3vFKgmydvP0bqrlVqu0jr64tlcZ9i6cDpWV450tK7mqsM-8Wg9fklMnNt4J9fqMOJi73EqZ422B-M6SBvy-az6mAcGTcoRsoKtHv1MHT5DMKdpRycCBRDA7ZdBmBN66h3nHL8CtEiYmVprC2MULKcYisHSSRl7fjjLHmfiE2vgCss5PHXp1dUGkilpBl1CM3m8Cnrh07JkoOjHM86D9QAxHDHF0eSKtYLaeGlKhF61NeWlaC9eNngSvIs0chEgLm05j4maAPOTz-zwjYcoPF6r9O7pBbaJqp-hhXbY9ULMWQUHtlgbCpEVkqzwJAzwnLTU0doreLI8.BIO0mPbyCOEiYJOHnho8LQ; Path=/; Expires=Fri, 09 Jun 2023 06:27:43 GMT; HttpOnly; SameSite=Lax"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "ETag",
+									"value": "\"85ogkhoj9v23\""
+								},
+								{
+									"key": "Content-Length",
+									"value": "75"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 10 May 2023 06:27:44 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"message\": \"You started following 645b34e2942547e5cbc076da\"\n}"
+						}
+					]
 				},
 				{
 					"name": "Unfollow User",
@@ -197,7 +593,67 @@
 							]
 						}
 					},
-					"response": []
+					"response": [
+						{
+							"name": "Unfollow User",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/api/users/645b34e2942547e5cbc076da",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"users",
+										"645b34e2942547e5cbc076da"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Set-Cookie",
+									"value": "next-auth.session-token=eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..pcJIgp4mJl_ozDvX.g3CmNDNpD2tU3g4DbGnpYRDpiFTHIzhJ1JFHsdJdD8NLgWObFiIO7DAftEjsGRUdc1qxJ1W4rrdyPkqtC3W7FL_e0gG1A7XFlSzW4p9BMCHugQ9nsRz7Vk08VM2-CRidETTYNEI-VdlZ-d6U1w-HxVV7xIxynuN3nxa7JpWMKd90g-9zJDVc4vxpT3uhK20fvn_tn5CMfWvr_xi8L5nwjdaE1DSg2eJI4K6aXP8_gBan7XLuCTtxx-JK6OqSpQbjDyOaClVsV0pSFDFXohCoP0tiU3rEK2Pq-6b5C1PA0z2D7sxHBMdkC_MzoUEDgSA6XAY4C3qSenpfRftog3Q-iPTT8Skhh3-zI-ieWral7AFQvAvTuhxyl5iU69p8.WHbTqXzuUXk1gzFJFruWFQ; Path=/; Expires=Fri, 09 Jun 2023 06:27:54 GMT; HttpOnly; SameSite=Lax"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "ETag",
+									"value": "\"mi4tukck0z1w\""
+								},
+								{
+									"key": "Content-Length",
+									"value": "68"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 10 May 2023 06:27:55 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"message\": \"You unfollowed 645b34e2942547e5cbc076da\"\n}"
+						}
+					]
 				}
 			]
 		},
@@ -242,7 +698,86 @@
 							]
 						}
 					},
-					"response": []
+					"response": [
+						{
+							"name": "Create A Tweet",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "image",
+											"type": "file",
+											"src": "/home/sbh/Downloads/Feature-Unexplored-Places-in-Kashmir.jpg"
+										},
+										{
+											"key": "content",
+											"value": "What anime is this?",
+											"type": "text"
+										},
+										{
+											"key": "typeOfTweet",
+											"value": "Original",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost:3000/api/tweets",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"tweets"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Set-Cookie",
+									"value": "next-auth.session-token=eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..cw_3v3NtISB812zT.azCYA5ptq5k0csK_VaJ6lrv9vHa0dyi2yDiDsUmrv9AoOb9a4SffoFdn2ZC2AuLh1SWlFLN0Wod954fJOabKDmOZAMAstFnWdPRDQBiKWrYMDe0x3tRdW3Usj2tTNA2JwP7l1vi-bJESWKnTr5PmC14HivpHBSV9Ek_sErQFlM9oQWNtU7Ei7sMToEs_RgStLpKG0GfJoL8iR90fFOicDBiCfL2UmW7Ux-Z4P0gWgYXhImmihrVOqmFCsctwGeFWMyQlv_v6LLc6pRFGM4nMERL3w5DdxiqgwbYrHTNH9jn-VbUOeFVk9_YWJI8sO0-cDC77H-yaApmMmzDOCmDRixoyDfsglSxYkdTQQan6jYKpfATPxhCiRXKweZEK.eViyo3Nf_ucWottfd8qdnQ; Path=/; Expires=Fri, 09 Jun 2023 06:47:44 GMT; HttpOnly; SameSite=Lax"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "ETag",
+									"value": "\"nur3u11500d9\""
+								},
+								{
+									"key": "Content-Length",
+									"value": "477"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 10 May 2023 06:47:44 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"tweet\": {\n        \"content\": \"What anime is this?\",\n        \"image\": \"/uploads/779010dbc4cf1475b936ffa06.jpg\",\n        \"comments\": [],\n        \"likes\": [],\n        \"retweets\": [],\n        \"typeOfTweet\": \"Original\",\n        \"createdBy\": {\n            \"_id\": \"6459d93fb542bb10eb14b42c\",\n            \"name\": \"Farhan Mahtab Mahi\",\n            \"username\": \"ironblood\",\n            \"email\": \"ironblood@gmail.com\",\n            \"profilePicture\": \"/uploads/779010dbc4cf1475b936ffa04.jpeg\"\n        },\n        \"_id\": \"645b3e10942547e5cbc07717\",\n        \"createdAt\": \"2023-05-10T06:47:44.271Z\",\n        \"updatedAt\": \"2023-05-10T06:47:44.271Z\",\n        \"__v\": 0\n    }\n}"
+						}
+					]
 				},
 				{
 					"name": "Get All Tweets",
@@ -262,7 +797,70 @@
 							]
 						}
 					},
-					"response": []
+					"response": [
+						{
+							"name": "Get All Tweets",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/api/tweets",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"tweets"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Set-Cookie",
+									"value": "next-auth.session-token=eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..h48y6zvg0Wu9OGrd.opq3_Ze6fQhxsL_n4m0iYYJOM84OOfj4V8GNw2dy6nDrOULqtCspumoEJ8iIpbxCo72vcG6cs8m7Tae6zVX8TZPAr2eCbtHRweJu8eogKvjVZ_Uk9B24jH7ZwNx2zlZ606EiHcfD6XJRGQO-eqbGiPYzPrLU0QmDQnZF2dzd7SD3yihsiUKPfW71jzGInMxIzPl_T1bauQpDHc_skWUkbISNHbCPub4fEzZYlhDSP8ZFf0BQWLEFP5ThKAXgkMjK1zgsEY6soO3zp5ND0GL_iqJpXZA5MdJjUuqFciAyMT9Duy4xvQF0bNiAmpz2K7FYYThdDm3IUIA0mgETet3qKrkou_OUde9KySHIihJ8At84XVw1C0EXmAIluYTf.1W7GZikP_kVrURxOXxJstg; Path=/; Expires=Fri, 09 Jun 2023 06:35:36 GMT; HttpOnly; SameSite=Lax"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "ETag",
+									"value": "\"448qgaa79l5jw\""
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Content-Encoding",
+									"value": "gzip"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 10 May 2023 06:35:37 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"tweets\": [\n        {\n            \"_id\": \"645b3aca942547e5cbc076fd\",\n            \"content\": \"What anime is this?\",\n            \"image\": \"/uploads/779010dbc4cf1475b936ffa05.jpg\",\n            \"comments\": [],\n            \"likes\": [],\n            \"retweets\": [],\n            \"typeOfTweet\": \"Original\",\n            \"createdBy\": {\n                \"_id\": \"6459d93fb542bb10eb14b42c\",\n                \"name\": \"Farhan Mahtab Mahi\",\n                \"username\": \"ironblood\",\n                \"email\": \"ironblood@gmail.com\",\n                \"profilePicture\": \"/uploads/779010dbc4cf1475b936ffa04.jpeg\"\n            },\n            \"createdAt\": \"2023-05-10T06:33:46.709Z\",\n            \"updatedAt\": \"2023-05-10T06:33:46.709Z\",\n            \"__v\": 0\n        },\n        {\n            \"_id\": \"645a2a28e0ed9947adbc1428\",\n            \"comments\": [],\n            \"likes\": [],\n            \"retweets\": [],\n            \"typeOfTweet\": \"Retweet\",\n            \"originalTweetLink\": {\n                \"_id\": \"64364ba3a0562763a8361d6d\",\n                \"content\": \"Hello\",\n                \"image\": \"/uploads/dcba569d057ab54ac1d043400.jpeg\",\n                \"comments\": [\n                    {\n                        \"_id\": \"643668d6a0562763a8361ed5\",\n                        \"content\": \"2nd Comment\",\n                        \"comments\": [],\n                        \"likes\": [],\n                        \"retweets\": [],\n                        \"typeOfTweet\": \"Comment\",\n                        \"originalTweetLink\": \"64364ba3a0562763a8361d6d\",\n                        \"createdBy\": {\n                            \"_id\": \"642e7a82298841009d108385\",\n                            \"name\": \"Mohammed Mazhar Ali Shawon\",\n                            \"username\": \"shawon204\",\n                            \"email\": \"shawon2046@gmail.com\",\n                            \"profilePicture\": \"/uploads/21bcbac6f40d9b30643dbb909.jpg\"\n                        },\n                        \"createdAt\": \"2023-04-12T08:16:22.428Z\",\n                        \"updatedAt\": \"2023-04-12T08:16:22.428Z\",\n                        \"__v\": 0\n                    },\n                    {\n                        \"_id\": \"6436673ba0562763a8361e99\",\n                        \"content\": \"Hi\",\n                        \"comments\": [],\n                        \"likes\": [],\n                        \"retweets\": [],\n                        \"typeOfTweet\": \"Comment\",\n                        \"originalTweetLink\": \"64364ba3a0562763a8361d6d\",\n                        \"createdBy\": {\n                            \"_id\": \"642e7a82298841009d108385\",\n                            \"name\": \"Mohammed Mazhar Ali Shawon\",\n                            \"username\": \"shawon204\",\n                            \"email\": \"shawon2046@gmail.com\",\n                            \"profilePicture\": \"/uploads/21bcbac6f40d9b30643dbb909.jpg\"\n                        },\n                        \"createdAt\": \"2023-04-12T08:09:31.784Z\",\n                        \"updatedAt\": \"2023-04-12T08:09:31.784Z\",\n                        \"__v\": 0\n                    }\n                ],\n                \"likes\": [\n                    \"6459d93fb542bb10eb14b42c\"\n                ],\n                \"retweets\": [\n                    \"642e7a82298841009d108385\",\n                    \"6459d93fb542bb10eb14b42c\"\n                ],\n                \"createdBy\": {\n                    \"_id\": \"642e7a82298841009d108385\",\n                    \"name\": \"Mohammed Mazhar Ali Shawon\",\n                    \"username\": \"shawon204\",\n                    \"email\": \"shawon2046@gmail.com\",\n                    \"profilePicture\": \"/uploads/21bcbac6f40d9b30643dbb909.jpg\"\n                }\n            },\n            \"createdBy\": {\n                \"_id\": \"6459d93fb542bb10eb14b42c\",\n                \"name\": \"Farhan Mahtab Mahi\",\n                \"username\": \"ironblood\",\n                \"email\": \"ironblood@gmail.com\",\n                \"profilePicture\": \"/uploads/779010dbc4cf1475b936ffa04.jpeg\"\n            },\n            \"createdAt\": \"2023-05-09T11:10:32.824Z\",\n            \"updatedAt\": \"2023-05-09T11:10:32.824Z\",\n            \"__v\": 0\n        },\n        {\n            \"_id\": \"64589b98b7e59d50cebbf59f\",\n            \"content\": \"Nice scenario\",\n            \"image\": \"/uploads/1e8b3a8a0232d7c6aae743000.io-sunset-wallpaper-4k-3202978.jpg\",\n            \"comments\": [],\n            \"likes\": [],\n            \"retweets\": [],\n            \"typeOfTweet\": \"Original\",\n            \"createdBy\": {\n                \"_id\": \"642e7a82298841009d108385\",\n                \"name\": \"Mohammed Mazhar Ali Shawon\",\n                \"username\": \"shawon204\",\n                \"email\": \"shawon2046@gmail.com\",\n                \"profilePicture\": \"/uploads/21bcbac6f40d9b30643dbb909.jpg\"\n            },\n            \"createdAt\": \"2023-05-08T06:50:00.415Z\",\n            \"updatedAt\": \"2023-05-08T09:15:58.857Z\",\n            \"__v\": 0\n        },\n        {\n            \"_id\": \"6450a9e96d1963f343f643dc\",\n            \"content\": \"Hello\",\n            \"image\": null,\n            \"comments\": [\n                {\n                    \"_id\": \"6450a9f56d1963f343f643e1\",\n                    \"content\": \"I am back\",\n                    \"comments\": [\n                        {\n                            \"_id\": \"645a2a62e0ed9947adbc144f\",\n                            \"content\": \"Welcome Back\",\n                            \"comments\": [],\n                            \"likes\": [],\n                            \"retweets\": [],\n                            \"typeOfTweet\": \"Comment\",\n                            \"originalTweetLink\": \"6450a9f56d1963f343f643e1\",\n                            \"createdBy\": {\n                                \"_id\": \"6459d93fb542bb10eb14b42c\",\n                                \"name\": \"Farhan Mahtab Mahi\",\n                                \"username\": \"ironblood\",\n                                \"email\": \"ironblood@gmail.com\",\n                                \"profilePicture\": \"/uploads/779010dbc4cf1475b936ffa04.jpeg\"\n                            },\n                            \"createdAt\": \"2023-05-09T11:11:30.119Z\",\n                            \"updatedAt\": \"2023-05-09T11:11:30.119Z\",\n                            \"__v\": 0\n                        }\n                    ],\n                    \"likes\": [\n                        \"6459d93fb542bb10eb14b42c\"\n                    ],\n                    \"retweets\": [],\n                    \"typeOfTweet\": \"Comment\",\n                    \"originalTweetLink\": \"6450a9e96d1963f343f643dc\",\n                    \"createdBy\": {\n                        \"_id\": \"642e7a82298841009d108385\",\n                        \"name\": \"Mohammed Mazhar Ali Shawon\",\n                        \"username\": \"shawon204\",\n                        \"email\": \"shawon2046@gmail.com\",\n                        \"profilePicture\": \"/uploads/21bcbac6f40d9b30643dbb909.jpg\"\n                    },\n                    \"createdAt\": \"2023-05-02T06:13:09.952Z\",\n                    \"updatedAt\": \"2023-05-09T11:11:30.541Z\",\n                    \"__v\": 0\n                }\n            ],\n            \"likes\": [\n                \"642e7a82298841009d108385\",\n                \"6459d93fb542bb10eb14b42c\"\n            ],\n            \"retweets\": [],\n            \"typeOfTweet\": \"Original\",\n            \"createdBy\": {\n                \"_id\": \"642e7a82298841009d108385\",\n                \"name\": \"Mohammed Mazhar Ali Shawon\",\n                \"username\": \"shawon204\",\n                \"email\": \"shawon2046@gmail.com\",\n                \"profilePicture\": \"/uploads/21bcbac6f40d9b30643dbb909.jpg\"\n            },\n            \"createdAt\": \"2023-05-02T06:12:57.844Z\",\n            \"updatedAt\": \"2023-05-09T11:09:53.499Z\",\n            \"__v\": 0\n        },\n        {\n            \"_id\": \"64366741a0562763a8361ea0\",\n            \"content\": \"Hello\",\n            \"image\": null,\n            \"comments\": [],\n            \"likes\": [],\n            \"retweets\": [],\n            \"typeOfTweet\": \"Retweet\",\n            \"originalTweetLink\": {\n                \"_id\": \"64364ba3a0562763a8361d6d\",\n                \"content\": \"Hello\",\n                \"image\": \"/uploads/dcba569d057ab54ac1d043400.jpeg\",\n                \"comments\": [\n                    {\n                        \"_id\": \"643668d6a0562763a8361ed5\",\n                        \"content\": \"2nd Comment\",\n                        \"comments\": [],\n                        \"likes\": [],\n                        \"retweets\": [],\n                        \"typeOfTweet\": \"Comment\",\n                        \"originalTweetLink\": \"64364ba3a0562763a8361d6d\",\n                        \"createdBy\": {\n                            \"_id\": \"642e7a82298841009d108385\",\n                            \"name\": \"Mohammed Mazhar Ali Shawon\",\n                            \"username\": \"shawon204\",\n                            \"email\": \"shawon2046@gmail.com\",\n                            \"profilePicture\": \"/uploads/21bcbac6f40d9b30643dbb909.jpg\"\n                        },\n                        \"createdAt\": \"2023-04-12T08:16:22.428Z\",\n                        \"updatedAt\": \"2023-04-12T08:16:22.428Z\",\n                        \"__v\": 0\n                    },\n                    {\n                        \"_id\": \"6436673ba0562763a8361e99\",\n                        \"content\": \"Hi\",\n                        \"comments\": [],\n                        \"likes\": [],\n                        \"retweets\": [],\n                        \"typeOfTweet\": \"Comment\",\n                        \"originalTweetLink\": \"64364ba3a0562763a8361d6d\",\n                        \"createdBy\": {\n                            \"_id\": \"642e7a82298841009d108385\",\n                            \"name\": \"Mohammed Mazhar Ali Shawon\",\n                            \"username\": \"shawon204\",\n                            \"email\": \"shawon2046@gmail.com\",\n                            \"profilePicture\": \"/uploads/21bcbac6f40d9b30643dbb909.jpg\"\n                        },\n                        \"createdAt\": \"2023-04-12T08:09:31.784Z\",\n                        \"updatedAt\": \"2023-04-12T08:09:31.784Z\",\n                        \"__v\": 0\n                    }\n                ],\n                \"likes\": [\n                    \"6459d93fb542bb10eb14b42c\"\n                ],\n                \"retweets\": [\n                    \"642e7a82298841009d108385\",\n                    \"6459d93fb542bb10eb14b42c\"\n                ],\n                \"createdBy\": {\n                    \"_id\": \"642e7a82298841009d108385\",\n                    \"name\": \"Mohammed Mazhar Ali Shawon\",\n                    \"username\": \"shawon204\",\n                    \"email\": \"shawon2046@gmail.com\",\n                    \"profilePicture\": \"/uploads/21bcbac6f40d9b30643dbb909.jpg\"\n                }\n            },\n            \"createdBy\": {\n                \"_id\": \"642e7a82298841009d108385\",\n                \"name\": \"Mohammed Mazhar Ali Shawon\",\n                \"username\": \"shawon204\",\n                \"email\": \"shawon2046@gmail.com\",\n                \"profilePicture\": \"/uploads/21bcbac6f40d9b30643dbb909.jpg\"\n            },\n            \"createdAt\": \"2023-04-12T08:09:37.401Z\",\n            \"updatedAt\": \"2023-04-12T08:10:04.321Z\",\n            \"__v\": 0\n        },\n        {\n            \"_id\": \"64364ba3a0562763a8361d6d\",\n            \"content\": \"Hello\",\n            \"image\": \"/uploads/dcba569d057ab54ac1d043400.jpeg\",\n            \"comments\": [\n                {\n                    \"_id\": \"643668d6a0562763a8361ed5\",\n                    \"content\": \"2nd Comment\",\n                    \"comments\": [],\n                    \"likes\": [],\n                    \"retweets\": [],\n                    \"typeOfTweet\": \"Comment\",\n                    \"originalTweetLink\": \"64364ba3a0562763a8361d6d\",\n                    \"createdBy\": {\n                        \"_id\": \"642e7a82298841009d108385\",\n                        \"name\": \"Mohammed Mazhar Ali Shawon\",\n                        \"username\": \"shawon204\",\n                        \"email\": \"shawon2046@gmail.com\",\n                        \"profilePicture\": \"/uploads/21bcbac6f40d9b30643dbb909.jpg\"\n                    },\n                    \"createdAt\": \"2023-04-12T08:16:22.428Z\",\n                    \"updatedAt\": \"2023-04-12T08:16:22.428Z\",\n                    \"__v\": 0\n                },\n                {\n                    \"_id\": \"6436673ba0562763a8361e99\",\n                    \"content\": \"Hi\",\n                    \"comments\": [],\n                    \"likes\": [],\n                    \"retweets\": [],\n                    \"typeOfTweet\": \"Comment\",\n                    \"originalTweetLink\": \"64364ba3a0562763a8361d6d\",\n                    \"createdBy\": {\n                        \"_id\": \"642e7a82298841009d108385\",\n                        \"name\": \"Mohammed Mazhar Ali Shawon\",\n                        \"username\": \"shawon204\",\n                        \"email\": \"shawon2046@gmail.com\",\n                        \"profilePicture\": \"/uploads/21bcbac6f40d9b30643dbb909.jpg\"\n                    },\n                    \"createdAt\": \"2023-04-12T08:09:31.784Z\",\n                    \"updatedAt\": \"2023-04-12T08:09:31.784Z\",\n                    \"__v\": 0\n                }\n            ],\n            \"likes\": [\n                \"6459d93fb542bb10eb14b42c\"\n            ],\n            \"retweets\": [\n                \"642e7a82298841009d108385\",\n                \"6459d93fb542bb10eb14b42c\"\n            ],\n            \"typeOfTweet\": \"Original\",\n            \"createdBy\": {\n                \"_id\": \"642e7a82298841009d108385\",\n                \"name\": \"Mohammed Mazhar Ali Shawon\",\n                \"username\": \"shawon204\",\n                \"email\": \"shawon2046@gmail.com\",\n                \"profilePicture\": \"/uploads/21bcbac6f40d9b30643dbb909.jpg\"\n            },\n            \"createdAt\": \"2023-04-12T06:11:47.486Z\",\n            \"updatedAt\": \"2023-05-09T11:10:33.232Z\",\n            \"__v\": 34\n        }\n    ]\n}"
+						}
+					]
 				},
 				{
 					"name": "ReTweet",
@@ -283,7 +881,67 @@
 							]
 						}
 					},
-					"response": []
+					"response": [
+						{
+							"name": "ReTweet",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/api/tweets/64589b98b7e59d50cebbf59f",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"tweets",
+										"64589b98b7e59d50cebbf59f"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Set-Cookie",
+									"value": "next-auth.session-token=eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..7CkoBczEnX9h1vCs.jgS6UfKahtsEhGjDFPSpzQa63CQagEblnuIBxNJDIvQ3XfCoK2FEoeSuaQlq0mtq_6uEItV3Ezx1wukf_s2TQXJMxXoY_iE7ea7GDeoaUvP9GMQ_2i65rhjuSF2JXTgBHpnNkM2X50KQffeecouJ13VyC2qXBnXcDoIrwSXw_r49mPtkuGptvu7k_4TYZ2upZgoa7ZpsXgacb9U5aPBJO-fFOrJSvYvt6dhWDHHO1Hy7UexezPWr0AVCoFGirl8BjCfxndvGqUyKzg0betfFWrvgFWpo5vNE2q2sy2-cK0wms_abjiPsPvCdUadJser4qT9slf2bvTSWHvE-n8m-mLEs9Pla2FUQ5N8xYotbAAIuinCJfwjrQGeszmoh.Lu3hZbj-TPy3R2-RUZHLow; Path=/; Expires=Fri, 09 Jun 2023 06:40:41 GMT; HttpOnly; SameSite=Lax"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "ETag",
+									"value": "\"16nukykkz7enj\""
+								},
+								{
+									"key": "Content-Length",
+									"value": "847"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 10 May 2023 06:40:43 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"message\": \"Retweet Successful\",\n    \"tweet\": {\n        \"comments\": [],\n        \"likes\": [],\n        \"retweets\": [],\n        \"typeOfTweet\": \"Retweet\",\n        \"originalTweetLink\": {\n            \"_id\": \"64589b98b7e59d50cebbf59f\",\n            \"content\": \"Nice scenario\",\n            \"image\": \"/uploads/1e8b3a8a0232d7c6aae743000.io-sunset-wallpaper-4k-3202978.jpg\",\n            \"comments\": [],\n            \"likes\": [],\n            \"retweets\": [\n                \"6459d93fb542bb10eb14b42c\"\n            ],\n            \"createdBy\": {\n                \"_id\": \"642e7a82298841009d108385\",\n                \"name\": \"Mohammed Mazhar Ali Shawon\",\n                \"username\": \"shawon204\",\n                \"email\": \"shawon2046@gmail.com\",\n                \"profilePicture\": \"/uploads/21bcbac6f40d9b30643dbb909.jpg\"\n            }\n        },\n        \"createdBy\": {\n            \"_id\": \"6459d93fb542bb10eb14b42c\",\n            \"name\": \"Farhan Mahtab Mahi\",\n            \"username\": \"ironblood\",\n            \"email\": \"ironblood@gmail.com\",\n            \"profilePicture\": \"/uploads/779010dbc4cf1475b936ffa04.jpeg\"\n        },\n        \"_id\": \"645b3c6a942547e5cbc0770b\",\n        \"createdAt\": \"2023-05-10T06:40:42.103Z\",\n        \"updatedAt\": \"2023-05-10T06:40:42.103Z\",\n        \"__v\": 0\n    }\n}"
+						}
+					]
 				},
 				{
 					"name": "Update Tweet",
@@ -331,7 +989,94 @@
 							]
 						}
 					},
-					"response": []
+					"response": [
+						{
+							"name": "Update Tweet",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "content",
+											"value": "Which anime is this?",
+											"type": "text"
+										},
+										{
+											"key": "imageURL",
+											"value": "/uploads/779010dbc4cf1475b936ffa05.jpg",
+											"type": "text"
+										},
+										{
+											"key": "image",
+											"type": "file",
+											"src": []
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost:3000/api/tweets/645b3aca942547e5cbc076fd",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"tweets",
+										"645b3aca942547e5cbc076fd"
+									],
+									"query": [
+										{
+											"key": "",
+											"value": null,
+											"disabled": true
+										}
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Set-Cookie",
+									"value": "next-auth.session-token=eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..wIUbPZjzaYSNghyz.w3oU_jGZW_Dh8rTI4DVAx52xeDpfB8LaUTqJxyLuk2xwJHE0F9PYVHpfGMZ-706S4jFjlgAr6Dz5N83IJFQwuHWCKWH9iU7EETnI0dTjmndX_5WAaqaKhlyWNwBFMGMsXyGwaYJX5xH9VWy5m7VYi9KWypZ1w3Q0z7XqLpVZIIeILizU0gJcsxFFCt-Fag2SbSHIyOxUdr4sxLVbV20INLPH7hXHOGBrhCQn2DCOdTra-oPlGci3uS8leu2TP2b-EeA4pXLtAK69j1TmPhM9siA-je9YV-MoONBhIH45nqmJ4mlEQ3d2ophvGS6VDp2UyQH-jWgSRjvsbhvxVsWu7I0r9lQ-6nzl-P5qN8HsV10tsRz4uQ-3biCRlErk.mumFPzQYXwmh2OUecvL4MQ; Path=/; Expires=Fri, 09 Jun 2023 06:45:16 GMT; HttpOnly; SameSite=Lax"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "ETag",
+									"value": "\"6hyp17ss1kda\""
+								},
+								{
+									"key": "Content-Length",
+									"value": "478"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 10 May 2023 06:45:17 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"tweet\": {\n        \"_id\": \"645b3aca942547e5cbc076fd\",\n        \"content\": \"Which anime is this?\",\n        \"image\": \"/uploads/779010dbc4cf1475b936ffa05.jpg\",\n        \"comments\": [],\n        \"likes\": [],\n        \"retweets\": [],\n        \"typeOfTweet\": \"Original\",\n        \"createdBy\": {\n            \"_id\": \"6459d93fb542bb10eb14b42c\",\n            \"name\": \"Farhan Mahtab Mahi\",\n            \"username\": \"ironblood\",\n            \"email\": \"ironblood@gmail.com\",\n            \"profilePicture\": \"/uploads/779010dbc4cf1475b936ffa04.jpeg\"\n        },\n        \"createdAt\": \"2023-05-10T06:33:46.709Z\",\n        \"updatedAt\": \"2023-05-10T06:45:16.783Z\",\n        \"__v\": 0\n    }\n}"
+						}
+					]
 				},
 				{
 					"name": "Delete A Tweet",
@@ -352,7 +1097,67 @@
 							]
 						}
 					},
-					"response": []
+					"response": [
+						{
+							"name": "Delete A Tweet",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/api/tweets/645b3aca942547e5cbc076fd",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"tweets",
+										"645b3aca942547e5cbc076fd"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Set-Cookie",
+									"value": "next-auth.session-token=eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..2J23y_0xpi38i1Lq.HUn0FN4hSLGO4Sr_UHR8wbUeGIYVW4odv7vfuZe45ksIYTOuEtLLJg9gQo4YTe76nJqKZXwAtUzvynspGVX_QagqqclWLqbeuBbihrogCggAr2Wduz19P2-ImDiu13UqdMnRsMP-Jrzd6_5N3ms6RMS3_9j--FoPbj03e8F8NUkFv2Y5prr0zEk6uQlp3C714PMX7mI--9nnu5XVU9mvaU86YnP21doL0zEZJn5tQJc4jTWh-pDi5TTLI9WP8m3TSvUuZDXX1j0L60HumwhtXY_eT-r9hFtH8FXfdMqRC2nqY6jv7PFakBnt1IkriyxxNmVDy5mUVW9LgCzvaucS7wAL8iNpfP_k1Y8xnpKC2n_tzCKgorVLFQtAWNOd.LtSwfdouMuscUJSPO8OM5w; Path=/; Expires=Fri, 09 Jun 2023 06:47:20 GMT; HttpOnly; SameSite=Lax"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "ETag",
+									"value": "\"tol7pt9jm816\""
+								},
+								{
+									"key": "Content-Length",
+									"value": "42"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 10 May 2023 06:47:20 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"message\": \"Tweet deleted\"\n}"
+						}
+					]
 				},
 				{
 					"name": "React To A Tweet",
@@ -381,7 +1186,142 @@
 							]
 						}
 					},
-					"response": []
+					"response": [
+						{
+							"name": "React To A Tweet",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"tweetID\": \"645b3e10942547e5cbc07717\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/api/react",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"react"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Set-Cookie",
+									"value": "next-auth.session-token=eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..DKkrAJCA4UOqGZLH.03mkae3TXEta-qEDpd-7_o71bTQlOCIbMuZ16PebqeikK4pEwTGcZbnp1O1pwLXX7b8vzM-QbzIVCGjdDbPU-1hIesSsR_aM1in_JH10IPmASYywu-CY1qymcFdYBzpzm4bx8I7EmWVaEYbHamoC3u9s89-EcfiwJ4K4NmmkQXI7Ue-ovtd4Ny2NvF2cK57gjvwf2DVzToWj8aPazIgIYoLIGryPJ8uXjn1Za01dZT1f0bsUkuR0SFijNXd7AxQar1fhIaFBVjvd8rfQ4DtWvNvfLX5emNFDj7UAGdPspOnfiotchbYElMLzbbKRV2QNzm_1OZ9ztekg4n1pDhotnSk1vviMmo6Zj6mXMq57vbby4sBLZv0Ku_gsIPRY.FkG1L0TFUY-RQRo7PJfJ2w; Path=/; Expires=Fri, 09 Jun 2023 08:51:46 GMT; HttpOnly; SameSite=Lax"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "ETag",
+									"value": "\"g7au7b6mx21d\""
+								},
+								{
+									"key": "Content-Length",
+									"value": "49"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 10 May 2023 08:51:46 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"message\": \"Reacted to this post\"\n}"
+						},
+						{
+							"name": "React Removed From A Tweet",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"tweetID\": \"645b3e10942547e5cbc07717\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/api/react",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"react"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Set-Cookie",
+									"value": "next-auth.session-token=eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..cgvSAHxHDI_pSVgp.ZarbO_P7yGc673wcrJeeRT7wfMxw9Z3tj31eyKsnIjw-xsO43Pgx2Ponq_LgKhpzTsS5tzZLldd-R4WKaMS0yjm6jQcAkmlEuMobxRjosoBtDL7rQBu5H6YT1sVYDDhJZj47eMH8i7YlbWB-VOrIr6KEWGEVynuOwC1pAAhJWsCZAP6_msfoXvPpfOzg_RgOTaVq0SDaXvvHQNPrCe9xjxHlllfNiWi6yTiGVdwJ4GEOtWY2Kh5eosVGLhbfYlBXt7LeFgdBRPbdDZUWiVX9nDt3PFGBake8Ic7Nt81VTS532scTbQCk7mc3ouMUEHopla483JhR21-0-jT-_sZK4xtA9sAAEyEnwE13aZEaA9J37oZP9VS1eZlazIl6.JIZNWnpiDoC0HB8Caa1zrA; Path=/; Expires=Fri, 09 Jun 2023 11:59:10 GMT; HttpOnly; SameSite=Lax"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "ETag",
+									"value": "\"yz5sqfbzri1j\""
+								},
+								{
+									"key": "Content-Length",
+									"value": "55"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 10 May 2023 11:59:11 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"message\": \"React Deleted to this post\"\n}"
+						}
+					]
 				},
 				{
 					"name": "Comment in a Tweet",
@@ -410,7 +1350,75 @@
 							]
 						}
 					},
-					"response": []
+					"response": [
+						{
+							"name": "Comment in a Tweet",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"content\": \"Test Comment\",\n    \"typeOfTweet\": \"Comment\",\n    \"originalTweetLink\": \"645b3e10942547e5cbc07717\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/api/comment",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"comment"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Set-Cookie",
+									"value": "next-auth.session-token=eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..RYLxch9kchRKBjcR.C9PGR8usL3PXdggtJ5ouDmKUL-eIrRdJgjSI2oYRd7kNIgXU17cmqL09AmHv6IwxplbewSRRIJ4zAW60v9iuoR9lsEKDV09j4RZ0SYL94ANyULZPMufSeu7UUptO1u31y_R65GKAz4cxn8C5HBl-K6SAodlDG2GtI5RmwA9DarR3yBOFb__nN_OrQpDCV8WosYiYBjinWYCv39mAkXJEJrkp-iunNad2Xim-79wCRJhFtsa9l9Pmr8Rnws8wtTHLziXcP2n-pHuATY9ohLG7cJZ7yfaqXqEWPuXvd_kdh2lVuOiRjAukcZP1su0b9LS3RdJyGYpPBUV_zsvStPDJvPdUpTp00liY65UA8JlBAHo1niuSoLnohDn4ru__.hRfasu5n_rI4JvlUMhZtxA; Path=/; Expires=Fri, 09 Jun 2023 09:06:50 GMT; HttpOnly; SameSite=Lax"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "ETag",
+									"value": "\"11711gajgyid1\""
+								},
+								{
+									"key": "Content-Length",
+									"value": "469"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 10 May 2023 09:06:51 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"comment\": {\n        \"content\": \"Test Comment\",\n        \"comments\": [],\n        \"likes\": [],\n        \"retweets\": [],\n        \"typeOfTweet\": \"Comment\",\n        \"originalTweetLink\": \"645b3e10942547e5cbc07717\",\n        \"createdBy\": {\n            \"_id\": \"6459d93fb542bb10eb14b42c\",\n            \"name\": \"Farhan Mahtab Mahi\",\n            \"username\": \"ironblood\",\n            \"email\": \"ironblood@gmail.com\",\n            \"profilePicture\": \"/uploads/779010dbc4cf1475b936ffa04.jpeg\"\n        },\n        \"_id\": \"645b5eaa942547e5cbc07754\",\n        \"createdAt\": \"2023-05-10T09:06:50.750Z\",\n        \"updatedAt\": \"2023-05-10T09:06:50.750Z\",\n        \"__v\": 0\n    }\n}"
+						}
+					]
 				},
 				{
 					"name": "Update Comment",
@@ -439,7 +1447,75 @@
 							]
 						}
 					},
-					"response": []
+					"response": [
+						{
+							"name": "Update Comment",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"content\": \"Test Commen\",\n    \"commentID\": \"645b5eaa942547e5cbc07754\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:3000/api/comment",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"comment"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Set-Cookie",
+									"value": "next-auth.session-token=eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..TMN1YPRy5UaXCwr_.K5INtpZtLojwnHNJ6WEw6sKbYlw0AorVAvYvE3pq1PF-uOZal3RCXlxQbRV_HSrUHktYNdIEDofvPuvbUTELTuuYTeJKmF2IPinbmxZ6VojIgYNIUHzPMLw5c4XETfZb8EoUeexrY_By-21bH9p4fPHDDbSg17UrJlNNpxlCcNJdKoDLT16q7_pgBiUGFwP0pTwElVBG6zSse8eOtIHt9PH3sbm2Y8HbwrguNdaIuMwkJpynEPend8CjLoilawROc0Rj_DMgFoHRsw9752lpwAnhIG6zGLfFc67rfY8cQCNn-sHNx7UU2UqTtw1NzRxVQPGkGuxBN3dR-6rvMHqffwYCw2HQRKcuuaaPkAHOi9snHekCMvBBd8aJsYP7.BAGAdw_DkE-s8uEQsz0DqA; Path=/; Expires=Fri, 09 Jun 2023 09:07:07 GMT; HttpOnly; SameSite=Lax"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "ETag",
+									"value": "\"13hj8fvjcdd0\""
+								},
+								{
+									"key": "Content-Length",
+									"value": "468"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 10 May 2023 09:07:08 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"comment\": {\n        \"_id\": \"645b5eaa942547e5cbc07754\",\n        \"content\": \"Test Commen\",\n        \"comments\": [],\n        \"likes\": [],\n        \"retweets\": [],\n        \"typeOfTweet\": \"Comment\",\n        \"originalTweetLink\": \"645b3e10942547e5cbc07717\",\n        \"createdBy\": {\n            \"_id\": \"6459d93fb542bb10eb14b42c\",\n            \"name\": \"Farhan Mahtab Mahi\",\n            \"username\": \"ironblood\",\n            \"email\": \"ironblood@gmail.com\",\n            \"profilePicture\": \"/uploads/779010dbc4cf1475b936ffa04.jpeg\"\n        },\n        \"createdAt\": \"2023-05-10T09:06:50.750Z\",\n        \"updatedAt\": \"2023-05-10T09:07:07.873Z\",\n        \"__v\": 0\n    }\n}"
+						}
+					]
 				},
 				{
 					"name": "Delete A Comment",
@@ -460,7 +1536,67 @@
 							]
 						}
 					},
-					"response": []
+					"response": [
+						{
+							"name": "Delete A Comment",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/api/comment/645b5eaa942547e5cbc07754",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"api",
+										"comment",
+										"645b5eaa942547e5cbc07754"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Set-Cookie",
+									"value": "next-auth.session-token=eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..mdLlZnzixtWrq2Eg.gbvC-p36In9SoH95k8LfZQ9NxzArqM3RX4-SGoJxHtYba6oOsElvuPTxUyfDYH-nsTWueD1HWl5zz9L8_UNQe4g-071K_Ncj5qusFTFFYnm1y9IUoCG68EgATAUMeV1kKhDYB-oIOemaV8Tb9TtfRjn0oDm7l2-gBcOGBa9c3ZJdf36Y0aNIZxQ7RqgHNUyqVp36S-gGHvKVut2dXTIO2HC7MrYWitRhdSVsXRFM3MPZ8p6fSu7so-L4O-wNfZEh-NIduPTs2anE8kvzSwGy4T-INePWaLA4DN9N8qKuFgKi9YzKSHucoFJmNeAmDen6LVwoq5cxmG5Gu43bAfy-6JkMoZdg98wTUU4E5OIGgYZ0No2qxqQYA0n0nDsu.FnzlUSdPkcsikfy4w-dNNQ; Path=/; Expires=Fri, 09 Jun 2023 09:07:28 GMT; HttpOnly; SameSite=Lax"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "ETag",
+									"value": "\"11e35njl3k21l\""
+								},
+								{
+									"key": "Content-Length",
+									"value": "57"
+								},
+								{
+									"key": "Vary",
+									"value": "Accept-Encoding"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 10 May 2023 09:07:29 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"message\": \"Comment deleted Successfully\"\n}"
+						}
+					]
 				}
 			]
 		}
