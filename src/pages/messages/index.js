@@ -2,7 +2,7 @@
 import { getSocket } from "../../utils/getSocket";
 //import { getUsers } from "@/features/user/services/server/get-user.server";
 //import { CreatePost } from "@/shared/components/create-post/CreatePost";
-import { MiniProfile } from "../../../components/MiniProfileMessage";
+import { MiniProfile } from "../../components/MiniProfileMessage";
 import { useListState } from "../../customHooks/useListState";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
@@ -14,8 +14,8 @@ import { authOptions } from "../api/auth/[...nextauth]";
 import { useMessage } from "../../customHooks/useMessage";
 import { TbSettings } from "react-icons/tb";
 import { MdOutlineForward, MdOutlineForwardToInbox } from "react-icons/md";
-import { Input } from "../../../components/Input";
-import { MessageBubble } from "../../../components/MessageBubble";
+import { Input } from "../../components/Input";
+import { MessageBubble } from "../../components/MessageBubble";
 import { debounce } from "../../utils/debounce";
 import axios from "axios";
 import { useCustomState } from "../../customHooks/useCustomState";
@@ -25,7 +25,7 @@ import { getAllConversationsByUser } from "../../services/conversations/get-conv
 import useIntersectionObserver from "../../customHooks/useIntersectionObserver";
 import Users from "@/models/Users";
 import connectMongo from "@/utils/db";
-import Sidebar from "../../../components/Sidebar";
+import Sidebar from "../../components/Sidebar";
 import tweetStyles from "../../styles/TweetBox.module.css";
 import loaderStyles from "../../styles/Modal.module.css";
 

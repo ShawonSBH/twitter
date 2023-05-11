@@ -43,7 +43,10 @@ export const authOptions = (req) => {
             if (response.success) {
               return response.user;
             } else {
-              return null;
+              console.log("RESPONSE :" + response.message);
+              if (response.message) {
+                throw new Error(response.message);
+              }
             }
           }
           //}
@@ -65,7 +68,7 @@ export const authOptions = (req) => {
       async jwt({ token, user, account, profile, isNewUser }) {
         if (user) {
           const user = await Users.findOne({ email: token.email });
-          //console.log(user);
+          console.log(user);
           token.id = user._id;
           token.name = user.name;
           token.username = user.username;
@@ -75,20 +78,23 @@ export const authOptions = (req) => {
         return token;
       },
       async signIn({ user, account }) {
+        console.log(user);
         await connectMongo();
         const { email, name, image } = user;
         const existingUser = await Users.findOne({ email });
-        //console.log(existingUser);
+        console.log(existingUser);
         if (existingUser) {
           return true;
         }
+        console.log(user);
         const newUser = await Users.create({
           name,
           username: user.email.split("@")[0],
           email,
           profilePicture: image,
         });
-        return true;
+        console.log(newUser);
+        return newUser;
       },
     },
     secret: process.env.NEXTAUTH_SECRET,

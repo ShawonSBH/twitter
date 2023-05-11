@@ -37,5 +37,9 @@
 
 .profileInfo p {
   font-weight: 100;
+  width: 9rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
   color: rgb(133, 133, 133);
 }

@@ -18,11 +18,9 @@ const userSchema = new mongoose.Schema(
     },
     password: {
       type: String,
-      required: true,
     },
     dob: {
       type: Date,
-      required: true,
     },
     followers: [
       {

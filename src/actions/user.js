@@ -1,4 +1,5 @@
 import axios from "axios";
+import { toast } from "react-toastify";
 
 export const UserActions = {
   login: "LOGIN",
@@ -35,31 +36,67 @@ export const userDispatch = (action) => {
 const logIn = async ({ setIsLoading, userData, signIn }) => {
   setIsLoading(true);
   console.log(userData);
-  signIn("credentials", {
+  const response = await signIn("credentials", {
     email: userData.email,
     password: userData.password,
+    redirect: false,
   });
+  console.log(response);
+  if (response.error) {
+    toast.error(response.error, {
+      position: "top-center",
+      autoClose: 1000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: false,
+      draggable: false,
+      progress: undefined,
+      theme: "light",
+    });
+    setIsLoading(false);
+  }
 };
 
 const signUp = async ({ userData, setIsLoading, date, signIn }) => {
   setIsLoading(true);
   console.log(date);
-  const res = await axios
-    .post("/api/users", {
-      name: userData.name,
-      username: userData.username,
-      email: userData.email,
-      password: userData.password,
-      dob: date,
-    })
-    .catch((err) => console.log(err));
+  if (
+    userData.name &&
+    userData.username &&
+    userData.email &&
+    userData.password &&
+    date
+  ) {
+    const res = await axios
+      .post("/api/users", {
+        name: userData.name,
+        username: userData.username,
+        email: userData.email,
+        password: userData.password,
+        dob: date,
+      })
+      .catch((err) => console.log(err));
 
-  const data = await res.data;
-  if (data.success) {
-    await signIn("credentials", {
-      email: userData.email,
-      password: userData.password,
+    const data = await res.data;
+    if (data.success) {
+      await signIn("credentials", {
+        email: userData.email,
+        password: userData.password,
+      });
+    }
+  } else {
+    console.log("All fields required");
+    toast.error("All fields are required", {
+      position: "top-center",
+      autoClose: 1000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: false,
+      draggable: false,
+      progress: undefined,
+      theme: "light",
     });
+    setIsLoading(false);
   }
 };
 

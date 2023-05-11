@@ -1,11 +1,11 @@
 import { ArrowSmallLeftIcon, BackspaceIcon } from "@heroicons/react/24/outline";
-import Sidebar from "../../../components/Sidebar";
-import UserProfileView from "../../../components/UserProfileView";
+import Sidebar from "../../components/Sidebar";
+import UserProfileView from "../../components/UserProfileView";
 import styles from "../../styles/UserProfile.module.css";
 import { useEffect, useState } from "react";
 import Posts from "@/models/Posts";
 import connectMongo from "@/utils/db";
-import Post from "../../../components/Post";
+import Post from "../../components/Post";
 import Reacts from "@/models/Reacts";
 import { getServerSession } from "next-auth";
 import { authOptions } from "../api/auth/[...nextauth]";
@@ -13,9 +13,9 @@ import { useSession } from "next-auth/react";
 import axios from "axios";
 import Users from "@/models/Users";
 import Tweets from "@/models/Tweets";
-import TweetShower from "../../../components/TweetShower";
-import Following from "../../../components/Following";
-import Followers from "../../../components/Followers";
+import TweetShower from "../../components/TweetShower";
+import Following from "../../components/Following";
+import Followers from "../../components/Followers";
 import { useRouter } from "next/router";
 
 export default function ProfilePage({ user, posts, liked, tweets }) {

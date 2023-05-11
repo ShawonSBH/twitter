@@ -1,10 +1,10 @@
 import Comments from "@/models/Comments";
-import PostDetails from "../../../components/PostDetails";
+import PostDetails from "../../components/PostDetails";
 import Posts from "@/models/Posts";
-import Sidebar from "../../../components/Sidebar";
+import Sidebar from "../../components/Sidebar";
 import styles from "../../styles/SinglePost.module.css";
 import secondaryStyles from "../../styles/Postview.module.css";
-import Comment from "../../../components/Comment";
+import Comment from "../../components/Comment";
 
 export default function CommentPage({ post, comment }) {
   console.log(comment);

@@ -1,11 +1,11 @@
 import { useRouter } from "next/router";
-import Postview from "../../../components/Postview";
-import Sidebar from "../../../components/Sidebar";
+import Postview from "../../components/Postview";
+import Sidebar from "../../components/Sidebar";
 import styles from "../../styles/SinglePost.module.css";
 import { useSession } from "next-auth/react";
-import PostOwnerControl from "../../../components/PostOwnerControl";
+import PostOwnerControl from "../../components/PostOwnerControl";
 import { useState } from "react";
-import OtherModal from "../../../components/OtherModal";
+import OtherModal from "../../components/OtherModal";
 
 export default function SinglePost({ post }) {
   const router = useRouter();
