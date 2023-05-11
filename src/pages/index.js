@@ -52,29 +52,18 @@ export async function getServerSideProps(context) {
   // setPosts(data.posts);
 
   const data = await postResponse.json();
-  if (session?.user) {
-    const userID = session.user.id;
-    console.log(session.user);
-    const res = await fetch(
-      `https://saurav.tech/NewsAPI/top-headlines/category/technology/in.json`
-    );
-    const users = await fetch(`http://localhost:3000/api/users`);
-    const userResults = await users.json();
-    const newsResults = await res.json();
-    return {
-      props: {
-        userResults: userResults.users,
-        newsResults: newsResults.articles,
-        postResults: data.posts,
-        tweetResults: tweets.tweets,
-      },
-    };
-  } else {
-    return {
-      props: {
-        postResults: data.posts,
-        tweetResults: tweets.tweets,
-      },
-    };
-  }
+  const res = await fetch(
+    `https://saurav.tech/NewsAPI/top-headlines/category/technology/in.json`
+  );
+  const newsResults = await res.json();
+  const users = await fetch(`http://localhost:3000/api/users`);
+  const userResults = await users.json();
+  return {
+    props: {
+      userResults: userResults.users,
+      newsResults: newsResults.articles,
+      postResults: data.posts,
+      tweetResults: tweets.tweets,
+    },
+  };
 }

@@ -22,6 +22,7 @@ export default function LogIn() {
         setIsLoading,
         userData,
         signIn,
+        setModalState,
       },
     });
     //setIsLoading(false);

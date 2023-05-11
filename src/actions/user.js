@@ -33,7 +33,7 @@ export const userDispatch = (action) => {
   userReducers(action);
 };
 
-const logIn = async ({ setIsLoading, userData, signIn }) => {
+const logIn = async ({ setIsLoading, userData, signIn, setModalState }) => {
   setIsLoading(true);
   console.log(userData);
   const response = await signIn("credentials", {
@@ -54,6 +54,7 @@ const logIn = async ({ setIsLoading, userData, signIn }) => {
       theme: "light",
     });
     setIsLoading(false);
+    setModalState({});
   }
 };
 
